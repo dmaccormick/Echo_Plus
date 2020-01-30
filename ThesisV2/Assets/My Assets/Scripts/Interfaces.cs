@@ -7,25 +7,25 @@ namespace Thesis
         /// <summary>
         /// Start the recording. Use this for any setup and for recording the very first data point
         /// </summary>
-        public void StartRecording();
+        void StartRecording();
 
 
         /// <summary>
         /// End the recording. Use this for any cleanup and for recording the final data point
         /// </summary>
-        public void EndRecording();
+        void EndRecording();
 
 
         /// <summary>
         /// Update the recording. Use this to handle recording timing. Doesn't need to be used much for one-shots
         /// </summary>
-        public void UpdateRecording();
+        void UpdateRecording();
 
 
         /// <summary>
         /// Actually sample and record the data that is being tracked
         /// </summary>
-        public void RecordData();
+        void RecordData();
 
 
         /// <summary>
@@ -35,6 +35,6 @@ namespace Thesis
         /// <returns>
         /// Return the data that was recorded by this track, formatted into a single string
         /// </returns>
-        public string GetData();
+        string GetData();
     }
 }
