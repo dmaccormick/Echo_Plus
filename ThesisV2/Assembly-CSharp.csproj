@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\My Assets\Scripts\Interfaces.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Recording_Object.cs" />
     <Compile Include="Assets\My Assets\Scripts\Track_Position.cs" />
     <Compile Include="Assets\My Assets\Scripts\Track_Rotation.cs" />
     <Compile Include="Assets\My Assets\Scripts\Track_Scale.cs" />

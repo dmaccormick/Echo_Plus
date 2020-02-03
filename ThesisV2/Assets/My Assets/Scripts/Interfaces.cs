@@ -19,7 +19,8 @@ namespace Thesis
         /// <summary>
         /// Update the recording. Use this to handle recording timing. Doesn't need to be used much for one-shots
         /// </summary>
-        void UpdateRecording();
+        /// <param name="_elapsedTime">The time since the last frame, UNSCALED to account for games with slow motion</param>
+        void UpdateRecording(float _elapsedTime);
 
 
         /// <summary>
