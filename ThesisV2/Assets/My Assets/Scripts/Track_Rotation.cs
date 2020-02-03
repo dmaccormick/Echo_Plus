@@ -105,7 +105,7 @@ namespace Thesis
             // ...
 
             // Add all of the datapoints to the string with the requested format
-            foreach (Data_Scale data in m_dataPoints)
+            foreach (Data_Rotation data in m_dataPoints)
                 stringBuilder.AppendLine(data.GetString(m_dataFormat));
 
             // TODO: Add the track footer information
