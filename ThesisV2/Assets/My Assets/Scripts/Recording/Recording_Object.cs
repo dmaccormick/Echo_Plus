@@ -14,25 +14,41 @@ namespace Thesis.Recording
 
 
         //--- Private Variables ---//
+        private Recording_Manager m_recManager;
         private List<IRecordable> m_trackInterfaces;
         private string m_uniqueID;
+
+
+
+        //--- Unity Methods ---//
+        private void Awake()
+        {
+            // Find the recording manager
+            m_recManager = GameObject.FindObjectOfType<Recording_Manager>();
+
+            // Message the recording manager and tell it that this object now exists
+            RegisterObject();
+        }
+
+        private void OnDestroy()
+        {
+            // Message the recording manager and tell it that this object no longer exists
+            UnregisterObject();
+        }
 
 
 
         //--- Messages TO The Recording Manager ---//
         public void RegisterObject()
         {
-            // TODO: Contact the recording manager and tell it this object now exists
-            // ...
+            // Contact the recording manager and tell it this object now exists
+            m_recManager.RegisterObject(this);
         }
 
         public void UnregisterObject()
         {
-            // TODO: Contact the recording manager and tell it this object is being destroyed
-            // ...
-
-            // TODO: Pass off the information this object recorded before it is completely destroyed
-            // ...
+            // Contact the recording manager and tell it this object is being destroyed
+            m_recManager.MarkObjectDoneRecording(this);
         }
 
 

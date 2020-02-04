@@ -4,6 +4,8 @@ using UnityEngine.Assertions;
 
 namespace Thesis.Recording
 {
+    // NOTE: The recording manager must be placed first in the script execution order
+    [DefaultExecutionOrder(-10)]
     public class Recording_Manager : MonoBehaviour
     {
         //--- Data Struct ---//
@@ -45,7 +47,7 @@ namespace Thesis.Recording
 
 
         //--- Unity Methods ---//
-        private void Start()
+        private void Awake()
         {
             // Setup the recording process
             Setup();
@@ -62,15 +64,6 @@ namespace Thesis.Recording
             // Init the static and dynamic lists
             m_staticObjects = new Dictionary<string, Recording_ObjectData>();
             m_dynamicObjects = new Dictionary<string, Recording_ObjectData>();
-
-            // Find all of the recording objects in the scene
-            Recording_Object[] allRecordingObjs = GameObject.FindObjectsOfType<Recording_Object>();
-
-            // We need to register all of the objects so we have their unique IDs and they are placed in the maps
-            foreach(Recording_Object recObj in allRecordingObjs)
-            {
-                RegisterObject(recObj);
-            }
         }
 
         public void RegisterObject(Recording_Object _newObject)
@@ -89,6 +82,9 @@ namespace Thesis.Recording
 
             // We need to set up the object now
             _newObject.SetupObject();
+
+            // Tell the object to begin recording
+            _newObject.StartRecording();
 
             // If the object is static, we can actually immediately finish recording on it
             if (_newObject.m_isStatic)
