@@ -2,8 +2,10 @@
 using UnityEngine.Assertions;
 using System.Text;
 using System.Collections.Generic;
+using Thesis.Misc;
+using Thesis.Recording;
 
-namespace Thesis
+namespace Thesis.Track
 {
     [RequireComponent(typeof(Recording_Object))]
     public class Track_Scale : MonoBehaviour, IRecordable

@@ -63,11 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\My Assets\Scripts\Interfaces.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Recording_Object.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Track_Position.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Track_Rotation.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Track_Scale.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Misc\Interfaces.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Manager.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Object.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Track\Track_Position.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Track\Track_Rotation.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Track\Track_Scale.cs" />
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>C:/Repos/Thesis/ThesisV2/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>

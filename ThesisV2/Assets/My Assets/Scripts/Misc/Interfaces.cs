@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Thesis
+﻿namespace Thesis.Misc
 {
     public interface IRecordable
     {

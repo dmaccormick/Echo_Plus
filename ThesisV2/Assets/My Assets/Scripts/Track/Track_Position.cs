@@ -2,17 +2,19 @@
 using UnityEngine.Assertions;
 using System.Text;
 using System.Collections.Generic;
+using Thesis.Misc;
+using Thesis.Recording;
 
-namespace Thesis
+namespace Thesis.Track
 {
     [RequireComponent(typeof(Recording_Object))]
-    public class Track_Rotation : MonoBehaviour, IRecordable
+    public class Track_Position : MonoBehaviour, IRecordable
     {
         //--- Data Struct ---//
         [System.Serializable]
-        public struct Data_Rotation
+        public struct Data_Position
         {
-            public Data_Rotation(float _timeStamp, Quaternion _data)
+            public Data_Position(float _timeStamp, Vector3 _data)
             {
                 this.m_timestamp = _timeStamp;
                 this.m_data = _data;
@@ -24,7 +26,7 @@ namespace Thesis
             }
 
             public float m_timestamp;
-            public Quaternion m_data;
+            public Vector3 m_data;
         }
 
 
@@ -37,7 +39,7 @@ namespace Thesis
 
 
         //--- Private Variables ---//
-        private List<Data_Rotation> m_dataPoints;
+        private List<Data_Position> m_dataPoints;
         private float m_deltaSampleTime;
 
 
@@ -49,7 +51,7 @@ namespace Thesis
             Assert.IsNotNull(m_target, "m_target needs to be set for the track");
 
             // Init the private variables
-            m_dataPoints = new List<Data_Rotation>();
+            m_dataPoints = new List<Data_Position>();
             m_deltaSampleTime = 0.0f;
 
             // Record the first data point
@@ -84,10 +86,10 @@ namespace Thesis
             float currentTime = Time.time;
 
             // Get the data point from the target
-            Quaternion currentRot = m_target.rotation;
+            Vector3 currentPos = m_target.position;
 
             // Add the datapoint to the list
-            m_dataPoints.Add(new Data_Rotation(currentTime, currentRot));
+            m_dataPoints.Add(new Data_Position(currentTime, currentPos));
 
             // Reset the time since the last data sample
             m_deltaSampleTime = 0.0f;
@@ -105,7 +107,7 @@ namespace Thesis
             // ...
 
             // Add all of the datapoints to the string with the requested format
-            foreach (Data_Rotation data in m_dataPoints)
+            foreach (Data_Position data in m_dataPoints)
                 stringBuilder.AppendLine(data.GetString(m_dataFormat));
 
             // TODO: Add the track footer information
@@ -115,4 +117,5 @@ namespace Thesis
             return stringBuilder.ToString();
         }
     }
+
 }

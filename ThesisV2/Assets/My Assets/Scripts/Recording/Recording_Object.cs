@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using Thesis.Misc;
 
-namespace Thesis
+namespace Thesis.Recording
 {
     public class Recording_Object : MonoBehaviour
     {
         //--- Public Variables ---//
         public List<MonoBehaviour> m_trackComponents;
+        public bool m_isStatic;
 
 
 
         //--- Private Variables ---//
         private List<IRecordable> m_trackInterfaces;
+        private string m_uniqueID;
 
 
 
@@ -79,6 +82,24 @@ namespace Thesis
 
             // Return the compiled data
             return builder.ToString();
+        }
+
+
+
+        //--- Setters ---//
+        public void SetUniqueID(string _uniqueID)
+        {
+            // Set the unique ID for only this object, which will later be appended to its name on export
+            this.m_uniqueID = _uniqueID;
+        }
+
+
+
+        //--- Getters ---//
+        public string GetUniqueID()
+        {
+            // Return this object's unique ID
+            return this.m_uniqueID;
         }
 
 
