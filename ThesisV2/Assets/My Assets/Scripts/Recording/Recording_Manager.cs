@@ -44,6 +44,15 @@ namespace Thesis.Recording
 
 
 
+        //--- Unity Methods ---//
+        private void Start()
+        {
+            // Setup the recording process
+            Setup();
+        }
+
+
+
         //--- Registration Methods ---//
         public void Setup()
         {
