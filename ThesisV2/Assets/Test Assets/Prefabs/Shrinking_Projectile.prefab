@@ -90,6 +90,9 @@ GameObject:
   - component: {fileID: 5371148859170544397}
   - component: {fileID: 3640344810908527278}
   - component: {fileID: 850989935686539835}
+  - component: {fileID: -8797040425160971561}
+  - component: {fileID: 2663772595380629315}
+  - component: {fileID: -8291401696096625034}
   m_Layer: 0
   m_Name: Shrinking_Projectile
   m_TagString: Untagged
@@ -138,3 +141,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_lifetime: 5
+--- !u!114 &-8797040425160971561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994109254827518238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc28b55405aff468ca545170f76787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_trackComponents:
+  - {fileID: 2663772595380629315}
+  - {fileID: -8291401696096625034}
+  m_isStatic: 0
+--- !u!114 &2663772595380629315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994109254827518238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_target: {fileID: 5371148859170544397}
+  m_dataFormat: F3
+  m_sampleTime: 0.25
+--- !u!114 &-8291401696096625034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994109254827518238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_target: {fileID: 5371148859170544397}
+  m_dataFormat: F3
+  m_sampleTime: 0.25
