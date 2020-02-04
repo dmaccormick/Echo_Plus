@@ -70,6 +70,8 @@
     <Compile Include="Assets\My Assets\Scripts\Track\Track_Rotation.cs" />
     <Compile Include="Assets\My Assets\Scripts\Track\Track_Scale.cs" />
     <Compile Include="Assets\Test Assets\Scripts\Test_Mover.cs" />
+    <Compile Include="Assets\Test Assets\Scripts\Test_ShrinkingProjectile.cs" />
+    <Compile Include="Assets\Test Assets\Scripts\Test_Spawner.cs" />
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>C:/Repos/Thesis/ThesisV2/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>

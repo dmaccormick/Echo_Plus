@@ -77,7 +77,8 @@ namespace Thesis.Recording
         {
             // Ensure the object has not already been registered
             string objID = _newObject.GetUniqueID();
-            Assert.IsFalse(m_dynamicObjects.ContainsKey(objID) || m_staticObjects.ContainsKey(objID), "The object [" + _newObject.gameObject.name + "] is already registered");
+            if (objID != null)
+                Assert.IsFalse(m_dynamicObjects.ContainsKey(objID) || m_staticObjects.ContainsKey(objID), "The object [" + _newObject.gameObject.name + "] is already registered");
 
             // Give the object the next unique ID as a string like "_#ID#"
             _newObject.SetUniqueID(GetNextUniqueID());
@@ -85,6 +86,13 @@ namespace Thesis.Recording
             // Now, sort the object into either the dynamic or static list depending on its setting
             var selectedList = (_newObject.m_isStatic) ? m_staticObjects : m_dynamicObjects;
             selectedList.Add(_newObject.GetUniqueID(), new Recording_ObjectData(_newObject));
+
+            // We need to set up the object now
+            _newObject.SetupObject();
+
+            // If the object is static, we can actually immediately finish recording on it
+            if (_newObject.m_isStatic)
+                MarkObjectDoneRecording(_newObject);
         }
 
         public void MarkObjectDoneRecording(Recording_Object _doneObject)
