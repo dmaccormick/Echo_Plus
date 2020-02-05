@@ -8,6 +8,6 @@
 
         void UpdateVisualization(float _time);
 
-        string GetVisualName();
+        string GetTrackName();
     }
 }
