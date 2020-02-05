@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 using Thesis.Recording;
 
 namespace Thesis.UI
@@ -47,11 +48,21 @@ namespace Thesis.UI
         {
             // Tell the recording manager to save the static file
             string staticPath = m_inStaticSaveLoc.text;
-            m_recManager.SaveStaticData(staticPath);
+            bool staticSaveWorked = m_recManager.SaveStaticData(staticPath);
 
             // Tell the recording manager to save the dynamic file as well
             string dynamicPath = m_inDynamicSaveLoc.text;
-            m_recManager.SaveDynamicData(dynamicPath);
+            bool dynamicSaveWorked = m_recManager.SaveDynamicData(dynamicPath);
+
+            // Show a dialog to indicate if the saving worked
+            if (staticSaveWorked && dynamicSaveWorked)
+            {
+                EditorUtility.DisplayDialog("Save Successful", "Saving the static file and the dynamic file worked correctly!", "Continue");
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Save Failed", "There was an error when saving the static file and the dynamic file!", "Continue");
+            }
         }
     }
 }

@@ -216,26 +216,26 @@ namespace Thesis.Recording
 
 
         //--- Saving Methods ---//
-        public void SaveStaticData(string _staticFilePath)
+        public bool SaveStaticData(string _staticFilePath)
         {
             // Gather all of the data from the static objects and combine it
             StringBuilder stringBuilder = new StringBuilder();
             foreach (Recording_ObjectData recObj in m_staticObjects.Values)
                 stringBuilder.Append(recObj.GetExportedData());
 
-            // Write all of the data to the static file path
-            FileIO_FileWriter.WriteFile(_staticFilePath, stringBuilder.ToString());
+            // Write all of the data to the static file path and return if it worked or not
+            return FileIO_FileWriter.WriteFile(_staticFilePath, stringBuilder.ToString());
         }
 
-        public void SaveDynamicData(string _dynamicFilePath)
+        public bool SaveDynamicData(string _dynamicFilePath)
         {
             // Gather all of the data from the static objects and combine it
             StringBuilder stringBuilder = new StringBuilder();
             foreach (Recording_ObjectData recObj in m_dynamicObjects.Values)
                 stringBuilder.Append(recObj.GetExportedData());
 
-            // Write all of the data to the static file path
-            FileIO_FileWriter.WriteFile(_dynamicFilePath, stringBuilder.ToString());
+            // Write all of the data to the static file path and return if it worked or not
+            return FileIO_FileWriter.WriteFile(_dynamicFilePath, stringBuilder.ToString());
         }
 
 

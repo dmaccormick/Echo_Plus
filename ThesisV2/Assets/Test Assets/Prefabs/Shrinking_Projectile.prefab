@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 2663772595380629315}
   - component: {fileID: -8291401696096625034}
   - component: {fileID: -1094649880363877157}
+  - component: {fileID: 7870490125974321639}
   m_Layer: 0
   m_Name: Shrinking_Projectile
   m_TagString: Untagged
@@ -158,6 +159,7 @@ MonoBehaviour:
   - {fileID: 2663772595380629315}
   - {fileID: -8291401696096625034}
   - {fileID: -1094649880363877157}
+  - {fileID: 7870490125974321639}
   m_isStatic: 0
 --- !u!114 &2663772595380629315
 MonoBehaviour:
@@ -203,3 +205,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_targetRenderer: {fileID: 247756598607708498}
   m_targetFilter: {fileID: 8967266915358231361}
+  m_dataFormat: F3
+--- !u!114 &7870490125974321639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994109254827518238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b537bd0ce940b924ca9b878304ce8a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dataFormat: F3

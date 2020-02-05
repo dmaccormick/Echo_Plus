@@ -1879,17 +1879,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6760284361628685072, guid: 0fbff68c1ce78244094a91472c6e98ac,
-        type: 3}
-      propertyPath: meshTargetTest
-      value: 
-      objectReference: {fileID: 7299597683707411028, guid: b6b73945612369b4fa14793724e3e65f,
-        type: 3}
-    - target: {fileID: 6760284361628685072, guid: 0fbff68c1ce78244094a91472c6e98ac,
-        type: 3}
-      propertyPath: matTargetTest
-      value: 
-      objectReference: {fileID: 2100000, guid: 84b0765f5b0c5154386bb37c1d3dea96, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fbff68c1ce78244094a91472c6e98ac, type: 3}
 --- !u!4 &7263282703251846421 stripped

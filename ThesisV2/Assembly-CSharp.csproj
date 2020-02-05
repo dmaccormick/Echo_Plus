@@ -68,6 +68,7 @@
     <Compile Include="Assets\My Assets\Scripts\Misc\Interfaces.cs" />
     <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Manager.cs" />
     <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Object.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Track\Track_Lifetime.cs" />
     <Compile Include="Assets\My Assets\Scripts\Track\Track_Position.cs" />
     <Compile Include="Assets\My Assets\Scripts\Track\Track_Renderables.cs" />
     <Compile Include="Assets\My Assets\Scripts\Track\Track_Rotation.cs" />
