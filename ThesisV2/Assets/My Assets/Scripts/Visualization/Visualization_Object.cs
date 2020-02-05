@@ -6,5 +6,9 @@ namespace Thesis.Visualization
 {
     public class Visualization_Object : MonoBehaviour
     {
+        public void AddTrack(IVisualizable _newTrack)
+        {
+
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface IVisualizable
     {
-        void InitWithString(string _data);
+        bool InitWithString(string _data);
 
         void StartVisualization();
 
