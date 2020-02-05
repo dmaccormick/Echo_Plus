@@ -42,15 +42,26 @@ namespace Thesis.Recording
         //--- Private Variables ---//
         private Dictionary<string, Recording_ObjectData> m_staticObjects;
         private Dictionary<string, Recording_ObjectData> m_dynamicObjects;
-        private int m_nextUniqueId;
+        private long m_nextUniqueId;
+        private bool m_isRecording;
 
 
 
         //--- Unity Methods ---//
         private void Awake()
         {
+            // Init the first unique ID to simply be 0
+            m_nextUniqueId = 0;
+
             // Setup the recording process
             Setup();
+        }
+
+        private void Update()
+        {
+            // If the system is recording, we need to be update the recording objects throughout the scene
+            if (m_isRecording)
+                UpdateRecording();
         }
 
 
@@ -58,8 +69,8 @@ namespace Thesis.Recording
         //--- Registration Methods ---//
         public void Setup()
         {
-            // The first unique id is simply 0, will increment from there
-            m_nextUniqueId = 0;
+            // The system is not recording by default
+            m_isRecording = false;
 
             // Init the static and dynamic lists
             m_staticObjects = new Dictionary<string, Recording_ObjectData>();
@@ -68,6 +79,11 @@ namespace Thesis.Recording
 
         public void RegisterObject(Recording_Object _newObject)
         {
+            // If the system is not currently recording, don't register the object
+            // If the object still exists when we start recording, we will register it then
+            if (!m_isRecording)
+                return;
+
             // Ensure the object has not already been registered
             string objID = _newObject.GetUniqueID();
             if (objID != null)
@@ -85,14 +101,14 @@ namespace Thesis.Recording
 
             // Tell the object to begin recording
             _newObject.StartRecording();
-
-            // If the object is static, we can actually immediately finish recording on it
-            if (_newObject.m_isStatic)
-                MarkObjectDoneRecording(_newObject);
         }
 
         public void MarkObjectDoneRecording(Recording_Object _doneObject)
         {
+            // If the recording hasn't started yet, just back out. The object is being destroyed before recording has started
+            if (!m_isRecording)
+                return;
+
             // Ensure the object has already been registered
             string objID = _doneObject.GetUniqueID();
             Assert.IsTrue(m_dynamicObjects.ContainsKey(objID) || m_staticObjects.ContainsKey(objID), "The object [" + _doneObject.gameObject.name + "] was never registered");
@@ -121,6 +137,19 @@ namespace Thesis.Recording
         //--- Recording Methods ---//
         public void StartRecording()
         {
+            // Setup again for the next recording
+            Setup();
+
+            // Recording has now started
+            m_isRecording = true;
+
+            // Find all of the recording objects in the scene
+            Recording_Object[] recordingObjects = GameObject.FindObjectsOfType<Recording_Object>();
+
+            // Register all of them
+            foreach (Recording_Object recObj in recordingObjects)
+                RegisterObject(recObj);
+
             // Loop through and start the recordings on all of the dynamic objects
             foreach (Recording_ObjectData dynamicObjData in m_dynamicObjects.Values)
             {
@@ -177,23 +206,30 @@ namespace Thesis.Recording
                 // Stop the recording of the live objects. The static ones are already stopped
                 dynamicObjData.m_objectRef.EndRecording();
             }
+
+            // The system is no longer recording
+            m_isRecording = false;
         }
 
 
 
         //--- Saving Methods ---//
-        public void SaveStaticData()
+        public void SaveStaticData(string _staticFilePath)
         {
-            
+            // Gather all of the data from the static objects and combine it
+
+            // Write all of the data to the static file path
         }
 
-        public void SaveDynamicData()
+        public void SaveDynamicData(string _dynamicFilePath)
         {
+            // Gather all of the data from the dynamic objects and combine it
 
+            // Write all of the data to the dynamic file path
         }
 
 
-
+        
         //--- Getters ---//
         private string GetNextUniqueID()
         {

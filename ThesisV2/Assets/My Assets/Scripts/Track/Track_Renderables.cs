@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEditor;
 using Thesis.Recording;
 using Thesis.Misc;
 using System.Collections.Generic;
@@ -22,9 +23,12 @@ namespace Thesis.Track
                 this.m_color = _colour;
             }
 
-            public string GetString()
+            public string GetString(string _format)
             {
-                return null;
+                return this.m_timestamp.ToString(_format) + "~" + 
+                    AssetDatabase.GetAssetPath(this.m_mesh) + "~" +
+                    AssetDatabase.GetAssetPath(this.m_material) + "~" +
+                    this.m_color.ToString(_format);
             }
 
             public float m_timestamp;
@@ -38,6 +42,7 @@ namespace Thesis.Track
         //--- Public Variables ---//
         public MeshRenderer m_targetRenderer;
         public MeshFilter m_targetFilter;
+        public string m_dataFormat = "F3";
 
 
 
@@ -115,7 +120,7 @@ namespace Thesis.Track
 
             // Add all of the datapoints to the string
             foreach (Data_Renderables data in m_dataPoints)
-                stringBuilder.AppendLine(data.GetString());
+                stringBuilder.AppendLine(data.GetString(m_dataFormat));
 
             // TODO: Add the track footer information
             // ...

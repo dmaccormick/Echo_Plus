@@ -79,6 +79,9 @@ namespace Thesis.Recording
             // Loop through all of the tracks and tell them to finish recording
             foreach (IRecordable track in m_trackInterfaces)
                 track.EndRecording();
+
+            // Unregister the object from the recording manager now
+            m_recManager.MarkObjectDoneRecording(this);
         }
 
         public string GetAllTrackData()
