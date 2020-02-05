@@ -35,5 +35,13 @@
         /// Return the data that was recorded by this track, formatted into a single string
         /// </returns>
         string GetData();
+
+        /// <summary>
+        /// Get the name of the track, should match the visualization version exactly
+        /// </summary>
+        /// <returns>
+        /// Returns a string which is the name of the track
+        /// </returns>
+        string GetTrackName();
     }
 }

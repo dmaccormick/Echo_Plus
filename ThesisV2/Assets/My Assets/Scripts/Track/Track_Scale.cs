@@ -103,18 +103,17 @@ namespace Thesis.Track
             // Use a string builder to compile the data string efficiently
             StringBuilder stringBuilder = new StringBuilder();
 
-            // TODO: Add the track header information
-            // ...
-
             // Add all of the datapoints to the string with the requested format
             foreach (Data_Scale data in m_dataPoints)
-                stringBuilder.AppendLine(data.GetString(m_dataFormat));
-
-            // TODO: Add the track footer information
-            // ...
+                stringBuilder.AppendLine("\t\t" + data.GetString(m_dataFormat));
 
             // Return the full set of data grouped together
             return stringBuilder.ToString();
+        }
+
+        public string GetTrackName()
+        {
+            return "Scale";
         }
     }
 

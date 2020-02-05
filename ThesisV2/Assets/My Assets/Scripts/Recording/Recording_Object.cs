@@ -89,15 +89,24 @@ namespace Thesis.Recording
             // Use a stringbuilder for efficiency in concatenation
             StringBuilder builder = new StringBuilder();
 
-            // TODO: Add object header information
-            // ...
+            // Add object header information
+            builder.AppendLine("OBJ_START~" + this.gameObject.name + this.m_uniqueID);
 
             // Add all of the string data from the tracks together into one set of data
             foreach (IRecordable track in m_trackInterfaces)
+            {
+                // First, add the track header information
+                builder.AppendLine("\tTRK_START~" + track.GetTrackName());
+
+                // Now, add all of the actual data that the track recorded
                 builder.Append(track.GetData());
 
-            // TODO: Add object footer information
-            // ...
+                // Finally, add the track footer information
+                builder.AppendLine("\tTRK_END~" + track.GetTrackName());
+            }
+
+            // Add object footer information
+            builder.AppendLine("OBJ_END~" + this.gameObject.name + this.m_uniqueID);
 
             // Return the compiled data
             return builder.ToString();
