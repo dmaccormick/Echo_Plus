@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Thesis.FileIO;
+using System.Collections.Generic;
 
 namespace Thesis.Visualization
 {
@@ -17,10 +18,17 @@ namespace Thesis.Visualization
             if (staticData == null)
                 return false;
 
-            // TODO: Send the data to the parser and get the list of objects back
+            // Send the data to the parser and get the list of objects back
+            List<Visualization_ObjParse> parsedStaticObjects = Visualization_LogParser.ParseLogFile(staticData);
+
+            // If the parse failed, return false
+            if (parsedStaticObjects == null)
+                return false;
+
+            // TODO: Generate actual objects from the list of parsed objects
             // ...
 
-            // TODO: If the parse failed, return false
+            // TODO: Return false if the object generation failed
             // ...
 
             // Return true if everything parsed correctly
@@ -36,10 +44,17 @@ namespace Thesis.Visualization
             if (dynamicData == null)
                 return false;
 
-            // TODO: Send the data to the parser and get the list of objects back
+            // Send the data to the parser and get the list of objects back
+            List<Visualization_ObjParse> parsedDynamicObjects = Visualization_LogParser.ParseLogFile(dynamicData);
+
+            // If the parse failed, return false
+            if (parsedDynamicObjects == null)
+                return false;
+
+            // TODO: Generate actual objects from the list of parsed objects
             // ...
 
-            // TODO: If the parse failed, return false
+            // TODO: Return false if the object generation failed
             // ...
 
             // Return true if everything parsed correctly

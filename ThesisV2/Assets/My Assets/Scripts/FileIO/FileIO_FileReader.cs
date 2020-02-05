@@ -6,6 +6,7 @@ namespace Thesis.FileIO
 {
     public class FileIO_FileReader : MonoBehaviour
     {
+        //--- Methods ---//
         public static string ReadFile(string _filePath)
         {
             try

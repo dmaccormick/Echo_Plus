@@ -6,6 +6,7 @@ namespace Thesis.FileIO
 {
     public class FileIO_FileWriter
     {
+        //--- Methods ---//
         public static bool WriteFile(string _filePath, string _fileContents)
         {
             try
