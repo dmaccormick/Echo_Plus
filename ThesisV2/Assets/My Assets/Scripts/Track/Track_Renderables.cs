@@ -62,10 +62,12 @@ namespace Thesis.Track
             Assert.IsNotNull(m_targetRenderer, "m_targetRenderer needs to be set for the track");
 
             // Init the private variables 
+            // NOTE: Use the shared mesh and material to prevent a duplicate from being created and removing the mesh path references
+            // NOTE: The meshes need to be marked as read and write in the import settings!
             m_dataPoints = new List<Data_Renderables>();
             m_currentMesh = m_targetFilter.sharedMesh;
             m_currentMaterial = m_targetRenderer.sharedMaterial;
-            m_currentColour = m_targetRenderer.material.color;
+            m_currentColour = m_targetRenderer.sharedMaterial.color;
 
             // Record the first data point
             RecordData();
@@ -82,12 +84,12 @@ namespace Thesis.Track
             // If any of the renderables have changed, update the values and record the change
             if (m_currentMesh != m_targetFilter.sharedMesh ||
                 m_currentMaterial != m_targetRenderer.sharedMaterial ||
-                m_currentColour != m_targetRenderer.material.color)
+                m_currentColour != m_targetRenderer.sharedMaterial.color)
             {
                 // Update the values
                 m_currentMesh = m_targetFilter.sharedMesh;
                 m_currentMaterial = m_targetRenderer.sharedMaterial;
-                m_currentColour = m_targetRenderer.material.color;
+                m_currentColour = m_targetRenderer.sharedMaterial.color;
 
                 // Record the changes to the values
                 RecordData();

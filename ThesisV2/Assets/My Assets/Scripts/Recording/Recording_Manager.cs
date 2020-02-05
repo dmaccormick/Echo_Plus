@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.Assertions;
+using System.Collections.Generic;
+using System.Text;
+using Thesis.FileIO;
 
 namespace Thesis.Recording
 {
@@ -217,15 +219,23 @@ namespace Thesis.Recording
         public void SaveStaticData(string _staticFilePath)
         {
             // Gather all of the data from the static objects and combine it
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (Recording_ObjectData recObj in m_staticObjects.Values)
+                stringBuilder.Append(recObj.GetExportedData());
 
             // Write all of the data to the static file path
+            FileIO_FileWriter.WriteFile(_staticFilePath, stringBuilder.ToString());
         }
 
         public void SaveDynamicData(string _dynamicFilePath)
         {
-            // Gather all of the data from the dynamic objects and combine it
+            // Gather all of the data from the static objects and combine it
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (Recording_ObjectData recObj in m_dynamicObjects.Values)
+                stringBuilder.Append(recObj.GetExportedData());
 
-            // Write all of the data to the dynamic file path
+            // Write all of the data to the static file path
+            FileIO_FileWriter.WriteFile(_dynamicFilePath, stringBuilder.ToString());
         }
 
 
