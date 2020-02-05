@@ -74,5 +74,10 @@ namespace Thesis.UI
                 EditorUtility.DisplayDialog("Dynamic File Load Failed", "The dynamic log file failed to load!", "Continue");
             }
         }
+
+        public void OnClearLoadedFiles()
+        {
+
+        }
     }
 }

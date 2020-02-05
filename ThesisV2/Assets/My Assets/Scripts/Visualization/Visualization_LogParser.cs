@@ -43,8 +43,14 @@ namespace Thesis.Visualization
                     if (line == "")
                         continue;
 
+                    // Start by removing the \r at the end of the line
+                    string lineTrimmed = line.TrimEnd(new char[] { '\r' });
+
+                    // Also remove any \t at the start of the line
+                    lineTrimmed = lineTrimmed.TrimStart(new char[] { '\t' });
+
                     // Split the line into the individual tokens
-                    string[] tokens = line.Split('~');
+                    string[] tokens = lineTrimmed.Split('~');
                     string firstToken = tokens[0];
 
                     // Ensure the token isn't empty
@@ -88,7 +94,8 @@ namespace Thesis.Visualization
                     else
                     {
                         // This line should be a datapoint so we can just add it to the track data to be parsed later
-                        currentTrackData += line;
+                        // Need to add a newline at the end so we have something to split on later
+                        currentTrackData += (lineTrimmed + "\n");
                     }
                 }
 
