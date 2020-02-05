@@ -2,19 +2,19 @@
 using UnityEngine.Assertions;
 using System.Text;
 using System.Collections.Generic;
-using Thesis.Misc;
+using Thesis.Interface;
 using Thesis.Recording;
 
-namespace Thesis.Track
+namespace Thesis.RecTrack
 {
     [RequireComponent(typeof(Recording_Object))]
-    public class Track_Position : MonoBehaviour, IRecordable
+    public class RecTrack_Scale : MonoBehaviour, IRecordable
     {
         //--- Data Struct ---//
         [System.Serializable]
-        public struct Data_Position
+        public struct Data_Scale
         {
-            public Data_Position(float _timeStamp, Vector3 _data)
+            public Data_Scale(float _timeStamp, Vector3 _data)
             {
                 this.m_timestamp = _timeStamp;
                 this.m_data = _data;
@@ -39,7 +39,7 @@ namespace Thesis.Track
 
 
         //--- Private Variables ---//
-        private List<Data_Position> m_dataPoints;
+        private List<Data_Scale> m_dataPoints;
         private float m_deltaSampleTime;
 
 
@@ -51,7 +51,7 @@ namespace Thesis.Track
             Assert.IsNotNull(m_target, "m_target needs to be set for the track");
 
             // Init the private variables
-            m_dataPoints = new List<Data_Position>();
+            m_dataPoints = new List<Data_Scale>();
             m_deltaSampleTime = 0.0f;
 
             // Record the first data point
@@ -86,10 +86,10 @@ namespace Thesis.Track
             float currentTime = Time.time;
 
             // Get the data point from the target
-            Vector3 currentPos = m_target.position;
+            Vector3 currentScl = m_target.lossyScale;
 
             // Add the datapoint to the list
-            m_dataPoints.Add(new Data_Position(currentTime, currentPos));
+            m_dataPoints.Add(new Data_Scale(currentTime, currentScl));
 
             // Reset the time since the last data sample
             m_deltaSampleTime = 0.0f;
@@ -104,7 +104,7 @@ namespace Thesis.Track
             StringBuilder stringBuilder = new StringBuilder();
 
             // Add all of the datapoints to the string with the requested format
-            foreach (Data_Position data in m_dataPoints)
+            foreach (Data_Scale data in m_dataPoints)
                 stringBuilder.AppendLine("\t\t" + data.GetString(m_dataFormat));
 
             // Return the full set of data grouped together
@@ -113,7 +113,7 @@ namespace Thesis.Track
 
         public string GetTrackName()
         {
-            return "Position";
+            return "Scale";
         }
     }
 

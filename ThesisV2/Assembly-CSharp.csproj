@@ -65,15 +65,17 @@
   <ItemGroup>
     <Compile Include="Assets\My Assets\Scripts\FileIO\FileIO_FileReader.cs" />
     <Compile Include="Assets\My Assets\Scripts\FileIO\FileIO_FileWriter.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Misc\Interfaces.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Interface\Interface_IRecordable.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Interface\Interface_IVisualizable.cs" />
+    <Compile Include="Assets\My Assets\Scripts\RecTrack\RecTrack_Lifetime.cs" />
+    <Compile Include="Assets\My Assets\Scripts\RecTrack\RecTrack_Position.cs" />
+    <Compile Include="Assets\My Assets\Scripts\RecTrack\RecTrack_Renderables.cs" />
+    <Compile Include="Assets\My Assets\Scripts\RecTrack\RecTrack_Rotation.cs" />
+    <Compile Include="Assets\My Assets\Scripts\RecTrack\RecTrack_Scale.cs" />
     <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Manager.cs" />
     <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Object.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Track\Track_Lifetime.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Track\Track_Position.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Track\Track_Renderables.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Track\Track_Rotation.cs" />
-    <Compile Include="Assets\My Assets\Scripts\Track\Track_Scale.cs" />
     <Compile Include="Assets\My Assets\Scripts\UI\UI_RecordingManager.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Visualization\Visualization_Manager.cs" />
     <Compile Include="Assets\Test Assets\Scripts\Test_Mover.cs" />
     <Compile Include="Assets\Test Assets\Scripts\Test_ShrinkingProjectile.cs" />
     <Compile Include="Assets\Test Assets\Scripts\Test_Spawner.cs" />

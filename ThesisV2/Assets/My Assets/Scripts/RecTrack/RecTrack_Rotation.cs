@@ -2,13 +2,13 @@
 using UnityEngine.Assertions;
 using System.Text;
 using System.Collections.Generic;
-using Thesis.Misc;
+using Thesis.Interface;
 using Thesis.Recording;
 
-namespace Thesis.Track
+namespace Thesis.RecTrack
 {
     [RequireComponent(typeof(Recording_Object))]
-    public class Track_Rotation : MonoBehaviour, IRecordable
+    public class RecTrack_Rotation : MonoBehaviour, IRecordable
     {
         //--- Data Struct ---//
         [System.Serializable]

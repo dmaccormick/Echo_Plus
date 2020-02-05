@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using Thesis.Misc;
+using Thesis.Interface;
 
 namespace Thesis.Recording
 {

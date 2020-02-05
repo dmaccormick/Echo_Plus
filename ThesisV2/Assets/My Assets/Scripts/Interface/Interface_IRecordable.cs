@@ -1,4 +1,4 @@
-﻿namespace Thesis.Misc
+﻿namespace Thesis.Interface
 {
     public interface IRecordable
     {

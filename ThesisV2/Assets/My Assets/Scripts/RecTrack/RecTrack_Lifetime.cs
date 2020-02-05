@@ -2,72 +2,104 @@
 using UnityEngine.Assertions;
 using UnityEditor;
 using Thesis.Recording;
-using Thesis.Misc;
+using Thesis.Interface;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Thesis.Track
+namespace Thesis.RecTrack
 {
     [RequireComponent(typeof(Recording_Object))]
-    public class Track_Renderables : MonoBehaviour, IRecordable
+    public class RecTrack_Lifetime : MonoBehaviour, IRecordable
     {
         //--- Data Struct ---//
         [System.Serializable]
-        public struct Data_Renderables
+        public struct Data_Lifetime
         {
-            public Data_Renderables(float _timestamp, Mesh _mesh, Material _material, Color _colour)
+            public Data_Lifetime(float _timestamp, bool _isActive)
             {
                 this.m_timestamp = _timestamp;
-                this.m_mesh = _mesh;
-                this.m_material = _material;
-                this.m_color = _colour;
+                this.m_isActiveFlag = _isActive;
             }
 
             public string GetString(string _format)
             {
-                return this.m_timestamp.ToString(_format) + "~" + 
-                    AssetDatabase.GetAssetPath(this.m_mesh) + "~" +
-                    AssetDatabase.GetAssetPath(this.m_material) + "~" +
-                    this.m_color.ToString(_format);
+                return this.m_timestamp.ToString(_format) + "~" + m_isActiveFlag.ToString();
             }
 
             public float m_timestamp;
-            public Mesh m_mesh;
-            public Material m_material;
-            public Color m_color;
+            public bool m_isActiveFlag;
         }
 
 
 
         //--- Public Variables ---//
-        public MeshRenderer m_targetRenderer;
-        public MeshFilter m_targetFilter;
         public string m_dataFormat = "F3";
 
 
 
         //--- Private Variables ---//
-        private List<Data_Renderables> m_dataPoints;
-        private Mesh m_currentMesh;
-        private Material m_currentMaterial;
-        private Color m_currentColour;
+        private List<Data_Lifetime> m_dataPoints;
+        private bool m_isActive;
+        private bool m_isRecording = false; // Cannot start recording right away, has to wait
+
+
+
+        //--- Unity Methods ---//
+        private void OnEnable()
+        {
+            // Only track this event if recording is active
+            if (m_isRecording)
+            {
+                // The object is now active
+                m_isActive = true;
+
+                // We should record the change
+                RecordData();
+            }
+        }
+
+        private void OnDisable()
+        {
+            // Only track this event if recording is active
+            if (m_isRecording)
+            {
+                // The object is now disabled so it is not active
+                m_isActive = false;
+
+                // We should record the change
+                RecordData();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            // Only track this event if recording is active
+            if (m_isRecording)
+            {
+                // The object has been destroyed so it is not active
+                m_isActive = false;
+
+                // We should record the change
+                RecordData();
+            }
+        }
 
 
 
         //--- IRecordable Interface ---//
         public void StartRecording()
         {
-            // Ensure the targets are not null
-            Assert.IsNotNull(m_targetFilter, "m_targetFilter needs to be set for the track");
-            Assert.IsNotNull(m_targetRenderer, "m_targetRenderer needs to be set for the track");
-
             // Init the private variables 
             // NOTE: Use the shared mesh and material to prevent a duplicate from being created and removing the mesh path references
             // NOTE: The meshes need to be marked as read and write in the import settings!
-            m_dataPoints = new List<Data_Renderables>();
-            m_currentMesh = m_targetFilter.sharedMesh;
-            m_currentMaterial = m_targetRenderer.sharedMaterial;
-            m_currentColour = m_targetRenderer.sharedMaterial.color;
+            m_dataPoints = new List<Data_Lifetime>();
+
+            // Recording is now active
+            // NOTE: This track needs this because its triggers are outside of the normal update track loop
+            m_isRecording = true;
+
+            // The object is active for now
+            m_isActive = true;
 
             // Record the first data point
             RecordData();
@@ -75,25 +107,17 @@ namespace Thesis.Track
 
         public void EndRecording()
         {
+            // No longer recording
+            m_isRecording = false;
+
             // Record the final data point
             RecordData();
         }
 
         public void UpdateRecording(float _elapsedTime)
         {
-            // If any of the renderables have changed, update the values and record the change
-            if (m_currentMesh != m_targetFilter.sharedMesh ||
-                m_currentMaterial != m_targetRenderer.sharedMaterial ||
-                m_currentColour != m_targetRenderer.sharedMaterial.color)
-            {
-                // Update the values
-                m_currentMesh = m_targetFilter.sharedMesh;
-                m_currentMaterial = m_targetRenderer.sharedMaterial;
-                m_currentColour = m_targetRenderer.sharedMaterial.color;
-
-                // Record the changes to the values
-                RecordData();
-            }
+            // This class does not have anything here
+            // TODO: Split the interface so we don't have this non-implemented function
         }
 
         public void RecordData()
@@ -106,7 +130,7 @@ namespace Thesis.Track
             float currentTime = Time.time;
 
             // Add a new data point to the list
-            m_dataPoints.Add(new Data_Renderables(currentTime, m_currentMesh, m_currentMaterial, m_currentColour));
+            m_dataPoints.Add(new Data_Lifetime(currentTime, m_isActive));
         }
 
         public string GetData()
@@ -118,7 +142,7 @@ namespace Thesis.Track
             StringBuilder stringBuilder = new StringBuilder();
 
             // Add all of the datapoints to the string
-            foreach (Data_Renderables data in m_dataPoints)
+            foreach (Data_Lifetime data in m_dataPoints)
                 stringBuilder.AppendLine("\t\t" + data.GetString(m_dataFormat));
 
             // Return the full set of data grouped together
@@ -127,7 +151,7 @@ namespace Thesis.Track
 
         public string GetTrackName()
         {
-            return "Renderables";
+            return "Lifetime";
         }
     }
 }
