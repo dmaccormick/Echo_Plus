@@ -75,6 +75,7 @@
     <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Manager.cs" />
     <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Object.cs" />
     <Compile Include="Assets\My Assets\Scripts\UI\UI_RecordingManager.cs" />
+    <Compile Include="Assets\My Assets\Scripts\UI\UI_VisualizationManager.cs" />
     <Compile Include="Assets\My Assets\Scripts\Utility\Utility_Functions.cs" />
     <Compile Include="Assets\My Assets\Scripts\VisTrack\VisTrack_Lifetime.cs" />
     <Compile Include="Assets\My Assets\Scripts\VisTrack\VisTrack_Position.cs" />

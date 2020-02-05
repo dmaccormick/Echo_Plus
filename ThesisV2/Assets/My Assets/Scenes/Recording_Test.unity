@@ -3001,7 +3001,7 @@ PrefabInstance:
     - target: {fileID: 3755796901405897563, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
       propertyPath: m_Name
-      value: '** Recording_Manager **'
+      value: __ Recording_Manager __
       objectReference: {fileID: 0}
     - target: {fileID: 7268475622841266064, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
