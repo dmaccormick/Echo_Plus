@@ -8,7 +8,8 @@ namespace Thesis.VisTrack
         //--- IVisualizable Interface ---// 
         public bool InitWithString(string _data)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+            return true;
         }
 
         public void StartVisualization()

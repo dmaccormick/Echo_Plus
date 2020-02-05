@@ -25,8 +25,8 @@ namespace Thesis.Visualization
             if (parsedStaticObjects == null)
                 return false;
 
-            // TODO: Generate actual objects from the list of parsed objects
-            // ...
+            // Generate actual objects from the list of parsed objects
+            Visualization_ObjGenerator.GenerateVisObjects(parsedStaticObjects, "Static Objects");
 
             // TODO: Return false if the object generation failed
             // ...
@@ -51,8 +51,8 @@ namespace Thesis.Visualization
             if (parsedDynamicObjects == null)
                 return false;
 
-            // TODO: Generate actual objects from the list of parsed objects
-            // ...
+            // Generate actual objects from the list of parsed objects
+            Visualization_ObjGenerator.GenerateVisObjects(parsedDynamicObjects, "Dynamic Objects");
 
             // TODO: Return false if the object generation failed
             // ...
