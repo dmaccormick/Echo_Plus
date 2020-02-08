@@ -87,9 +87,14 @@ namespace Thesis.VisTrack
             throw new System.NotImplementedException();
         }
 
-        public string GetTrackName()
+        public int FindDataPointForTime(float _time)
         {
             throw new System.NotImplementedException();
+        }
+
+        public string GetTrackName()
+        {
+            return "Position";
         }
     }
 

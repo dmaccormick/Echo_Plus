@@ -8,6 +8,8 @@
 
         void UpdateVisualization(float _time);
 
+        int FindDataPointForTime(float _time);
+
         string GetTrackName();
     }
 }
