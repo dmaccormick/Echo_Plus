@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Thesis.Interface;
 using Thesis.Utility;
 
@@ -80,7 +81,6 @@ namespace Thesis.VisTrack
 
         public void StartVisualization(float _startTime)
         {
-            throw new System.NotImplementedException();
         }
 
         public void UpdateVisualization(float _time)
@@ -100,7 +100,12 @@ namespace Thesis.VisTrack
 
         public float GetFirstTimestamp()
         {
-            throw new NotImplementedException();
+            // Ensure the datapoints are actually setup
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point");
+            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty");
+
+            // Return the timestamp for the first data point
+            return m_dataPoints[0].m_timestamp;
         }
     }
 
