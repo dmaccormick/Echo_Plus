@@ -55,6 +55,7 @@ namespace Thesis.VisTrack
 
 
         //--- Private Variables ---//
+        private GameObject m_targetObj;
         private List<Data_Lifetime> m_dataPoints;
 
 
@@ -80,16 +81,61 @@ namespace Thesis.VisTrack
 
         public void StartVisualization(float _startTime)
         {
+            // Init the target
+            m_targetObj = this.gameObject;
+
+            // Apply the initial visualization
+            UpdateVisualization(_startTime);
         }
 
         public void UpdateVisualization(float _time)
         {
-            throw new System.NotImplementedException();
+            // Get the relevant data point for the given time
+            int dataIdx = FindDataPointForTime(_time);
+            
+            // For the lifetime track, we can actually go before the object exists. In that case, the above index is -1
+            if (dataIdx == -1)
+            {
+                // If the index is negative, the object didn't exist at the time of the recording so it should be hidden by default
+                m_targetObj.SetActive(false);
+            }
+            else
+            {
+                // Otherwise, get the datapoint that matches the index
+                Data_Lifetime dataPoint = m_dataPoints[dataIdx];
+
+                // Otherwise, use the value from the datapoint to mark the object's existence
+                m_targetObj.SetActive(dataPoint.m_isActive);
+            }
         }
 
         public int FindDataPointForTime(float _time)
         {
-            throw new System.NotImplementedException();
+            // Ensure the datapoints are actually setup
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point");
+            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty");
+
+            // For the lifetime track, we can actually go BEFORE the object should exist so return -1 if that is the case
+            if (_time < m_dataPoints[0].m_timestamp)
+                return -1;
+
+            // Start by setting the selected index to 0 in case there is only one point
+            int selectedIndex = 0;
+
+            // Loop through all of the data and find the nearest point BEFORE the given time
+            for (selectedIndex = 0; selectedIndex < m_dataPoints.Count - 1; selectedIndex++)
+            {
+                // Get the datapoint at the current index and next index
+                var thisDataPoint = m_dataPoints[selectedIndex];
+                var nextDataPoint = m_dataPoints[selectedIndex + 1];
+
+                // If this datapoint is BEFORE OR AT the time and the next one is AFTER the time, then we are at the right data point
+                if (thisDataPoint.m_timestamp <= _time && nextDataPoint.m_timestamp > _time)
+                    break;
+            }
+
+            // Return the selected index
+            return selectedIndex;
         }
 
         public string GetTrackName()
