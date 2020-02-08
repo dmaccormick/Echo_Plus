@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEditor;
 using Thesis.Interface;
 using Thesis.Utility;
 
 namespace Thesis.VisTrack
 {
+    [RequireComponent(typeof(MeshFilter))]
+    [RequireComponent(typeof(MeshRenderer))]
     public class VisTrack_Renderables : MonoBehaviour, IVisualizable
     {
         //--- Data Struct ---//
@@ -62,6 +65,8 @@ namespace Thesis.VisTrack
 
 
         //--- Private Variables ---//
+        private MeshFilter m_targetFilter;
+        private MeshRenderer m_targetRenderer;
         private List<Data_Renderables> m_dataPoints;
 
 
@@ -85,25 +90,66 @@ namespace Thesis.VisTrack
             }
         }
 
-        public void StartVisualization()
+        public void StartVisualization(float _startTime)
         {
-            throw new System.NotImplementedException();
+            // Init the targets
+            m_targetFilter = GetComponent<MeshFilter>();
+            m_targetRenderer = GetComponent<MeshRenderer>();
+
+            // Apply the initial visualization
+            UpdateVisualization(_startTime);
         }
 
         public void UpdateVisualization(float _time)
         {
-            throw new System.NotImplementedException();
+            // Get the relevant data point for the given time
+            int dataIdx = FindDataPointForTime(_time);
+            Data_Renderables dataPoint = m_dataPoints[dataIdx];
+
+            // Apply the data point to the visualization
+            m_targetFilter.mesh = dataPoint.m_mesh;
+            m_targetRenderer.material = dataPoint.m_material;
+            m_targetRenderer.material.color = dataPoint.m_color;
         }
 
         public int FindDataPointForTime(float _time)
         {
-            throw new System.NotImplementedException();
+            // Ensure the datapoints are actually setup
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point");
+            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty");
+
+            // Start by setting the selected index to 0 in case there is only one point
+            int selectedIndex = 0;
+
+            // Loop through all of the data and find the nearest point BEFORE the given time
+            for (selectedIndex = 0; selectedIndex < m_dataPoints.Count - 1; selectedIndex++)
+            {
+                // Get the datapoint at the current index and next index
+                var thisDataPoint = m_dataPoints[selectedIndex];
+                var nextDataPoint = m_dataPoints[selectedIndex + 1];
+
+                // If this datapoint is BEFORE OR AT the time and the next one is AFTER the time, then we are at the right data point
+                if (thisDataPoint.m_timestamp <= _time && nextDataPoint.m_timestamp > _time)
+                    break;
+            }
+
+            // Return the selected index
+            return selectedIndex;
         }
 
         public string GetTrackName()
         {
             return "Renderables";
         }
-    }
 
+        public float GetFirstTimestamp()
+        {
+            // Ensure the datapoints are actually setup
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point");
+            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty");
+
+            // Return the timestamp for the first data point
+            return m_dataPoints[0].m_timestamp;
+        }
+    }
 }

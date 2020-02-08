@@ -77,7 +77,7 @@ namespace Thesis.VisTrack
             }
         }
 
-        public void StartVisualization()
+        public void StartVisualization(float _startTime)
         {
             throw new System.NotImplementedException();
         }
@@ -96,6 +96,10 @@ namespace Thesis.VisTrack
         {
             return "Scale";
         }
-    }
 
+        public float GetFirstTimestamp()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
