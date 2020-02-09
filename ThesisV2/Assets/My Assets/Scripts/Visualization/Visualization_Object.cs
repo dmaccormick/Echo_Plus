@@ -36,6 +36,13 @@ namespace Thesis.Visualization
                 track.StartVisualization(_startTime);
         }
 
+        public void UpdateVisualization(float _currentTime)
+        {
+            // Update the visualization on all of the tracks
+            foreach (IVisualizable track in m_tracks)
+                track.UpdateVisualization(_currentTime);
+        }
+
         public float GetEarliestTrackTime()
         {
             // Set the start time to a very high number to start
@@ -47,6 +54,19 @@ namespace Thesis.Visualization
 
             // Return the earliest time
             return startTime;
+        }
+
+        public float GetLatestTrackTime()
+        {
+            // Set the end time to a very low number to start
+            float endTime = 0.0f;
+
+            // Loop through all of the tracks and find which of them has the latest end time
+            foreach (IVisualizable track in m_tracks)
+                endTime = Mathf.Max(endTime, track.GetLastTimestamp());
+
+            // Return the latest time
+            return endTime;
         }
     }
 }

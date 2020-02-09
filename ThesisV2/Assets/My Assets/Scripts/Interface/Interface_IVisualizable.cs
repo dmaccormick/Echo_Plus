@@ -13,5 +13,7 @@
         string GetTrackName();
 
         float GetFirstTimestamp();
+
+        float GetLastTimestamp();
     }
 }

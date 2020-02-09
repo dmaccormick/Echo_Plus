@@ -152,5 +152,15 @@ namespace Thesis.VisTrack
             // Return the timestamp for the first data point
             return m_dataPoints[0].m_timestamp;
         }
+
+        public float GetLastTimestamp()
+        {
+            // Ensure the datapoints are actually setup
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point");
+            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty");
+
+            // Return the timestamp for the last data point
+            return m_dataPoints[m_dataPoints.Count - 1].m_timestamp;
+        }
     }
 }
