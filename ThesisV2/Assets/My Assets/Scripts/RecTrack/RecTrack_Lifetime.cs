@@ -38,6 +38,7 @@ namespace Thesis.RecTrack
 
 
         //--- Private Variables ---//
+        private Recording_Manager m_recManager;
         private List<Data_Lifetime> m_dataPoints;
         private bool m_isActive;
         private bool m_isRecording = false; // Cannot start recording right away, has to wait
@@ -54,7 +55,7 @@ namespace Thesis.RecTrack
                 m_isActive = true;
 
                 // We should record the change
-                RecordData();
+                RecordData(m_recManager.GetCurrentTime());
             }
         }
 
@@ -67,7 +68,7 @@ namespace Thesis.RecTrack
                 m_isActive = false;
 
                 // We should record the change
-                RecordData();
+                RecordData(m_recManager.GetCurrentTime());
             }
         }
 
@@ -80,18 +81,18 @@ namespace Thesis.RecTrack
                 m_isActive = false;
 
                 // We should record the change
-                RecordData();
+                RecordData(m_recManager.GetCurrentTime());
             }
         }
 
 
 
         //--- IRecordable Interface ---//
-        public void StartRecording()
+        public void StartRecording(float _startTime)
         {
             // Init the private variables 
-            // NOTE: Use the shared mesh and material to prevent a duplicate from being created and removing the mesh path references
-            // NOTE: The meshes need to be marked as read and write in the import settings!
+            // NOTE: This track needs to reference the manager and get its current time directly since it records data outside of the normal loop
+            m_recManager = GameObject.FindObjectOfType<Recording_Manager>();
             m_dataPoints = new List<Data_Lifetime>();
 
             // Recording is now active
@@ -102,35 +103,31 @@ namespace Thesis.RecTrack
             m_isActive = true;
 
             // Record the first data point
-            RecordData();
+            RecordData(_startTime);
         }
 
-        public void EndRecording()
+        public void EndRecording(float _endTime)
         {
             // No longer recording
             m_isRecording = false;
 
             // Record the final data point
-            RecordData();
+            RecordData(_endTime);
         }
 
-        public void UpdateRecording(float _elapsedTime)
+        public void UpdateRecording(float _currentTime)
         {
             // This class does not have anything here
             // TODO: Split the interface so we don't have this non-implemented function
         }
 
-        public void RecordData()
+        public void RecordData(float _currentTime)
         {
             // Ensure the datapoints are setup
             Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData()");
 
-            // Get the current timestamp
-            // TODO: Replace with a timer from the recording manager since if the game is paused, this will show 0
-            float currentTime = Time.time;
-
             // Add a new data point to the list
-            m_dataPoints.Add(new Data_Lifetime(currentTime, m_isActive));
+            m_dataPoints.Add(new Data_Lifetime(_currentTime, m_isActive));
         }
 
         public string GetData()

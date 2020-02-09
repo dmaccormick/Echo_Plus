@@ -5,26 +5,29 @@
         /// <summary>
         /// Start the recording. Use this for any setup and for recording the very first data point
         /// </summary>
-        void StartRecording();
+        /// <param name="_startTime"> The time to record as a timestamp for the start of the recording</param>
+        void StartRecording(float _startTime);
 
 
         /// <summary>
         /// End the recording. Use this for any cleanup and for recording the final data point
         /// </summary>
-        void EndRecording();
+        /// <param name="_endTime"> The time to record as a timestamp for the end of the recording</param>
+        void EndRecording(float _endTime);
 
 
         /// <summary>
         /// Update the recording. Use this to handle recording timing. Doesn't need to be used much for one-shots
         /// </summary>
-        /// <param name="_elapsedTime">The time since the last frame, UNSCALED to account for games with slow motion</param>
-        void UpdateRecording(float _elapsedTime);
+        /// <param name="_currentTime">The time to record as a timestamp if there are any datapoints now</param>
+        void UpdateRecording(float _currentTime);
 
 
         /// <summary>
         /// Actually sample and record the data that is being tracked
         /// </summary>
-        void RecordData();
+        /// /// <param name="_currentTime">The time to record as a timestamp</param>
+        void RecordData(float _currentTime);
 
 
         /// <summary>

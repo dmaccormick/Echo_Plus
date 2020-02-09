@@ -55,7 +55,7 @@ namespace Thesis.RecTrack
 
 
         //--- IRecordable Interface ---//
-        public void StartRecording()
+        public void StartRecording(float _startTime)
         {
             // Ensure the targets are not null
             Assert.IsNotNull(m_targetFilter, "m_targetFilter needs to be set for the track");
@@ -70,16 +70,16 @@ namespace Thesis.RecTrack
             m_currentColour = m_targetRenderer.sharedMaterial.color;
 
             // Record the first data point
-            RecordData();
+            RecordData(_startTime);
         }
 
-        public void EndRecording()
+        public void EndRecording(float _endTime)
         {
             // Record the final data point
-            RecordData();
+            RecordData(_endTime);
         }
 
-        public void UpdateRecording(float _elapsedTime)
+        public void UpdateRecording(float _currentTime)
         {
             // If any of the renderables have changed, update the values and record the change
             if (m_currentMesh != m_targetFilter.sharedMesh ||
@@ -92,21 +92,17 @@ namespace Thesis.RecTrack
                 m_currentColour = m_targetRenderer.sharedMaterial.color;
 
                 // Record the changes to the values
-                RecordData();
+                RecordData(_currentTime);
             }
         }
 
-        public void RecordData()
+        public void RecordData(float _currentTime)
         {
             // Ensure the datapoints are setup
             Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData()");
 
-            // Get the current timestamp
-            // TODO: Replace with a timer from the recording manager since if the game is paused, this will show 0
-            float currentTime = Time.time;
-
             // Add a new data point to the list
-            m_dataPoints.Add(new Data_Renderables(currentTime, m_currentMesh, m_currentMaterial, m_currentColour));
+            m_dataPoints.Add(new Data_Renderables(_currentTime, m_currentMesh, m_currentMaterial, m_currentColour));
         }
 
         public string GetData()

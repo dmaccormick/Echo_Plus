@@ -60,25 +60,25 @@ namespace Thesis.Recording
             ConvertTrackComps();
         }
 
-        public void StartRecording()
+        public void StartRecording(float _startTime)
         {
             // Loop through all of the tracks and tell them to start recording
             foreach (IRecordable track in m_trackInterfaces)
-                track.StartRecording();
+                track.StartRecording(_startTime);
         }
 
-        public void UpdateRecording(float _elapsedTime)
+        public void UpdateRecording(float _currentTime)
         {
             // Loop through all of the tracks and tell them to update
             foreach (IRecordable track in m_trackInterfaces)
-                track.UpdateRecording(_elapsedTime);
+                track.UpdateRecording(_currentTime);
         }
 
-        public void EndRecording()
+        public void EndRecording(float _endTime)
         {
             // Loop through all of the tracks and tell them to finish recording
             foreach (IRecordable track in m_trackInterfaces)
-                track.EndRecording();
+                track.EndRecording(_endTime);
 
             // Unregister the object from the recording manager now
             m_recManager.MarkObjectDoneRecording(this);

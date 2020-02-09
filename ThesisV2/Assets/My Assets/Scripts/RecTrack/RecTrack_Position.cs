@@ -40,59 +40,52 @@ namespace Thesis.RecTrack
 
         //--- Private Variables ---//
         private List<Data_Position> m_dataPoints;
-        private float m_deltaSampleTime;
+        private float m_nextSampleTime;
 
 
 
         //--- IRecordable Interfaces ---//
-        public void StartRecording()
+        public void StartRecording(float _startTime)
         {
             // Ensure the target is set
             Assert.IsNotNull(m_target, "m_target needs to be set for the track");
 
             // Init the private variables
             m_dataPoints = new List<Data_Position>();
-            m_deltaSampleTime = 0.0f;
+            m_nextSampleTime = 0.0f;
 
             // Record the first data point
-            RecordData();
+            RecordData(_startTime);
         }
 
-        public void EndRecording()
+        public void EndRecording(float _endTime)
         {
             // Record the final data point
-            RecordData();
+            RecordData(_endTime);
         }
 
-        public void UpdateRecording(float _elapsedTime)
+        public void UpdateRecording(float _currentTime)
         {
-            // Increase the timer since the last sample time
-            m_deltaSampleTime += _elapsedTime;
-
             // If enough time has passed, update the recording
-            if (m_deltaSampleTime >= m_sampleTime)
+            if (_currentTime >= m_nextSampleTime)
             {
-                RecordData();
+                RecordData(_currentTime);
             }
         }
 
-        public void RecordData()
+        public void RecordData(float _currentTime)
         {
             // Ensure the datapoints are setup
             Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData()");
-
-            // Get the current timestamp
-            // TODO: Replace with a timer from the recording manager since if the game is paused, this will show 0
-            float currentTime = Time.time;
 
             // Get the data point from the target
             Vector3 currentPos = m_target.position;
 
             // Add the datapoint to the list
-            m_dataPoints.Add(new Data_Position(currentTime, currentPos));
+            m_dataPoints.Add(new Data_Position(_currentTime, currentPos));
 
-            // Reset the time since the last data sample
-            m_deltaSampleTime = 0.0f;
+            // Recalculate the next sample time
+            m_nextSampleTime = _currentTime + m_sampleTime;
         }
 
         public string GetData()

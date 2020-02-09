@@ -46,6 +46,7 @@ namespace Thesis.Recording
         private Dictionary<string, Recording_ObjectData> m_dynamicObjects;
         private long m_nextUniqueId;
         private bool m_isRecording;
+        private float m_currentTime;
 
 
 
@@ -73,6 +74,9 @@ namespace Thesis.Recording
         {
             // The system is not recording by default
             m_isRecording = false;
+
+            // When it does record, it should start from the beginning of the timer
+            m_currentTime = 0.0f;
 
             // Init the static and dynamic lists
             m_staticObjects = new Dictionary<string, Recording_ObjectData>();
@@ -102,7 +106,7 @@ namespace Thesis.Recording
             _newObject.SetupObject();
 
             // Tell the object to begin recording
-            _newObject.StartRecording();
+            _newObject.StartRecording(m_currentTime);
         }
 
         public void MarkObjectDoneRecording(Recording_Object _doneObject)
@@ -161,7 +165,7 @@ namespace Thesis.Recording
                     continue;
 
                 // Start the recording of the live objects
-                dynamicObjData.m_objectRef.StartRecording();
+                dynamicObjData.m_objectRef.StartRecording(m_currentTime);
             }
 
             // Loop through all of the static objects and grab their data in one shot
@@ -173,7 +177,7 @@ namespace Thesis.Recording
                     continue;
 
                 // Start the recording which will trigger the first data point to be recorded
-                staticObjData.m_objectRef.StartRecording();
+                staticObjData.m_objectRef.StartRecording(m_currentTime);
 
                 // Since these objects are static, we can just mark them as done recording right now to get their data out
                 MarkObjectDoneRecording(staticObjData.m_objectRef);
@@ -182,6 +186,9 @@ namespace Thesis.Recording
 
         public void UpdateRecording()
         {
+            // Increase the current time, using the UNSCALED delta time to account for slow motion in the game
+            m_currentTime += Time.unscaledDeltaTime;
+
             // Loop through and update the recordings on all of the dynamic objects, not the static ones
             foreach (Recording_ObjectData dynamicObjData in m_dynamicObjects.Values)
             {
@@ -191,7 +198,7 @@ namespace Thesis.Recording
                     continue;
 
                 // Update the recording of the live objects, using unscaled dt in case the game has slow motion
-                dynamicObjData.m_objectRef.UpdateRecording(Time.unscaledDeltaTime);
+                dynamicObjData.m_objectRef.UpdateRecording(m_currentTime);
             }
         }
 
@@ -206,7 +213,7 @@ namespace Thesis.Recording
                     continue;
 
                 // Stop the recording of the live objects. The static ones are already stopped
-                dynamicObjData.m_objectRef.EndRecording();
+                dynamicObjData.m_objectRef.EndRecording(m_currentTime);
             }
 
             // The system is no longer recording
@@ -239,13 +246,17 @@ namespace Thesis.Recording
         }
 
 
-        
+
         //--- Getters ---//
-        private string GetNextUniqueID()
+        public string GetNextUniqueID()
         {
             // Return the ID string like "_#ID#" and increment the value for next time
             return "_" + m_nextUniqueId++;
         }
-    }
 
+        public float GetCurrentTime()
+        {
+            return m_currentTime;
+        }
+    }
 }
