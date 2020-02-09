@@ -115,8 +115,9 @@ namespace Thesis.Visualization
         //--- Loading Methods ---//
         public bool LoadStaticData(string _staticFilePath)
         {
-            // We should pause the playback now
+            // We should pause the playback now and therefore trigger the event
             m_playstate = Playstate.Paused;
+            m_onPlaystateUpdated.Invoke(m_playstate);
 
             // Read all of the data from the static file
             string staticData = FileIO_FileReader.ReadFile(_staticFilePath);
@@ -139,10 +140,11 @@ namespace Thesis.Visualization
             if (m_staticObjects == null)
                 return false;
 
-            // Look for the new start and end times
+            // Look for the new start and end times and then invoke the relevant event
             m_startTime = CalcNewStartTime();
             m_endTime = CalcNewEndTime();
             m_currentTime = m_startTime;
+            m_onTimeUpdated.Invoke(m_currentTime);
 
             // Loop through all of the static objects and start their visualizations
             foreach (Visualization_Object visObj in m_staticObjects)
@@ -154,8 +156,9 @@ namespace Thesis.Visualization
 
         public bool LoadDynamicData(string _dynamicFilePath)
         {
-            // We should pause the playback now
+            // We should pause the playback now and therefore trigger the event
             m_playstate = Playstate.Paused;
+            m_onPlaystateUpdated.Invoke(m_playstate);
 
             // If this is the first dynamic object list added, need to setup the outer list
             if (m_dynamicObjects == null)
@@ -182,10 +185,11 @@ namespace Thesis.Visualization
             if (m_dynamicObjects == null)
                 return false;
 
-            // Look for the new start and end times
+            // Look for the new start and end times and then invoke the relevant event
             m_startTime = CalcNewStartTime();
             m_endTime = CalcNewEndTime();
             m_currentTime = m_startTime;
+            m_onTimeUpdated.Invoke(m_currentTime);
 
             // Loop through all of the newly added dynamic objects and start their visualizations
             foreach (Visualization_Object visObj in m_dynamicObjects[m_dynamicObjects.Count - 1])

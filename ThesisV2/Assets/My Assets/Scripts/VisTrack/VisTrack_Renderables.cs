@@ -107,9 +107,9 @@ namespace Thesis.VisTrack
             Data_Renderables dataPoint = m_dataPoints[dataIdx];
 
             // Apply the data point to the visualization
-            m_targetFilter.mesh = dataPoint.m_mesh;
-            m_targetRenderer.material = dataPoint.m_material;
-            m_targetRenderer.material.color = dataPoint.m_color;
+            m_targetFilter.sharedMesh = dataPoint.m_mesh;
+            m_targetRenderer.sharedMaterial = dataPoint.m_material;
+            m_targetRenderer.sharedMaterial.color = dataPoint.m_color;
         }
 
         public int FindDataPointForTime(float _time)
