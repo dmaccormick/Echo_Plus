@@ -102,6 +102,9 @@ namespace Thesis.UI
         {
             // Update the time in the visualization manager
             m_visManager.SetCurrentTime(_newValue);
+
+            // Update the text above the slider handle
+            m_txtCurrentTime.text = _newValue.ToString("F2");
         }
 
         public void OnReversePlayback()
@@ -217,6 +220,9 @@ namespace Thesis.UI
         {
             // Move the slider handle to match the new time
             m_sldTimeline.value = _newTime;
+
+            // Update the text above the slider handle
+            m_txtCurrentTime.text = _newTime.ToString("F2");
         }
     }
 }
