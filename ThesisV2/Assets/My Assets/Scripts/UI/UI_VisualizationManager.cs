@@ -11,8 +11,24 @@ namespace Thesis.UI
         [Header("Controls")]
         public Visualization_Manager m_visManager;
 
-        [Header("Toolbar UI Elements")]
+        [Header("Toolbar Top Left Elements")]
         public Button m_btnOpenSettings;
+        public Button m_btnOpenObjectList;
+        public Button m_btnToggleCamControls;
+        public Image m_imgCamControlIndicator;
+
+        [Header("Toolbar Timeline Elements")]
+        public Slider m_sldTimeline;
+        public Text m_txtStartTime;
+        public Text m_txtEndTime;
+        public Text m_txtCurrentTime;
+
+        [Header("Toolbar Speed Elements")]
+        public Button m_btnTenthSpeed;
+        public Button m_btnHalfSpeed;
+        public Button m_btnNormalSpeed;
+        public Button m_btnTwiceSpeed;
+        public Button m_btnFiveSpeed;
 
         [Header("Settings UI Elements")]
         public GameObject m_pnlSettings;
@@ -24,14 +40,40 @@ namespace Thesis.UI
         public Text m_txtDynamicFileIndicator;
         public Button m_btnClearLoadedFiles;
 
+        [Header("Loaded Objects UI Elements")]
+        public GameObject m_pnlObjectList;
 
 
-        //--- Toolbar Callbacks ---//
+
+        //--- Toolbar Top Left Callbacks ---//
         public void OnToggleSettings()
         {
             // Toggle the settings UI panel
             bool isPanelActive = m_pnlSettings.gameObject.activeSelf;
             m_pnlSettings.gameObject.SetActive(!isPanelActive);
+
+            // Hide the object list menu
+            m_pnlObjectList.gameObject.SetActive(false);
+        }
+
+        public void OnToggleObjectList()
+        {
+            // Toggle the object list UI panel
+            bool isPanelActive = m_pnlObjectList.gameObject.activeSelf;
+            m_pnlObjectList.gameObject.SetActive(!isPanelActive);
+
+            // Hide the settings menu
+            m_pnlSettings.gameObject.SetActive(false);
+        }
+        
+        public void OnToggleCameraControls()
+        {
+            // Toggle the indicator for if the camera controls are active
+            bool isCamIndicatorActive = m_imgCamControlIndicator.gameObject.activeSelf;
+            m_imgCamControlIndicator.gameObject.SetActive(!isCamIndicatorActive);
+
+            // TODO: Toggle the actual camera control scripts
+            // ...
         }
 
 
