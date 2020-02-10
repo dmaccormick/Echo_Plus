@@ -10,6 +10,7 @@ namespace Thesis.UI
         //--- Public Variables ---//
         [Header("Controls")]
         public Visualization_Manager m_visManager;
+        public Visualization_CameraControls m_camControls;
 
         [Header("Toolbar Top Left Elements")]
         public Button m_btnOpenSettings;
@@ -91,8 +92,8 @@ namespace Thesis.UI
             bool isCamIndicatorActive = m_imgCamControlIndicator.gameObject.activeSelf;
             m_imgCamControlIndicator.gameObject.SetActive(!isCamIndicatorActive);
 
-            // TODO: Toggle the actual camera control scripts
-            // ...
+            // Toggle the actual camera control scripts
+            m_camControls.ToggleControls();
         }
 
 
