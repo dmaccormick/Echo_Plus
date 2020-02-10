@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 using Thesis.Interface;
-using Thesis.VisTrack;
 
 namespace Thesis.Visualization
 {

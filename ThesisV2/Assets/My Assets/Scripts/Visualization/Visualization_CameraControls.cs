@@ -18,10 +18,16 @@ public class Visualization_CameraControls : MonoBehaviour
     public bool m_invertYaw;
     public bool m_invertPitch;
 
+    [Header("Focus Controls")]
+    public LayerMask m_pickLayers;
+    public float m_maxFocusPickDist;
+
 
 
     //--- Private Variables ---//
+    private Transform m_focusTarget;
     private bool m_controlsActive;
+    private bool m_followFocusTarget;
 
 
 
@@ -29,11 +35,18 @@ public class Visualization_CameraControls : MonoBehaviour
     private void Awake()
     {
         // Init the private variables
+        m_focusTarget = null;
         m_controlsActive = true;
+        m_followFocusTarget = false;
     }
 
     private void Update()
     {
+        // If there is a focus target, the pivot point should always move with them
+        // We don't want to parent the pivot point because then rotations would mess it up
+        if (m_focusTarget != null && m_followFocusTarget)
+            m_pivotPoint.position = m_focusTarget.position;
+
         // Only control the camera if actually able to do so
         if (m_controlsActive)
         {
@@ -43,12 +56,19 @@ public class Visualization_CameraControls : MonoBehaviour
             float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
 
             // Click the scroll wheel for pan, alt/left mouse for rotate, wheel for zoom in/out
-            if (Input.GetMouseButton(2))
+            // Also, shift/right click to focus on a different object
+            // Also, alt/right click clears the focus
+            // Also shift/F will follow the focus target
+            if (Input.GetMouseButton(2)) // Middle click
             {
-                // The scroll wheel has been pressed in so we should pan
-                Pan(mouseX, mouseY);
+                // We cannot pan if we are following the focus target since we are moving with them the whole time
+                if (!m_followFocusTarget)
+                {
+                    // The scroll wheel has been pressed in so we should pan
+                    Pan(mouseX, mouseY);
+                }
             }
-            else if (Input.GetMouseButton(0) && Input.GetKey(KeyCode.LeftAlt))
+            else if (Input.GetMouseButton(0) && Input.GetKey(KeyCode.LeftAlt)) // Left mouse + left alt
             {
                 // The left mouse and alt keys have been pressed so we should rotate
                 RotateOrbit(mouseX, mouseY);
@@ -57,6 +77,33 @@ public class Visualization_CameraControls : MonoBehaviour
             {
                 // If the mouse wheel was moved, we should zoom in or out
                 Zoom(mouseWheel);
+            }
+            else if (Input.GetMouseButtonUp(1) && Input.GetKey(KeyCode.LeftShift)) // Right mouse + left shift
+            {
+                // If shift and right click were pressed, move towards a new focus target
+                CheckForFocusTarget();
+            }
+            else if (Input.GetMouseButtonUp(1) && Input.GetKey(KeyCode.LeftAlt)) // Right mouse + left alt
+            {
+                // Clear the focus target
+                m_focusTarget = null;
+
+                // Stop following the focus target
+                m_followFocusTarget = false;
+            }
+            else if (Input.GetKeyUp(KeyCode.F) && Input.GetKey(KeyCode.LeftShift)) // F + left shift
+            {
+                // If there is a focus target, we should toggle following it around
+                // Also use the same key to turn off the folow
+                if (m_focusTarget != null)
+                {
+                    // Toggle focus on the target
+                    m_followFocusTarget = !m_followFocusTarget;
+
+                    // Zoom all the way if we are now following
+                    if (m_followFocusTarget)
+                        MoveToMaxZoomPoint();
+                }
             }
         }
     }
@@ -111,14 +158,37 @@ public class Visualization_CameraControls : MonoBehaviour
         // If the camera is too close to the pivot point, we need to push it back
         if (Vector3.Distance(m_cam.transform.position, m_pivotPoint.position) < m_closestZoomDistance)
         {
-            // Get the opposite movement vector to the camera forward
-            Vector3 camReverse = m_cam.transform.forward * -1.0f;
+            // Move to the very edge of the zoom position
+            MoveToMaxZoomPoint();
+        }
+    }
 
-            // Scale the vector to match the closest zoom distance
-            Vector3 closestZoomVec = camReverse * m_closestZoomDistance;
+    public void MoveToMaxZoomPoint()
+    {
+        // Get the opposite movement vector to the camera forward
+        Vector3 camReverse = m_cam.transform.forward * -1.0f;
 
-            // Place the camera at the end of the vector relative to the pivot point
-            m_cam.transform.position = m_pivotPoint.position + closestZoomVec;
+        // Scale the vector to match the closest zoom distance
+        Vector3 closestZoomVec = camReverse * m_closestZoomDistance;
+
+        // Place the camera at the end of the vector relative to the pivot point
+        m_cam.transform.position = m_pivotPoint.position + closestZoomVec;
+    }
+
+    public void CheckForFocusTarget()
+    {
+        // Create a ray that is fired from the mouse relative to the controllable camera
+        Ray ray = m_cam.ScreenPointToRay(Input.mousePosition);
+
+        // Fire the ray and check for a hit
+        if (Physics.Raycast(ray, out var raycastHit, m_maxFocusPickDist, m_pickLayers))
+        {
+            // If we hit an object, move the pivot point to it and set it as the focus target
+            m_focusTarget = raycastHit.transform;
+            m_pivotPoint.position = m_focusTarget.position;
+
+            // Stop following the old target
+            m_followFocusTarget = false;
         }
     }
 

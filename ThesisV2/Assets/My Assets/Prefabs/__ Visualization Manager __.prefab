@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 18774547}
   m_Layer: 0
-  m_Name: PivotPoint
+  m_Name: CamPivotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,6 +120,10 @@ MonoBehaviour:
   m_closestZoomDistance: 2
   m_invertYaw: 0
   m_invertPitch: 1
+  m_pickLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_maxFocusPickDist: 500
 --- !u!1 &272982628
 GameObject:
   m_ObjectHideFlags: 0
