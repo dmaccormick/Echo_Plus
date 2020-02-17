@@ -140,15 +140,15 @@ namespace Thesis.Visualization
             if (m_staticObjects == null)
                 return false;
 
+            // Loop through all of the static objects and start their visualizations
+            foreach (Visualization_Object visObj in m_staticObjects)
+                visObj.StartVisualization(m_startTime);
+
             // Look for the new start and end times and then invoke the relevant event
             m_startTime = CalcNewStartTime();
             m_endTime = CalcNewEndTime();
             m_currentTime = m_startTime;
             m_onTimeUpdated.Invoke(m_currentTime);
-
-            // Loop through all of the static objects and start their visualizations
-            foreach (Visualization_Object visObj in m_staticObjects)
-                visObj.StartVisualization(m_startTime);
 
             // Return true if everything parsed correctly
             return true;
@@ -185,15 +185,15 @@ namespace Thesis.Visualization
             if (m_dynamicObjects == null)
                 return false;
 
+            // Loop through all of the newly added dynamic objects and start their visualizations
+            foreach (Visualization_Object visObj in m_dynamicObjects[m_dynamicObjects.Count - 1])
+                visObj.StartVisualization(m_startTime);
+
             // Look for the new start and end times and then invoke the relevant event
             m_startTime = CalcNewStartTime();
             m_endTime = CalcNewEndTime();
             m_currentTime = m_startTime;
             m_onTimeUpdated.Invoke(m_currentTime);
-
-            // Loop through all of the newly added dynamic objects and start their visualizations
-            foreach (Visualization_Object visObj in m_dynamicObjects[m_dynamicObjects.Count - 1])
-                visObj.StartVisualization(m_startTime);
 
             // Return true if everything parsed correctly
             return true;

@@ -35,7 +35,7 @@ namespace Thesis.VisTrack
                 string[] lines = _data.Split('\n');
 
                 // Create new data points from each of the lines
-                foreach(string line in lines)
+                foreach (string line in lines)
                 {
                     // If the line is empty, do nothing
                     if (line == null || line == "")
@@ -113,6 +113,11 @@ namespace Thesis.VisTrack
 
                 // Set the final data to be a lerp'd value between the two points
                 finalData = Vector3.Lerp(prevDataPoint.m_data, nextDataPoint.m_data, lerpT);
+            }
+
+            if (m_targetTransform == null || finalData == null)
+            {
+                Debug.Log("ERROR");
             }
 
             // Apply the data point to the visualization
