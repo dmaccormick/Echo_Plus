@@ -87,6 +87,7 @@
     <Compile Include="Assets\My Assets\Scripts\Visualization\Visualization_Manager.cs" />
     <Compile Include="Assets\My Assets\Scripts\Visualization\Visualization_ObjGenerator.cs" />
     <Compile Include="Assets\My Assets\Scripts\Visualization\Visualization_Object.cs" />
+    <Compile Include="Assets\My Assets\Scripts\Visualization\Visualization_ObjectSet.cs" />
     <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
     <Compile Include="Assets\Test Assets\Scripts\Test_Mover.cs" />
     <Compile Include="Assets\Test Assets\Scripts\Test_ShrinkingProjectile.cs" />

@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.Assertions;
 using Thesis.FileIO;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Thesis.Visualization
 {
@@ -37,17 +38,17 @@ namespace Thesis.Visualization
         public UnityEvent<Playstate> m_onPlaystateUpdated;
 
 
-             
+
         //--- Private Variables ---//
-        private List<Visualization_Object> m_staticObjects; // TODO: Create object set class that allows for hiding / activating of the whole set
-        private List<List<Visualization_Object>> m_dynamicObjects;
+        private Visualization_ObjectSet m_staticObjectSet;
+        private List<Visualization_ObjectSet> m_dynamicObjectSets;
         private Playstate m_playstate;
         private float m_startTime = Mathf.Infinity;
         private float m_endTime = 0.0f;
         private float m_currentTime = 0.0f;
         private float m_playbackSpeed = 1.0f;
 
-
+ 
 
         //--- Unity Methods ---//
         private void Awake()
@@ -119,6 +120,9 @@ namespace Thesis.Visualization
             m_playstate = Playstate.Paused;
             m_onPlaystateUpdated.Invoke(m_playstate);
 
+            // Determine the name of the visualization objects from the file path
+            string fileName = Path.GetFileName(_staticFilePath);
+
             // Read all of the data from the static file
             string staticData = FileIO_FileReader.ReadFile(_staticFilePath);
 
@@ -133,16 +137,19 @@ namespace Thesis.Visualization
             if (parsedStaticObjects == null)
                 return false;
 
-            // Generate actual objects from the list of parsed objects
-            m_staticObjects = Visualization_ObjGenerator.GenerateVisObjects(parsedStaticObjects, "Static Objects");
+            // Clear any previously loaded static objects so we only ever have one set of static objects
+            if (m_staticObjectSet != null)
+                m_staticObjectSet.DestroyAllObjects();
 
-            // Return false if the object generation failed
-            if (m_staticObjects == null)
+            // Generate the actual objects contained in the set from the list of parsed objects
+            m_staticObjectSet = Visualization_ObjGenerator.GenerateObjectSet(parsedStaticObjects, "Static Objects (" + fileName + ")");
+
+            // If the object generation failed, return false
+            if (m_staticObjectSet == null)
                 return false;
 
-            // Loop through all of the static objects and start their visualizations
-            foreach (Visualization_Object visObj in m_staticObjects)
-                visObj.StartVisualization(m_startTime);
+            // Tell the set to start the visualization
+            m_staticObjectSet.StartVisualization(m_startTime);
 
             // Look for the new start and end times and then invoke the relevant event
             m_startTime = CalcNewStartTime();
@@ -160,9 +167,12 @@ namespace Thesis.Visualization
             m_playstate = Playstate.Paused;
             m_onPlaystateUpdated.Invoke(m_playstate);
 
-            // If this is the first dynamic object list added, need to setup the outer list
-            if (m_dynamicObjects == null)
-                m_dynamicObjects = new List<List<Visualization_Object>>();
+            // Determine the name of the visualization objects from the file path
+            string fileName = Path.GetFileName(_dynamicFilePath);
+
+            // If this is the first dynamic object set added, need to setup the outer list
+            if (m_dynamicObjectSets == null)
+                m_dynamicObjectSets = new List<Visualization_ObjectSet>();
 
             // Read all of the data from the dynamic file
             string dynamicData = FileIO_FileReader.ReadFile(_dynamicFilePath);
@@ -178,16 +188,18 @@ namespace Thesis.Visualization
             if (parsedDynamicObjects == null)
                 return false;
 
-            // Generate actual objects from the list of parsed objects
-            m_dynamicObjects.Add(Visualization_ObjGenerator.GenerateVisObjects(parsedDynamicObjects, "Dynamic Objects"));
+            // Generate an actual object set from the list and hold onto it for now
+            Visualization_ObjectSet newObjectSet = Visualization_ObjGenerator.GenerateObjectSet(parsedDynamicObjects, "Dynamic Objects(" + fileName + ")");
 
             // Return false if the object generation failed
-            if (m_dynamicObjects == null)
+            if (newObjectSet == null)
                 return false;
 
-            // Loop through all of the newly added dynamic objects and start their visualizations
-            foreach (Visualization_Object visObj in m_dynamicObjects[m_dynamicObjects.Count - 1])
-                visObj.StartVisualization(m_startTime);
+            // Start the visualization for the newly added dynamic object set
+            newObjectSet.StartVisualization(m_startTime);
+
+            // Add the object set into the outer list for the dynamic object sets
+            m_dynamicObjectSets.Add(newObjectSet);
 
             // Look for the new start and end times and then invoke the relevant event
             m_startTime = CalcNewStartTime();
@@ -222,17 +234,12 @@ namespace Thesis.Visualization
 
         public void UpdateVisualization()
         {
-            // Update dynamic objects, don't update the static ones
-            if (m_dynamicObjects != null)
+            // Update the dynamic objects. Don't update the static ones since they are static
+            if (m_dynamicObjectSets != null)
             {
-                // Loop through all of the dynamic visualization objects and update their visualizations
-                foreach(List<Visualization_Object> dynamicObjSet in m_dynamicObjects)
-                {
-                    foreach(Visualization_Object visObj in dynamicObjSet)
-                    {
-                        visObj.UpdateVisualization(m_currentTime);
-                    }
-                }
+                // Loop through all of the dynamic object sets and update them
+                foreach (Visualization_ObjectSet objSet in m_dynamicObjectSets)
+                    objSet.UpdateVisualization(m_currentTime);
             }
         }
 
@@ -285,14 +292,14 @@ namespace Thesis.Visualization
             float startTime = Mathf.Infinity;
 
             // If the static objects are setup, see which of them has the earliest start time
-            if (m_staticObjects != null)
-                startTime = Mathf.Min(startTime, GetEarliestTimeFromVisObjSet(m_staticObjects));
+            if (m_staticObjectSet != null)
+                startTime = Mathf.Min(startTime, m_staticObjectSet.GetEarliestTimestamp());
 
-            // Do the same for each of the dynamic object lists if they are setup
-            if (m_dynamicObjects != null)
+            // Do the same for each of the dynamic object sets if they are setup
+            if (m_dynamicObjectSets != null)
             {
-                foreach(List<Visualization_Object> dynamicObjectSet in m_dynamicObjects)
-                    startTime = Mathf.Min(startTime, GetEarliestTimeFromVisObjSet(dynamicObjectSet));
+                foreach (Visualization_ObjectSet dynamicObjectSet in m_dynamicObjectSets)
+                    startTime = Mathf.Min(startTime, dynamicObjectSet.GetEarliestTimestamp());
             }
 
             // Return the earliest time
@@ -304,42 +311,16 @@ namespace Thesis.Visualization
             // Set the end time to a very low number to start
             float endTime = 0.0f;
 
-            // If the static objects are setup, see which of them has the latest end time
-            if (m_staticObjects != null)
-                endTime = Mathf.Max(endTime, GetLatestTimeFromVisObjSet(m_staticObjects));
+            // If the static objects are setup, see which of them has the latest start time
+            if (m_staticObjectSet != null)
+                endTime = Mathf.Max(endTime, m_staticObjectSet.GetLatestTimestamp());
 
-            // Do the same for each of the dynamic object lists if they are setup
-            if (m_dynamicObjects != null)
+            // Do the same for each of the dynamic object sets if they are setup
+            if (m_dynamicObjectSets != null)
             {
-                foreach (List<Visualization_Object> dynamicObjectSet in m_dynamicObjects)
-                    endTime = Mathf.Max(endTime, GetLatestTimeFromVisObjSet(dynamicObjectSet));
+                foreach (Visualization_ObjectSet dynamicObjectSet in m_dynamicObjectSets)
+                    endTime = Mathf.Max(endTime, dynamicObjectSet.GetLatestTimestamp());
             }
-
-            // Return the latest time
-            return endTime;
-        }
-
-        private float GetEarliestTimeFromVisObjSet(List<Visualization_Object> _objectSet)
-        {
-            // Set the start time to a very high number to start
-            float startTime = Mathf.Infinity;
-
-            // Loop through all of the objects and find which of them has the latest end time
-            foreach (Visualization_Object visObj in _objectSet)
-                startTime = Mathf.Min(startTime, visObj.GetEarliestTrackTime());
-
-            // Return the earliest time
-            return startTime;
-        }
-
-        private float GetLatestTimeFromVisObjSet(List<Visualization_Object> _objectSet)
-        {
-            // Set the end time to a very low number to start
-            float endTime = 0.0f;
-
-            // Loop through all of the objects and find which of them has the latest end time
-            foreach (Visualization_Object visObj in _objectSet)
-                endTime = Mathf.Max(endTime, visObj.GetLatestTrackTime());
 
             // Return the latest time
             return endTime;
