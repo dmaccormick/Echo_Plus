@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.Assertions;
 using Thesis.FileIO;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Thesis.Visualization
 {
@@ -39,13 +40,16 @@ namespace Thesis.Visualization
 
              
         //--- Private Variables ---//
-        private List<Visualization_Object> m_staticObjects; // TODO: Create object set class that allows for hiding / activating of the whole set
+        //private List<Visualization_Object> m_staticObjects; // TODO: Create object set class that allows for hiding / activating of the whole set
         private List<List<Visualization_Object>> m_dynamicObjects;
         private Playstate m_playstate;
         private float m_startTime = Mathf.Infinity;
         private float m_endTime = 0.0f;
         private float m_currentTime = 0.0f;
         private float m_playbackSpeed = 1.0f;
+
+
+        private Visualization_ObjectSet m_staticObjectSet;
 
 
 
@@ -119,6 +123,9 @@ namespace Thesis.Visualization
             m_playstate = Playstate.Paused;
             m_onPlaystateUpdated.Invoke(m_playstate);
 
+            // NEW: Determine the name of the visualization objects from the file path
+            string fileName = Path.GetFileNameWithoutExtension(_staticFilePath);
+
             // Read all of the data from the static file
             string staticData = FileIO_FileReader.ReadFile(_staticFilePath);
 
@@ -133,16 +140,26 @@ namespace Thesis.Visualization
             if (parsedStaticObjects == null)
                 return false;
 
-            // Generate actual objects from the list of parsed objects
-            m_staticObjects = Visualization_ObjGenerator.GenerateVisObjects(parsedStaticObjects, "Static Objects");
+            //// Generate actual objects from the list of parsed objects
+            //m_staticObjects = Visualization_ObjGenerator.GenerateVisObjects(parsedStaticObjects, "Static Objects (" + fileName + ")");
 
-            // Return false if the object generation failed
-            if (m_staticObjects == null)
-                return false;
+            //// Return false if the object generation failed
+            //if (m_staticObjects == null)
+            //    return false;
 
-            // Loop through all of the static objects and start their visualizations
-            foreach (Visualization_Object visObj in m_staticObjects)
-                visObj.StartVisualization(m_startTime);
+            // NEW: Clear any previously loaded static objects
+            if (m_staticObjectSet != null)
+                m_staticObjectSet.DestroyAllObjects();
+
+            // NEW: Generate the actual objects contained in the set from the list of parsed objects
+            m_staticObjectSet = Visualization_ObjGenerator.GenerateObjectSet(parsedStaticObjects, "Static Objects (" + fileName + ")");
+
+            // NEW: Tell the set to start the visualization
+            m_staticObjectSet.StartVisualization(m_startTime);
+
+            //// Loop through all of the static objects and start their visualizations
+            //foreach (Visualization_Object visObj in m_staticObjects)
+            //    visObj.StartVisualization(m_startTime);
 
             // Look for the new start and end times and then invoke the relevant event
             m_startTime = CalcNewStartTime();
@@ -285,8 +302,12 @@ namespace Thesis.Visualization
             float startTime = Mathf.Infinity;
 
             // If the static objects are setup, see which of them has the earliest start time
-            if (m_staticObjects != null)
-                startTime = Mathf.Min(startTime, GetEarliestTimeFromVisObjSet(m_staticObjects));
+            //if (m_staticObjects != null)
+            //    startTime = Mathf.Min(startTime, GetEarliestTimeFromVisObjSet(m_staticObjects));
+
+            // NEW: If the static objects are setup, see which of them has the earliest start time
+            if (m_staticObjectSet != null)
+                startTime = Mathf.Min(startTime, m_staticObjectSet.GetEarliestTimestamp());
 
             // Do the same for each of the dynamic object lists if they are setup
             if (m_dynamicObjects != null)
@@ -304,9 +325,13 @@ namespace Thesis.Visualization
             // Set the end time to a very low number to start
             float endTime = 0.0f;
 
-            // If the static objects are setup, see which of them has the latest end time
-            if (m_staticObjects != null)
-                endTime = Mathf.Max(endTime, GetLatestTimeFromVisObjSet(m_staticObjects));
+            //// If the static objects are setup, see which of them has the latest end time
+            //if (m_staticObjects != null)
+            //    endTime = Mathf.Max(endTime, GetLatestTimeFromVisObjSet(m_staticObjects));
+
+            // NEW: If the static objects are setup, see which of them has the latest start time
+            if (m_staticObjectSet != null)
+                endTime = Mathf.Max(endTime, m_staticObjectSet.GetLatestTimestamp());
 
             // Do the same for each of the dynamic object lists if they are setup
             if (m_dynamicObjects != null)
