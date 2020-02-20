@@ -29,14 +29,17 @@ namespace Thesis.Visualization
                 visObj.StartVisualization(_startTime);
         }
 
-        public void UpdateVisualization()
+        public void UpdateVisualization(float _currentTime)
         {
-            // Only update if visible
-        }
-
-        public void EndVisualization()
-        {
-
+            // Only update the visualization if actually currently visible
+            if (m_isVisible)
+            {
+                // Update all of the objects in the set
+                foreach (Visualization_Object visObj in m_objects)
+                {
+                    visObj.UpdateVisualization(_currentTime);
+                }
+            }
         }
 
         public void DestroyAllObjects()
@@ -51,7 +54,11 @@ namespace Thesis.Visualization
 
         public void ToggleAllObjectsActive(bool _isActive)
         {
+            // Update the internal state which controls whether or not the UpdateVisualization() function will trigger
+            m_isVisible = _isActive;
 
+            // Toggle the parent to show / hide the objects
+            this.gameObject.SetActive(_isActive);
         }
 
 
