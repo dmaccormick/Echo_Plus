@@ -1,14 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Thesis.External;
 
 namespace Thesis.Visualization
 {
     public class Visualization_ObjectSet : MonoBehaviour
     {
+        //--- Private Constants ---//
+        private const float c_OUTLINE_WIDTH = 10.0f;
+
+
+
         //--- Private Variables ---//
         private List<Visualization_Object> m_objects;
         private string m_objectSetName;
         private bool m_isVisible;
+        private bool m_hasOutline;
         private Color m_outlineColour;
 
 
@@ -19,7 +26,31 @@ namespace Thesis.Visualization
             this.m_objects = _objects;
             this.m_objectSetName = _name;
             this.m_isVisible = true;
-            this.m_outlineColour = Color.HSVToRGB(Random.value, 1.0f, 1.0f);
+            this.m_hasOutline = false;
+            this.m_outlineColour = Color.black;
+        }
+
+        public void EnableOutline(Color _outlineColor)
+        {
+            // If the outlines have already been enabled, back out
+            if (this.m_hasOutline)
+                return;
+
+            // Set the internal data
+            this.m_hasOutline = true;
+            this.m_outlineColour = _outlineColor;
+
+            // Add outlines to all of the child objects
+            foreach(Visualization_Object visObj in m_objects)
+            {
+                // Add the 'Quick Outline' script written by Chris Nolet to the child object
+                Outline outlineComp = visObj.gameObject.AddComponent<Outline>();
+
+                // Setup the component
+                outlineComp.OutlineMode = Outline.Mode.OutlineAll;
+                outlineComp.OutlineColor = this.m_outlineColour;
+                outlineComp.OutlineWidth = c_OUTLINE_WIDTH;
+            }
         }
 
         public void StartVisualization(float _startTime)

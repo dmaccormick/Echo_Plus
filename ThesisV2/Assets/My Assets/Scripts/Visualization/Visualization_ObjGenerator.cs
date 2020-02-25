@@ -103,10 +103,10 @@ namespace Thesis.Visualization
 
                     // Register the track with the visualization object
                     visObjComp.AddTrack(trackComp);
-
-                    // Add the object to the list
-                    generatedObjects.Add(visObjComp);
                 }
+
+                // Add the object to the list
+                generatedObjects.Add(visObjComp);
             }
 
             // Now that the objects are created, we should finalize the set manager so we can return it

@@ -198,6 +198,9 @@ namespace Thesis.Visualization
             // Start the visualization for the newly added dynamic object set
             newObjectSet.StartVisualization(m_startTime);
 
+            // Add an outline to the new object set
+            newObjectSet.EnableOutline(Color.HSVToRGB(Random.value, 1.0f, 1.0f));
+
             // Add the object set into the outer list for the dynamic object sets
             m_dynamicObjectSets.Add(newObjectSet);
 
