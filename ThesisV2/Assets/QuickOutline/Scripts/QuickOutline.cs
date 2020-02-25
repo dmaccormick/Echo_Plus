@@ -15,7 +15,7 @@ namespace Thesis.External // Addition to base code
 {
     [DisallowMultipleComponent]
     [ExecuteAlways] // Addition to base code
-    public class Outline : MonoBehaviour
+    public class QuickOutline : MonoBehaviour
     {
         private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
 

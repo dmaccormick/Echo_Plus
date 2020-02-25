@@ -44,10 +44,10 @@ namespace Thesis.Visualization
             foreach(Visualization_Object visObj in m_objects)
             {
                 // Add the 'Quick Outline' script written by Chris Nolet to the child object
-                Outline outlineComp = visObj.gameObject.AddComponent<Outline>();
+                QuickOutline outlineComp = visObj.gameObject.AddComponent<QuickOutline>();
 
                 // Setup the component
-                outlineComp.OutlineMode = Outline.Mode.OutlineAll;
+                outlineComp.OutlineMode = QuickOutline.Mode.OutlineAll;
                 outlineComp.OutlineColor = this.m_outlineColour;
                 outlineComp.OutlineWidth = c_OUTLINE_WIDTH;
             }
