@@ -17,6 +17,9 @@ namespace Thesis.UI
         public Slider m_sldOutlineHue;
         public Image m_imgOutlineColour;
 
+        [Header("Misc")]
+        public Text m_txtSetName;
+
 
 
         //--- Private Variables ---//
@@ -30,8 +33,19 @@ namespace Thesis.UI
             // Store a reference to the object set so we can update its values
             m_refObjectSet = _refObjectSet;
 
-            // TODO: Use the object set's current values to setup the UI
-            // ...
+            // Use the object set's current values to setup the UI
+            m_tglVisibility.isOn = _refObjectSet.GetIsVisible();
+            Color.RGBToHSV(_refObjectSet.GetOutlineColour(), out float Hue, out float S, out float V);
+            m_sldOutlineHue.value = Hue;
+            m_imgOutlineColour.color = Color.HSVToRGB(Hue, 1.0f, 1.0f);
+            m_txtSetName.text = _refObjectSet.GetSetName();
+
+            // If the set doesn't have an outline, we should remove the controls for it
+            if (!_refObjectSet.GetHasOutline())
+            {
+                m_sldOutlineHue.gameObject.SetActive(false);
+                m_imgOutlineColour.gameObject.SetActive(false);
+            }
         }
 
 

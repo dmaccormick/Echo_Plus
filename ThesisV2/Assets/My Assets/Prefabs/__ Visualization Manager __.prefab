@@ -5527,6 +5527,9 @@ MonoBehaviour:
   m_inDynamicLoadLoc: {fileID: 5622928333164559641}
   m_btnLoadDynamicFile: {fileID: 1526727120570386580}
   m_pnlObjectList: {fileID: 924440560}
+  m_objectListParent: {fileID: 7890161852048087164}
+  m_objectListElementPrefab: {fileID: 753988083784589516, guid: 6842df2c6879a554ab29ed83f0682c2c,
+    type: 3}
 --- !u!1 &7787435438791305801
 GameObject:
   m_ObjectHideFlags: 0

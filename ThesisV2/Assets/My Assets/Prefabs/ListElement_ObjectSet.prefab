@@ -210,6 +210,7 @@ MonoBehaviour:
     type: 3}
   m_sldOutlineHue: {fileID: 8062537409445899752}
   m_imgOutlineColour: {fileID: 6208882375622673511}
+  m_txtSetName: {fileID: 6952694285860681908}
 --- !u!1 &1442139363801141715
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +369,7 @@ GameObject:
   - component: {fileID: 9197767264573939}
   - component: {fileID: 6952694285860681908}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Txt_SetName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -426,7 +427,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 300
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0

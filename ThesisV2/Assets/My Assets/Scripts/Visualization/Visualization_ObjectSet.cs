@@ -120,6 +120,26 @@ namespace Thesis.Visualization
             // Return the latest time
             return endTime;
         }
+
+        public string GetSetName()
+        {
+            return m_objectSetName;
+        }
+
+        public bool GetHasOutline()
+        {
+            return m_hasOutline;
+        }
+
+        public Color GetOutlineColour()
+        {
+            return m_outlineColour;
+        }
+
+        public bool GetIsVisible()
+        {
+            return m_isVisible;
+        }
     }
 
 }
