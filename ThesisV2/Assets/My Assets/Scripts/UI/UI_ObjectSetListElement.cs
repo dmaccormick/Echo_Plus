@@ -58,6 +58,9 @@ namespace Thesis.UI
 
             // Assign the sprite to the icon
             m_imgVisibilityIcon.sprite = selectedSprite;
+
+            // Update the visibility of the actual set itself
+            m_refObjectSet.ToggleAllObjectsActive(_isVisible);
         }
 
 
