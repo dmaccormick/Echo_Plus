@@ -74,6 +74,7 @@
     <Compile Include="Assets\My Assets\Scripts\RecTrack\RecTrack_Scale.cs" />
     <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Manager.cs" />
     <Compile Include="Assets\My Assets\Scripts\Recording\Recording_Object.cs" />
+    <Compile Include="Assets\My Assets\Scripts\UI\UI_ObjectSetListElement.cs" />
     <Compile Include="Assets\My Assets\Scripts\UI\UI_RecordingManager.cs" />
     <Compile Include="Assets\My Assets\Scripts\UI\UI_VisualizationManager.cs" />
     <Compile Include="Assets\My Assets\Scripts\Utility\Utility_Functions.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Assets\My Assets\Scripts\Visualization\Visualization_ObjGenerator.cs" />
     <Compile Include="Assets\My Assets\Scripts\Visualization\Visualization_Object.cs" />
     <Compile Include="Assets\My Assets\Scripts\Visualization\Visualization_ObjectSet.cs" />
-    <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
+    <Compile Include="Assets\QuickOutline\Scripts\QuickOutline.cs" />
     <Compile Include="Assets\Test Assets\Scripts\Test_Mover.cs" />
     <Compile Include="Assets\Test Assets\Scripts\Test_ShrinkingProjectile.cs" />
     <Compile Include="Assets\Test Assets\Scripts\Test_Spawner.cs" />

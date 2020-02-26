@@ -44,12 +44,33 @@ namespace Thesis.Visualization
             foreach(Visualization_Object visObj in m_objects)
             {
                 // Add the 'Quick Outline' script written by Chris Nolet to the child object
-                Outline outlineComp = visObj.gameObject.AddComponent<Outline>();
+                QuickOutline outlineComp = visObj.gameObject.AddComponent<QuickOutline>();
 
                 // Setup the component
-                outlineComp.OutlineMode = Outline.Mode.OutlineAll;
+                outlineComp.OutlineMode = QuickOutline.Mode.OutlineAll;
                 outlineComp.OutlineColor = this.m_outlineColour;
                 outlineComp.OutlineWidth = c_OUTLINE_WIDTH;
+            }
+        }
+
+        public void UpdateOutlineColour(Color _outlineColor)
+        {
+            // If this object set doesn't have an outline, just back out
+            if (!this.m_hasOutline)
+                return;
+
+            // Update the internal outline colour
+            this.m_outlineColour = _outlineColor;
+
+            // Add outlines to all of the child objects
+            foreach (Visualization_Object visObj in m_objects)
+            {
+                // Get the 'Quick Outline' script written by Chris Nolet from the child object
+                QuickOutline outlineComp = visObj.gameObject.GetComponent<QuickOutline>();
+
+                // If there is an outline component, we should update the colour on it
+                if (outlineComp != null)
+                    outlineComp.OutlineColor = this.m_outlineColour;
             }
         }
 
@@ -119,6 +140,26 @@ namespace Thesis.Visualization
 
             // Return the latest time
             return endTime;
+        }
+
+        public string GetSetName()
+        {
+            return m_objectSetName;
+        }
+
+        public bool GetHasOutline()
+        {
+            return m_hasOutline;
+        }
+
+        public Color GetOutlineColour()
+        {
+            return m_outlineColour;
+        }
+
+        public bool GetIsVisible()
+        {
+            return m_isVisible;
         }
     }
 

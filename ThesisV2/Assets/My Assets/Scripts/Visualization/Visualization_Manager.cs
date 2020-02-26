@@ -286,6 +286,16 @@ namespace Thesis.Visualization
             return m_currentTime;
         }
 
+        public Visualization_ObjectSet GetStaticObjectSet()
+        {
+            return m_staticObjectSet;
+        }
+
+        public List<Visualization_ObjectSet> GetDynamicObjectSets()
+        {
+            return m_dynamicObjectSets;
+        }
+
 
 
         //--- Utility Functions ---//

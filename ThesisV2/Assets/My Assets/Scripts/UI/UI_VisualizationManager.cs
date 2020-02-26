@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEditor;
 using Thesis.Visualization;
+using System.Collections.Generic;
 
 namespace Thesis.UI
 {
@@ -45,6 +46,8 @@ namespace Thesis.UI
 
         [Header("Loaded Objects UI Elements")]
         public GameObject m_pnlObjectList;
+        public Transform m_objectListParent;
+        public GameObject m_objectListElementPrefab;
 
 
 
@@ -162,6 +165,9 @@ namespace Thesis.UI
                 m_pnlTimeLineControls.SetActive(true);
                 m_pnlSpeedControls.SetActive(true);
 
+                // Update the UI elements for the list of loaded object sets
+                CreateObjectListUI();
+
                 // Show a message that the file loaded correctly
                 EditorUtility.DisplayDialog("Static File Load Successful", "The static log file data loaded correctly!", "Continue");
             }
@@ -196,6 +202,9 @@ namespace Thesis.UI
                 m_pnlTimeLineControls.SetActive(true);
                 m_pnlSpeedControls.SetActive(true);
 
+                // Update the UI elements for the list of loaded object sets
+                CreateObjectListUI();
+
                 // Show a message that the file loaded correctly
                 EditorUtility.DisplayDialog("Dynamic File Load Successful", "The dynamic log file data loaded correctly!", "Continue");
             }
@@ -204,6 +213,50 @@ namespace Thesis.UI
                 // Show a message that the file failed to load correctly
                 EditorUtility.DisplayDialog("Dynamic File Load Failed", "The dynamic log file failed to load!", "Continue");
             }
+        }
+
+
+
+        //--- Object List Methods ---//
+        public void CreateObjectListUI()
+        {
+            // Clear the current list elements
+            ClearObjectListUI();
+
+            // Get the up to date static and dynamic file sets
+            Visualization_ObjectSet staticSet = m_visManager.GetStaticObjectSet();
+            List<Visualization_ObjectSet> dynamicSets = m_visManager.GetDynamicObjectSets();
+
+            // If there is a static set loaded, we should create a UI list element for it
+            if (staticSet != null)
+                CreateObjectListElement(staticSet);
+
+            // If there are dynamic sets loaded, we should create UI list elements for all of them
+            if (dynamicSets != null)
+            {
+                foreach (Visualization_ObjectSet objSet in dynamicSets)
+                    CreateObjectListElement(objSet);
+            }
+        }
+
+        public void ClearObjectListUI()
+        {
+            // Delete all of the object list elements currently in the UI
+            for (int i = 0; i < m_objectListParent.childCount; i++)
+            {
+                var child = m_objectListParent.GetChild(i);
+                Destroy(child.gameObject);
+            }
+        }
+
+        public void CreateObjectListElement(Visualization_ObjectSet _targetSet)
+        {
+            // Instantiate a new list element under the list parent
+            GameObject listElement = Instantiate(m_objectListElementPrefab, m_objectListParent);
+
+            // Grab the list element component and set it up
+            UI_ObjectSetListElement uiComp = listElement.GetComponent<UI_ObjectSetListElement>();
+            uiComp.InitWithObjectSet(_targetSet);
         }
 
 
