@@ -73,6 +73,9 @@ namespace Thesis.UI
 
             // Apply the color to the indicator image
             m_imgOutlineColour.color = newColor;
+
+            // Update the outline colour of the actual set itself
+            m_refObjectSet.UpdateOutlineColour(newColor);
         }
     }
 

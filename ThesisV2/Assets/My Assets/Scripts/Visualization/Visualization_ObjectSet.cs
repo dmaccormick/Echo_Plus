@@ -53,6 +53,27 @@ namespace Thesis.Visualization
             }
         }
 
+        public void UpdateOutlineColour(Color _outlineColor)
+        {
+            // If this object set doesn't have an outline, just back out
+            if (!this.m_hasOutline)
+                return;
+
+            // Update the internal outline colour
+            this.m_outlineColour = _outlineColor;
+
+            // Add outlines to all of the child objects
+            foreach (Visualization_Object visObj in m_objects)
+            {
+                // Get the 'Quick Outline' script written by Chris Nolet from the child object
+                QuickOutline outlineComp = visObj.gameObject.GetComponent<QuickOutline>();
+
+                // If there is an outline component, we should update the colour on it
+                if (outlineComp != null)
+                    outlineComp.OutlineColor = this.m_outlineColour;
+            }
+        }
+
         public void StartVisualization(float _startTime)
         {
             // Loop through all of the objects and start their visualizations
