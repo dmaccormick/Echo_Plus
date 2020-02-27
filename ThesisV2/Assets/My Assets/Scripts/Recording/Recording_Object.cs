@@ -40,13 +40,9 @@ namespace Thesis.Recording
 
         private void OnDestroy()
         {
-            // If there is no recording manager, display a warning message and deactivate this component
+            // If there is no recording manager, there isn't a need to unregister
             if (m_recManager == null)
-            {
-                Debug.LogWarning("Warning: Cannot find a recording manager!");
-                this.enabled = false;
                 return;
-            }
 
             // Message the recording manager and tell it that this object no longer exists
             UnregisterObject();
