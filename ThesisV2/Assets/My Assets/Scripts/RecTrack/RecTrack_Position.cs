@@ -108,6 +108,12 @@ namespace Thesis.RecTrack
         {
             return "Position";
         }
+
+        public void SetupDefault()
+        {
+            // Setup this recording track by grabbing default values
+            m_target = this.gameObject.transform;
+        }
     }
 
 }
