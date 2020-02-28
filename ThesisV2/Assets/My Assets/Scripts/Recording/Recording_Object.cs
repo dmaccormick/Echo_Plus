@@ -26,12 +26,24 @@ namespace Thesis.Recording
             // Find the recording manager
             m_recManager = GameObject.FindObjectOfType<Recording_Manager>();
 
+            // If there is no recording manager, display a warning message and deactivate this component
+            if (m_recManager == null)
+            {
+                Debug.LogWarning("Warning: Cannot find a recording manager!");
+                this.enabled = false;
+                return; 
+            }
+
             // Message the recording manager and tell it that this object now exists
             RegisterObject();
         }
 
         private void OnDestroy()
         {
+            // If there is no recording manager, there isn't a need to unregister
+            if (m_recManager == null)
+                return;
+
             // Message the recording manager and tell it that this object no longer exists
             UnregisterObject();
         }
@@ -110,6 +122,78 @@ namespace Thesis.Recording
 
             // Return the compiled data
             return builder.ToString();
+        }
+
+
+
+        //--- Default Setup Methods ---//
+        public void SetupDefaultStatic()
+        {
+            // Set this object to be static
+            this.m_isStatic = true;
+
+            // Remove any tracks currently on this object
+            Component[] allComps = this.gameObject.GetComponents<Component>();
+            foreach(Component comp in allComps)
+            {
+                // If the component is a recording track, it should be removed
+                if (comp as IRecordable != null)
+                {
+                    DestroyImmediate(comp);
+                }
+            }
+
+            // Re-init the list
+            m_trackComponents = new List<MonoBehaviour>();
+
+            // Add the tracks that are most commonly used for a static renderable object
+            this.m_trackComponents.Add(this.gameObject.AddComponent<RecTrack.RecTrack_Position>());
+            this.m_trackComponents.Add(this.gameObject.AddComponent<RecTrack.RecTrack_Rotation>());
+            this.m_trackComponents.Add(this.gameObject.AddComponent<RecTrack.RecTrack_Scale>());
+            this.m_trackComponents.Add(this.gameObject.AddComponent<RecTrack.RecTrack_Renderables>());
+
+            // Loop through all of the tracks and trigger their default setup
+            foreach(MonoBehaviour trackComp in m_trackComponents)
+            {
+                // Convert the track component to the interface type and then tell it to get setup
+                IRecordable trackInterface = trackComp as IRecordable;
+                trackInterface.SetupDefault();
+            }
+        }
+
+        public void SetupDefaultDynamic()
+        {
+            // Set this object to be dynamic
+            this.m_isStatic = false;
+
+            // Remove any tracks currently on this object
+            Component[] allComps = this.gameObject.GetComponents<Component>();
+            foreach (Component comp in allComps)
+            {
+                // If the component is a recording track, it should be removed
+                if (comp as IRecordable != null)
+                {
+                    DestroyImmediate(comp);
+                }
+            }
+
+            // Re-init the list
+            m_trackComponents = new List<MonoBehaviour>();
+
+            // Add the tracks that are most commonly used for a static renderable object
+            this.m_trackComponents.Add(this.gameObject.AddComponent<RecTrack.RecTrack_Position>());
+            this.m_trackComponents.Add(this.gameObject.AddComponent<RecTrack.RecTrack_Rotation>());
+            this.m_trackComponents.Add(this.gameObject.AddComponent<RecTrack.RecTrack_Scale>());
+            this.m_trackComponents.Add(this.gameObject.AddComponent<RecTrack.RecTrack_Renderables>());
+            this.m_trackComponents.Add(this.gameObject.AddComponent<RecTrack.RecTrack_Lifetime>());
+
+            // Loop through all of the tracks and trigger their default setup
+            foreach (MonoBehaviour trackComp in m_trackComponents)
+            {
+                // Convert the track component to the interface type and then tell it to get setup
+                IRecordable trackInterface = trackComp as IRecordable;
+                trackInterface.SetupDefault();
+            }
         }
 
 

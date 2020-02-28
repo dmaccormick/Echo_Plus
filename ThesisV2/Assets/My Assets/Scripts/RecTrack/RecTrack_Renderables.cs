@@ -125,5 +125,16 @@ namespace Thesis.RecTrack
         {
             return "Renderables";
         }
+
+        public void SetupDefault()
+        {
+            // Setup this recording track by grabbing default values from this object
+            m_targetFilter = GetComponent<MeshFilter>();
+            m_targetRenderer = GetComponent<MeshRenderer>();
+
+            // If either one failed, try to grab from the children instead
+            m_targetFilter = (m_targetFilter == null) ? GetComponentInChildren<MeshFilter>() : m_targetFilter;
+            m_targetRenderer = (m_targetRenderer == null) ? GetComponentInChildren<MeshRenderer>() : m_targetRenderer;
+        }
     }
 }

@@ -150,5 +150,10 @@ namespace Thesis.RecTrack
         {
             return "Lifetime";
         }
+
+        public void SetupDefault()
+        {
+            // There is nothing really to setup for the lifetime
+        }
     }
 }

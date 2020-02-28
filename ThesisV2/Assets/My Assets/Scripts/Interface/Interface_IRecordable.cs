@@ -46,5 +46,9 @@
         /// Returns a string which is the name of the track
         /// </returns>
         string GetTrackName();
+
+
+
+        void SetupDefault();
     }
 }
