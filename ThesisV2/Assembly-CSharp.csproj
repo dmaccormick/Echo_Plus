@@ -96,6 +96,7 @@
     <None Include="Assets\Thesis\QuickOutline\Resources\Shaders\OutlineMask.shader" />
     <None Include="Assets\Thesis\QuickOutline\Readme.txt" />
     <None Include="Assets\Thesis\QuickOutline\Resources\Shaders\OutlineFill.shader" />
+    <None Include="Assets\Thesis\My Assets\Shaders\BlurUI.shader" />
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>C:/Repos/Thesis/ThesisV2/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>
