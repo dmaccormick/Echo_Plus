@@ -148,13 +148,15 @@ namespace Thesis.Visualization
             if (m_staticObjectSet == null)
                 return false;
 
-            // Tell the set to start the visualization
-            m_staticObjectSet.StartVisualization(m_startTime);
-
-            // Look for the new start and end times and then invoke the relevant event
+            // Look for the new start and end times
             m_startTime = CalcNewStartTime();
             m_endTime = CalcNewEndTime();
             m_currentTime = m_startTime;
+
+            // Tell the set to start the visualization
+            m_staticObjectSet.StartVisualization(m_startTime);
+
+            // Trigger the update event since the times have been changed and everything is setup
             m_onTimeUpdated.Invoke(m_currentTime);
 
             // Return true if everything parsed correctly
@@ -195,19 +197,21 @@ namespace Thesis.Visualization
             if (newObjectSet == null)
                 return false;
 
+            // Add the object set into the outer list for the dynamic object sets
+            m_dynamicObjectSets.Add(newObjectSet);
+
+            // Look for the new start and end times
+            m_startTime = CalcNewStartTime();
+            m_endTime = CalcNewEndTime();
+            m_currentTime = m_startTime;
+
             // Start the visualization for the newly added dynamic object set
             newObjectSet.StartVisualization(m_startTime);
 
             // Add an outline to the new object set
             newObjectSet.EnableOutline(Color.HSVToRGB(Random.value, 1.0f, 1.0f));
 
-            // Add the object set into the outer list for the dynamic object sets
-            m_dynamicObjectSets.Add(newObjectSet);
-
-            // Look for the new start and end times and then invoke the relevant event
-            m_startTime = CalcNewStartTime();
-            m_endTime = CalcNewEndTime();
-            m_currentTime = m_startTime;
+            // Trigger the update event since the times have been changed and everything is setup
             m_onTimeUpdated.Invoke(m_currentTime);
 
             // Return true if everything parsed correctly
