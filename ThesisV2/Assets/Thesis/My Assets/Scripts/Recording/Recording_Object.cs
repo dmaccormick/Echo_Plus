@@ -16,6 +16,7 @@ namespace Thesis.Recording
         //--- Private Variables ---//
         private Recording_Manager m_recManager;
         private List<IRecordable> m_trackInterfaces;
+        private string m_gameObjectName;
         private string m_uniqueID;
 
 
@@ -55,6 +56,9 @@ namespace Thesis.Recording
         {
             // Contact the recording manager and tell it this object now exists
             m_recManager.RegisterObject(this);
+
+            // Grab the current name of the attached gameobject now that it is registered
+            m_gameObjectName = this.gameObject.name;
         }
 
         public void UnregisterObject()
@@ -102,7 +106,7 @@ namespace Thesis.Recording
             StringBuilder builder = new StringBuilder();
 
             // Add object header information
-            builder.AppendLine("OBJ_START~" + this.gameObject.name + this.m_uniqueID);
+            builder.AppendLine("OBJ_START~" + this.m_gameObjectName + this.m_uniqueID);
 
             // Add all of the string data from the tracks together into one set of data
             foreach (IRecordable track in m_trackInterfaces)
@@ -118,7 +122,7 @@ namespace Thesis.Recording
             }
 
             // Add object footer information
-            builder.AppendLine("OBJ_END~" + this.gameObject.name + this.m_uniqueID);
+            builder.AppendLine("OBJ_END~" + this.m_gameObjectName + this.m_uniqueID);
 
             // Return the compiled data
             return builder.ToString();
