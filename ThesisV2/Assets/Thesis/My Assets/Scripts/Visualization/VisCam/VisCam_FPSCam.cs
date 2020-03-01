@@ -75,12 +75,6 @@ namespace Thesis.Visualization.VisCam
             Vector3 transformedMovement = m_cam.transform.TransformDirection(movementVec);
             m_cam.transform.position += transformedMovement;
 
-            //// Also, move the orbit camera's pivot point the same amount, to prevent issues when switching back to orbit cam
-            //m_orbitCamPivot.transform.position += transformedMovement;
-
-            // TODO: Try switching it so that the pivot point is actually a child of the CAMERA instead
-            // That way, it stays in the same place relative to the camera and switches back afterwards
-
             // The user can rotate the camera by holding down left click
             if (Input.GetMouseButton(0))
             {
@@ -95,7 +89,7 @@ namespace Thesis.Visualization.VisCam
 
                 // Perform the rotations
                 m_cam.transform.Rotate(Vector3.up, yawMovement, Space.Self);
-                //m_cam.transform.Rotate(Vector3.right, pitchMovement, Space.Self);
+                m_cam.transform.Rotate(Vector3.right, pitchMovement, Space.Self);
             }
         }
     }
