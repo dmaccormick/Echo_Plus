@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &364667003 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 18774547, guid: 8866668d7c6e8a54f9dd207f53e949ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 126580873298820597}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &613285627
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +413,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: __ Visualization Manager __
       objectReference: {fileID: 0}
+    - target: {fileID: 5587051410707545784, guid: 8866668d7c6e8a54f9dd207f53e949ff,
+        type: 3}
+      propertyPath: m_orbitCamPivot
+      value: 
+      objectReference: {fileID: 364667003}
     - target: {fileID: 6575407065335416021, guid: 8866668d7c6e8a54f9dd207f53e949ff,
         type: 3}
       propertyPath: m_LocalPosition.x

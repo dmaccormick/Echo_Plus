@@ -63,6 +63,10 @@ namespace Thesis.Visualization.VisCam
         //--- Methods ---//
         public VisCam_CamName CycleActiveCamera()
         {
+            // If the current cam is the FPS cam, we should release the pivot
+            if (m_activeCam == VisCam_CamName.Fps)
+                m_fpsCam.ReleasePivot();
+
             // Switch to the next camera in the list
             int currentCamIndex = (int)m_activeCam;
             currentCamIndex++;
@@ -73,6 +77,10 @@ namespace Thesis.Visualization.VisCam
 
             // Update the active camera
             m_activeCam = (VisCam_CamName)currentCamIndex;
+
+            // If the new cam is the FPS cam, we should grab the orbit cam's pivot and switch their relationship
+            if (m_activeCam == VisCam_CamName.Fps)
+                m_fpsCam.GrabPivot();
 
             // Return the newly selected active camera type
             return m_activeCam;

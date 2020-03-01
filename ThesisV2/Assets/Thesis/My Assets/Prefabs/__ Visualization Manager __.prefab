@@ -154,9 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_cam: {fileID: 407935025}
+  m_orbitCamPivotPoint: {fileID: 18774547}
   m_movementSpeed: 10
   m_sprintMultiplier: 2
-  m_rotationSpeed: 60
+  m_rotationSpeed: 10
 --- !u!1 &272982628
 GameObject:
   m_ObjectHideFlags: 0
