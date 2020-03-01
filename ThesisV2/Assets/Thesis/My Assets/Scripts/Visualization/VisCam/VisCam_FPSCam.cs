@@ -88,8 +88,10 @@ namespace Thesis.Visualization.VisCam
                 float pitchMovement = -mouseY * m_rotationSpeed;
 
                 // Perform the rotations
-                m_cam.transform.Rotate(Vector3.up, yawMovement, Space.Self);
-                m_cam.transform.Rotate(Vector3.right, pitchMovement, Space.Self);
+                Vector3 eulerRotations = new Vector3(pitchMovement, yawMovement, 0.0f);
+                Vector3 currentEuler = m_cam.transform.localRotation.eulerAngles;
+                Vector3 newRot = eulerRotations + currentEuler;
+                m_cam.transform.rotation = Quaternion.Euler(newRot);
             }
         }
     }
