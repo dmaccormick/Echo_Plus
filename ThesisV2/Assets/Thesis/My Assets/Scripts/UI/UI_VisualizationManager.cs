@@ -77,6 +77,9 @@ namespace Thesis.UI
 
             // Hide the object list menu
             m_pnlObjectList.gameObject.SetActive(false);
+
+            // Toggle the camera controls depending on if the menu is open or not
+            m_camControls.SetMenuOpen(m_pnlSettings.gameObject.activeInHierarchy);
         }
 
         public void OnToggleObjectList()
@@ -87,6 +90,9 @@ namespace Thesis.UI
 
             // Hide the settings menu
             m_pnlSettings.gameObject.SetActive(false);
+
+            // Toggle the camera controls depending on if the menu is open or not
+            m_camControls.SetMenuOpen(m_pnlObjectList.gameObject.activeInHierarchy);
         }
         
         public void OnToggleCameraControls()

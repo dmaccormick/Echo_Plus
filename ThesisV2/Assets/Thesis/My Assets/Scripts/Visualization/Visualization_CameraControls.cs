@@ -27,6 +27,7 @@ public class Visualization_CameraControls : MonoBehaviour
     //--- Private Variables ---//
     private Transform m_focusTarget;
     private bool m_controlsActive;
+    private bool m_menuOpen;
     private bool m_followFocusTarget;
 
 
@@ -38,6 +39,7 @@ public class Visualization_CameraControls : MonoBehaviour
         m_focusTarget = null;
         m_controlsActive = true;
         m_followFocusTarget = false;
+        m_menuOpen = false;
     }
 
     private void Update()
@@ -47,8 +49,8 @@ public class Visualization_CameraControls : MonoBehaviour
         if (m_focusTarget != null && m_followFocusTarget)
             m_pivotPoint.position = m_focusTarget.position;
 
-        // Only control the camera if actually able to do so
-        if (m_controlsActive)
+        // Only control the camera if actually able to do so. Can't move the camera if another menu is open
+        if (m_controlsActive && !m_menuOpen)
         {
             // Get the mouse x, y, and scroll wheel
             float mouseX = Input.GetAxis("Mouse X");
@@ -196,5 +198,14 @@ public class Visualization_CameraControls : MonoBehaviour
     {
         // Toggle whether or not the controls are actually active
         m_controlsActive = !m_controlsActive;
+    }
+
+
+
+    //--- Setters ---//
+    public void SetMenuOpen(bool _menuOpen)
+    {
+        // Set whether or not another menu is open. If so, we shouldn't control the camera, even if the controls are active
+        m_menuOpen = _menuOpen;
     }
 }
