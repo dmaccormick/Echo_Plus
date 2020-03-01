@@ -26,7 +26,7 @@ namespace Thesis.Visualization.VisCam
 
 
         //--- Unity Methods ---//
-        private void Start()
+        private void Awake()
         {
             // Init the private variables
             m_activeCam = VisCam_CamName.Orbit;
@@ -40,8 +40,8 @@ namespace Thesis.Visualization.VisCam
             // Only control the camera if actually able to do so. Can't move the camera if another menu is open
             if (m_activeCam != VisCam_CamName.None && !m_menuOpen)
             {
-                // Determine the current height of the camera
-                float camHeight = m_cam.transform.position.y;
+                // Determine the current height of the camera. Use absolute value so it considers being below the level as well
+                float camHeight = Mathf.Abs(m_cam.transform.position.y);
 
                 // Calculate the speed multiplier depending on the height of the camera
                 // Under the interval, the camera moves at the base speed
