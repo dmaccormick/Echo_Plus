@@ -5,8 +5,11 @@ namespace Thesis.Visualization.VisCam
     public class VisCam_OrbitCam : MonoBehaviour
     {
         //--- Public Variables ---//
-        [Header("Pan Controls")]
+        [Header("Generic Controls")]
         public Camera m_cam;
+        public float m_sprintMultiplier;
+
+        [Header("Pan Controls")]
         public float m_panningSpeed;
         public bool m_invertPan;
 
@@ -109,9 +112,13 @@ namespace Thesis.Visualization.VisCam
 
         public void Pan(float _mouseX, float _mouseY, float _speedMultiplier)
         {
+            // If "sprinting", need to include that as well
+            float finalSpeed = m_panningSpeed * _speedMultiplier;
+            finalSpeed = (Input.GetKey(KeyCode.LeftShift)) ? finalSpeed * m_sprintMultiplier : finalSpeed;
+
             // Create a movement vector for the up/down, left/right movement
-            float moveX = _mouseX * Time.deltaTime * m_panningSpeed * _speedMultiplier;
-            float moveY = _mouseY * Time.deltaTime * m_panningSpeed * _speedMultiplier;
+            float moveX = _mouseX * Time.deltaTime * finalSpeed;
+            float moveY = _mouseY * Time.deltaTime * finalSpeed;
             Vector3 movementDir = new Vector3(moveX, moveY, 0.0f);
 
             // Invert if need be
@@ -126,9 +133,13 @@ namespace Thesis.Visualization.VisCam
 
         public void RotateOrbit(float _mouseX, float _mouseY)
         {
+            // If "sprinting", need to include that as well
+            float finalSpeed = m_rotationSpeed;
+            finalSpeed = (Input.GetKey(KeyCode.LeftShift)) ? finalSpeed * m_sprintMultiplier : finalSpeed;
+
             // Determine the amounts of pitch and yaw
-            float pitch = _mouseY * m_rotationSpeed * Time.deltaTime;
-            float yaw = _mouseX * m_rotationSpeed * Time.deltaTime;
+            float pitch = _mouseY * finalSpeed * Time.deltaTime;
+            float yaw = _mouseX * finalSpeed * Time.deltaTime;
 
             // Invert if need be
             pitch = (m_invertPitch) ? pitch * -1.0f : pitch;
@@ -142,11 +153,15 @@ namespace Thesis.Visualization.VisCam
 
         public void Zoom(float _mouseWheel, float _speedMultiplier)
         {
+            // If "sprinting", need to include that as well
+            float finalSpeed = m_zoomSpeed * _speedMultiplier;
+            finalSpeed = (Input.GetKey(KeyCode.LeftShift)) ? finalSpeed * m_sprintMultiplier : finalSpeed;
+
             // Get the camera's forward vec since that is where it will move along
             Vector3 camForward = m_cam.transform.forward;
 
             // Multiply the forward vector by the zoom amount to determine where to move to
-            Vector3 zoomVec = camForward * m_zoomSpeed * _mouseWheel * Time.deltaTime * _speedMultiplier;
+            Vector3 zoomVec = camForward * _mouseWheel * Time.deltaTime * finalSpeed;
 
             // Apply the movement to the camera
             m_cam.transform.position += zoomVec;
