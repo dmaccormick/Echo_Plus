@@ -91,6 +91,12 @@ namespace Thesis.Visualization.VisCam
                 Vector3 eulerRotations = new Vector3(pitchMovement, yawMovement, 0.0f);
                 Vector3 currentEuler = m_cam.transform.localRotation.eulerAngles;
                 Vector3 newRot = eulerRotations + currentEuler;
+
+                // Clamp the pitch to [-89, 89] to prevent flipping
+                // Code adapted from here: https://answers.unity.com/questions/1382504/mathfclamp-negative-rotation-for-the-10th-million.html
+                newRot = new Vector3(Mathf.Clamp((newRot.x <= 180) ? newRot.x : -(360 - newRot.x), -89.0f, 89.0f), newRot.y, newRot.z);
+
+                // Apply the rotation
                 m_cam.transform.rotation = Quaternion.Euler(newRot);
             }
         }
