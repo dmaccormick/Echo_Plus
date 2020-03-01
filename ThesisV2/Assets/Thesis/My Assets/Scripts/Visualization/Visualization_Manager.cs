@@ -36,6 +36,7 @@ namespace Thesis.Visualization
         //--- Public Variables ---//
         public UnityEvent<float> m_onTimeUpdated;
         public UnityEvent<Playstate> m_onPlaystateUpdated;
+        public List<Color> m_outlineColours;
 
 
 
@@ -208,8 +209,11 @@ namespace Thesis.Visualization
             // Start the visualization for the newly added dynamic object set
             newObjectSet.StartVisualization(m_startTime);
 
-            // Add an outline to the new object set
-            newObjectSet.EnableOutline(Color.HSVToRGB(Random.value, 1.0f, 1.0f));
+            // Add an outline to the new object set. Use the next one in the list and then wrap if need be
+            // Have to -1 so we start at 0
+            int nextColourIndex = (m_dynamicObjectSets.Count - 1) % m_outlineColours.Count;
+            Color nextColour = m_outlineColours[nextColourIndex];
+            newObjectSet.EnableOutline(nextColour);
 
             // Trigger the update event since the times have been changed and everything is setup
             m_onTimeUpdated.Invoke(m_currentTime);

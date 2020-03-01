@@ -2919,6 +2919,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4f8d47323a56a429b0d815f31fdaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_outlineColours:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0.1333332, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.018348932, a: 1}
+  - {r: 1, g: 0.9275651, b: 0, a: 1}
+  - {r: 0, g: 0.90239906, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0.8229513, a: 1}
+  - {r: 1, g: 0.5589782, b: 0, a: 1}
+  - {r: 0.53834724, g: 0, b: 1, a: 1}
 --- !u!1 &1034843826409365526
 GameObject:
   m_ObjectHideFlags: 0
