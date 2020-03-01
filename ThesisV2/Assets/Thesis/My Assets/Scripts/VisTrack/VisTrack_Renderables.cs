@@ -10,7 +10,7 @@ namespace Thesis.VisTrack
 {
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
-    [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(MeshCollider))]
     public class VisTrack_Renderables : MonoBehaviour, IVisualizable
     {
         //--- Data Struct ---//
@@ -100,14 +100,10 @@ namespace Thesis.VisTrack
             // Apply the initial visualization
             UpdateVisualization(_startTime);
 
-            // We need to set the box collider so it matches the bounds of the mesh
-            // The box collider is needed for the physics raycasting used in the mouse picking for camera focus
-            // We also need to account for any scale currently applied the object
-            Vector3 meshExtents = m_targetFilter.sharedMesh.bounds.extents;
-            meshExtents.x *= this.transform.localScale.x;
-            meshExtents.y *= this.transform.localScale.y;
-            meshExtents.z *= this.transform.localScale.z;
-            this.GetComponent<BoxCollider>().size = meshExtents;
+            // Setup the mesh collider so it is ready for mouse picking and uses the correct mesh
+            MeshCollider meshCollider = this.GetComponent<MeshCollider>();
+            meshCollider.sharedMesh = m_targetFilter.sharedMesh;
+            meshCollider.convex = true;
 
             // We need to set the object to be on the focus picking layer so that we can focus it with the camera controls
             // NOTE: This feature REQUIRES that this layer is added and is exactly this
