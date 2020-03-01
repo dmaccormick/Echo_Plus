@@ -60,6 +60,26 @@ namespace Thesis.Visualization.VisCam
 
 
 
+        //--- Methods ---//
+        public VisCam_CamName CycleActiveCamera()
+        {
+            // Switch to the next camera in the list
+            int currentCamIndex = (int)m_activeCam;
+            currentCamIndex++;
+
+            // Wrap the cam index if need
+            if (currentCamIndex > (int)VisCam_CamName.None)
+                currentCamIndex = 0;
+
+            // Update the active camera
+            m_activeCam = (VisCam_CamName)currentCamIndex;
+
+            // Return the newly selected active camera type
+            return m_activeCam;
+        }
+
+
+
         //--- Setters ---//
         public void SetActiveCamera(VisCam_CamName _activeCam)
         {
@@ -69,6 +89,14 @@ namespace Thesis.Visualization.VisCam
         public void SetMenuOpen(bool _menuOpen)
         {
             this.m_menuOpen = _menuOpen;
+        }
+
+
+
+        //--- Getters ---//
+        public VisCam_CamName GetActiveCamera()
+        {
+            return m_activeCam;
         }
     }
 
