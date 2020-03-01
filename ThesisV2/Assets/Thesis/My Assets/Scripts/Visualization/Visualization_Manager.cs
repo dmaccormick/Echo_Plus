@@ -259,6 +259,10 @@ namespace Thesis.Visualization
         //--- Setters ---//
         public void SetCurrentTime(float _time)
         {
+            // Avoid checking if the start and end time are invalid
+            if (m_startTime == Mathf.Infinity && m_endTime == 0.0f)
+                return;
+
             // Ensure the given time is in the range of the start and end values
             Assert.IsTrue(_time <= m_endTime, "The new time cannot be larger than the end time");
             Assert.IsTrue(_time >= m_startTime, "The new time cannot be smaller than the start time");

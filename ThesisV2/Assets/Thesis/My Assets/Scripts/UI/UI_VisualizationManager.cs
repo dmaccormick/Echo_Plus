@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEditor;
 using Thesis.Visualization;
+using Thesis.Visualization.VisCam;
 using System.Collections.Generic;
 
 namespace Thesis.UI
@@ -11,13 +12,14 @@ namespace Thesis.UI
         //--- Public Variables ---//
         [Header("Controls")]
         public Visualization_Manager m_visManager;
-        public Visualization_CameraControls m_camControls;
+        public VisCam_CameraControls m_camControls;
 
         [Header("Toolbar Top Left Elements")]
         public Button m_btnOpenSettings;
         public Button m_btnOpenObjectList;
         public Button m_btnToggleCamControls;
-        public Image m_imgCamControlIndicator;
+        public Image m_imgCamIcon;
+        public Sprite[] m_sprCamIcons;
 
         [Header("Toolbar Timeline Elements")]
         public GameObject m_pnlTimeLineControls;
@@ -97,12 +99,12 @@ namespace Thesis.UI
         
         public void OnToggleCameraControls()
         {
-            // Toggle the indicator for if the camera controls are active
-            bool isCamIndicatorActive = m_imgCamControlIndicator.gameObject.activeSelf;
-            m_imgCamControlIndicator.gameObject.SetActive(!isCamIndicatorActive);
+            // Cycle the active camera in the camera controls and get the newly selected one
+            VisCam_CamName activeCamType = m_camControls.CycleActiveCamera();
 
-            // Toggle the actual camera control scripts
-            m_camControls.ToggleControls();
+            // Show the correct icon in the toolbar
+            int camIconIndex = (int)activeCamType;
+            m_imgCamIcon.sprite = m_sprCamIcons[camIconIndex];
         }
 
 
