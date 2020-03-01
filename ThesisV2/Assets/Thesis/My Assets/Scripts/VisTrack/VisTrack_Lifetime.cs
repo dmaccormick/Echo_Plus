@@ -112,8 +112,8 @@ namespace Thesis.VisTrack
         public int FindDataPointForTime(float _time)
         {
             // Ensure the datapoints are actually setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point");
-            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty");
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point on object [" + this.gameObject.name + "]");
+            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty on object [" + this.gameObject.name + "]");
 
             // For the lifetime track, we can actually go BEFORE the object should exist so return -1 if that is the case
             if (_time < m_dataPoints[0].m_timestamp)
@@ -146,8 +146,8 @@ namespace Thesis.VisTrack
         public float GetFirstTimestamp()
         {
             // Ensure the datapoints are actually setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point");
-            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty");
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point on object [" + this.gameObject.name + "]");
+            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty on object [" + this.gameObject.name + "]");
 
             // Return the timestamp for the first data point
             return m_dataPoints[0].m_timestamp;
@@ -156,8 +156,8 @@ namespace Thesis.VisTrack
         public float GetLastTimestamp()
         {
             // Ensure the datapoints are actually setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point");
-            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty");
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints has to be setup for before looking for a data point on object [" + this.gameObject.name + "]");
+            Assert.IsTrue(m_dataPoints.Count >= 1, "m_dataPoints cannot be empty on object [" + this.gameObject.name + "]");
 
             // Return the timestamp for the last data point
             return m_dataPoints[m_dataPoints.Count - 1].m_timestamp;

@@ -58,8 +58,8 @@ namespace Thesis.RecTrack
         public void StartRecording(float _startTime)
         {
             // Ensure the targets are not null
-            Assert.IsNotNull(m_targetFilter, "m_targetFilter needs to be set for the track");
-            Assert.IsNotNull(m_targetRenderer, "m_targetRenderer needs to be set for the track");
+            Assert.IsNotNull(m_targetFilter, "m_targetFilter needs to be set for the track on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_targetRenderer, "m_targetRenderer needs to be set for the track on object [" + this.gameObject.name + "]");
 
             // Init the private variables 
             // NOTE: Use the shared mesh and material to prevent a duplicate from being created and removing the mesh path references
@@ -99,7 +99,7 @@ namespace Thesis.RecTrack
         public void RecordData(float _currentTime)
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData()");
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
 
             // Add a new data point to the list
             m_dataPoints.Add(new Data_Renderables(_currentTime, m_currentMesh, m_currentMaterial, m_currentColour));
@@ -108,7 +108,7 @@ namespace Thesis.RecTrack
         public string GetData()
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling GetData()");
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling GetData() on object [" + this.gameObject.name + "]");
 
             // Use a string builder to compile the data string efficiently
             StringBuilder stringBuilder = new StringBuilder();

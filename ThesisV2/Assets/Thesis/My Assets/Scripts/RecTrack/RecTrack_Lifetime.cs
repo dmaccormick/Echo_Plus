@@ -124,7 +124,7 @@ namespace Thesis.RecTrack
         public void RecordData(float _currentTime)
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData()");
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
 
             // Add a new data point to the list
             m_dataPoints.Add(new Data_Lifetime(_currentTime, m_isActive));
@@ -133,7 +133,7 @@ namespace Thesis.RecTrack
         public string GetData()
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling GetData()");
+            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling GetData() on object [" + this.gameObject.name + "]");
 
             // Use a string builder to compile the data string efficiently
             StringBuilder stringBuilder = new StringBuilder();

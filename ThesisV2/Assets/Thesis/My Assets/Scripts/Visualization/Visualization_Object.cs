@@ -22,7 +22,7 @@ namespace Thesis.Visualization
         public void AddTrack(IVisualizable _newTrack)
         {
             // Ensure the track list is setup first
-            Assert.IsNotNull(m_tracks, "m_tracks has to be setup before adding a new track");
+            Assert.IsNotNull(m_tracks, "m_tracks has to be setup before adding a new track on object [" + this.gameObject.name + "]");
 
             // Add the track to the list
             m_tracks.Add(_newTrack);
