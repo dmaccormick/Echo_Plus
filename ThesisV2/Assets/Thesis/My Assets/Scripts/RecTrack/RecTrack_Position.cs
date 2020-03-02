@@ -50,7 +50,6 @@ namespace Thesis.RecTrack
 
             // Init the private variables
             m_dataPoints = new List<Data_Position>();
-            //m_nextSampleTime = 0.0f;
 
             // Record the first data point
             RecordData(_startTime);
@@ -72,7 +71,7 @@ namespace Thesis.RecTrack
                 Vector3 currentDataPoint = m_target.position;
 
                 // Determine the difference between the data points
-                float dataDifference = Vector3.SqrMagnitude(currentDataPoint - lastDataPoint.m_data);
+                float dataDifference = Vector3.Magnitude(currentDataPoint - lastDataPoint.m_data);
 
                 // If the difference is significant enough, we should record the data
                 if (dataDifference >= m_recordingSettings.m_changeMinThreshold)
@@ -106,8 +105,6 @@ namespace Thesis.RecTrack
 
         public void RecordData(float _currentTime)
         {
-            Debug.Log("Recording Data at time = " + _currentTime);
-
             // Ensure the datapoints are setup
             Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
 
