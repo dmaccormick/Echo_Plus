@@ -32,15 +32,13 @@ namespace Thesis.RecTrack
 
 
         //--- Public Variables ---//
+        public Recording_Settings m_recordingSettings;
         public Transform m_target;
-        public string m_dataFormat = "F3";
-        public float m_sampleTime = 0.25f;
 
 
 
         //--- Private Variables ---//
         private List<Data_Position> m_dataPoints;
-        private float m_nextSampleTime;
 
 
 
@@ -52,7 +50,7 @@ namespace Thesis.RecTrack
 
             // Init the private variables
             m_dataPoints = new List<Data_Position>();
-            m_nextSampleTime = 0.0f;
+            //m_nextSampleTime = 0.0f;
 
             // Record the first data point
             RecordData(_startTime);
@@ -66,15 +64,50 @@ namespace Thesis.RecTrack
 
         public void UpdateRecording(float _currentTime)
         {
-            // If enough time has passed, update the recording
-            if (_currentTime >= m_nextSampleTime)
+            // Handle the different styles of recording
+            if (m_recordingSettings.m_recordingMethod == Recording_Method.On_Change)
             {
+                // Get the previously recorded datapoint and the current data point
+                Data_Position lastDataPoint = m_dataPoints[m_dataPoints.Count - 1];
+                Vector3 currentDataPoint = m_target.position;
+
+                // Determine the difference between the data points
+                float dataDifference = Vector3.SqrMagnitude(currentDataPoint - lastDataPoint.m_data);
+
+                // If the difference is significant enough, we should record the data
+                if (dataDifference >= m_recordingSettings.m_changeMinThreshold)
+                {
+                    // If the object jumped far enough, we should double up the recording
+                    // This way, the vis system doesn't simply lerp it across the time and it instead jumps properly
+                    if (dataDifference >= m_recordingSettings.m_changeJumpThreshold)
+                    {
+                        // Double up the previous data point but go backwards one frame since that's where it was last frame, not this frame
+                        float prevTime = _currentTime - Time.unscaledDeltaTime;
+                        Vector3 prevData = lastDataPoint.m_data;
+                        m_dataPoints.Add(new Data_Position(prevTime, prevData));
+                    }
+
+                    // Record the current data point
+                    RecordData(_currentTime);
+                }
+            }
+            else if (m_recordingSettings.m_recordingMethod == Recording_Method.Every_X_Seconds)
+            {
+                // If enough time has passed, update the recording
+                if (_currentTime >= m_recordingSettings.m_nextSampleTime)
+                    RecordData(_currentTime);
+            }
+            else
+            {
+                // Always record data when doing the every frame recording
                 RecordData(_currentTime);
             }
         }
 
         public void RecordData(float _currentTime)
         {
+            Debug.Log("Recording Data at time = " + _currentTime);
+
             // Ensure the datapoints are setup
             Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
 
@@ -85,7 +118,7 @@ namespace Thesis.RecTrack
             m_dataPoints.Add(new Data_Position(_currentTime, currentPos));
 
             // Recalculate the next sample time
-            m_nextSampleTime = _currentTime + m_sampleTime;
+            m_recordingSettings.m_nextSampleTime = _currentTime + m_recordingSettings.m_sampleTime;
         }
 
         public string GetData()
@@ -98,7 +131,7 @@ namespace Thesis.RecTrack
 
             // Add all of the datapoints to the string with the requested format
             foreach (Data_Position data in m_dataPoints)
-                stringBuilder.AppendLine("\t\t" + data.GetString(m_dataFormat));
+                stringBuilder.AppendLine("\t\t" + data.GetString(m_recordingSettings.m_dataFormat));
 
             // Return the full set of data grouped together
             return stringBuilder.ToString();

@@ -17,9 +17,11 @@ namespace Thesis.Recording
         public string m_dataFormat = "F3";
 
         [Header("On Change Controls")]
-        public float m_changeThreshold = 0.1f;
+        public float m_changeMinThreshold = 0.1f;
+        public float m_changeJumpThreshold = 1.0f;
 
         [Header("Every X Seconds Controls")]
         public float m_sampleTime = 0.25f;
+        [HideInInspector] public float m_nextSampleTime = 0.0f;
     }
 }
