@@ -14,6 +14,12 @@ namespace Thesis.UI
         public Visualization_Manager m_visManager;
         public VisCam_CameraControls m_camControls;
 
+        [Header("Information Panel")]
+        public GameObject m_pnlInfoParent;
+        public GameObject m_pnlInfoOrbitCam;
+        public GameObject m_pnlInfoFPSCam;
+        public GameObject m_pnlInfoNoCam;
+
         [Header("Toolbar Top Left Elements")]
         public Button m_btnOpenSettings;
         public Button m_btnOpenObjectList;
@@ -81,7 +87,10 @@ namespace Thesis.UI
             m_pnlObjectList.gameObject.SetActive(false);
 
             // Toggle the camera controls depending on if the menu is open or not
-            m_camControls.SetMenuOpen(m_pnlSettings.gameObject.activeInHierarchy);
+            m_camControls.SetMenuOpen(m_pnlSettings.gameObject.activeSelf);
+
+            // Toggle the info panel depending on if the menu is open or not
+            m_pnlInfoParent.SetActive(!m_pnlSettings.gameObject.activeSelf);
         }
 
         public void OnToggleObjectList()
@@ -94,7 +103,10 @@ namespace Thesis.UI
             m_pnlSettings.gameObject.SetActive(false);
 
             // Toggle the camera controls depending on if the menu is open or not
-            m_camControls.SetMenuOpen(m_pnlObjectList.gameObject.activeInHierarchy);
+            m_camControls.SetMenuOpen(m_pnlObjectList.gameObject.activeSelf);
+
+            // Toggle the info panel depending on if the menu is open or not
+            m_pnlInfoParent.SetActive(!m_pnlObjectList.gameObject.activeSelf);
         }
         
         public void OnToggleCameraControls()
@@ -105,6 +117,11 @@ namespace Thesis.UI
             // Show the correct icon in the toolbar
             int camIconIndex = (int)activeCamType;
             m_imgCamIcon.sprite = m_sprCamIcons[camIconIndex];
+
+            // Enable the correct info panel
+            m_pnlInfoOrbitCam.SetActive(activeCamType == VisCam_CamName.Orbit);
+            m_pnlInfoFPSCam.SetActive(activeCamType == VisCam_CamName.Fps);
+            m_pnlInfoNoCam.SetActive(activeCamType == VisCam_CamName.None);
         }
 
 
