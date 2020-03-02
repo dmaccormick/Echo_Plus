@@ -99,6 +99,7 @@
     <Compile Include="Assets\Thesis\Test Assets\Scripts\Test_Spawner.cs" />
     <None Include="Assets\Thesis\QuickOutline\Resources\Shaders\OutlineMask.shader" />
     <None Include="Assets\Thesis\QuickOutline\Readme.txt" />
+    <None Include="Assets\Thesis\My Assets\Shaders\Sprite_DrawOnTop.shader" />
     <None Include="Assets\Thesis\QuickOutline\Resources\Shaders\OutlineFill.shader" />
     <None Include="Assets\Thesis\My Assets\Shaders\BlurUI.shader" />
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
