@@ -64,8 +64,11 @@ namespace Thesis.Visualization.VisCam
         public VisCam_CamName CycleActiveCamera()
         {
             // If the current cam is the FPS cam, we should release the pivot
+            // If it is the orbit cam, we should hide the orbit target indicator
             if (m_activeCam == VisCam_CamName.Fps)
                 m_fpsCam.ReleasePivot();
+            else if (m_activeCam == VisCam_CamName.Orbit)
+                m_orbitCam.HidePickingTarget();
 
             // Switch to the next camera in the list
             int currentCamIndex = (int)m_activeCam;

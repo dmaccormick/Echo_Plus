@@ -264,9 +264,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 53500894}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &53500900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,9 +284,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 53500894}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &53500901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,9 +304,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 53500894}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &53500902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,9 +535,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 234427782}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &234427788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,9 +555,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 234427782}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &234427789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,9 +575,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 234427782}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &234427790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,9 +998,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 447061686}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &447061692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,9 +1018,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 447061686}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &447061693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,9 +1038,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 447061686}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &447061694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,9 +1235,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 962576813}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &628841913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1205,9 +1255,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 962576813}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &628841914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,9 +1275,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 962576813}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &628841915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,9 +1319,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 694585772}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &639916900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,9 +1339,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 694585772}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &639916901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1289,9 +1359,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 694585772}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &639916902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,9 +1433,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 379486665}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &650128115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1373,9 +1453,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 379486665}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &650128116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1388,9 +1473,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 379486665}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &650128117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1617,9 +1707,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 678877271}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &697209533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,9 +1727,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 678877271}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &697209534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1647,9 +1747,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 678877271}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &697209535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1796,9 +1901,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1129616399}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &772316524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1811,9 +1921,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1129616399}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &772316525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1826,9 +1941,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1129616399}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &772316526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1927,9 +2047,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 725217225}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &793052658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1942,9 +2067,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 725217225}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &793052659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1957,9 +2087,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 725217225}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &793052660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2045,9 +2180,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1676129264}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &862651349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2060,9 +2200,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1676129264}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &862651350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2075,9 +2220,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1676129264}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &862651351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2240,9 +2390,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 260812897}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1001164914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,9 +2410,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 260812897}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1001164915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2270,9 +2430,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 260812897}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1001164916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2324,9 +2489,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1626259209}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1009334596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2339,9 +2509,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1626259209}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1009334597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2354,9 +2529,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1626259209}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1009334598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2707,9 +2887,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1730970747}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1384364663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2722,9 +2907,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1730970747}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1384364664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2737,9 +2927,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1730970747}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1384364665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2913,9 +3108,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1406793818}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1406793824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2928,9 +3128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1406793818}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1406793825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2943,9 +3148,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1406793818}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1406793826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3063,9 +3273,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1885635726}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1571414689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3078,9 +3293,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1885635726}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1571414690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3093,9 +3313,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1885635726}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1571414691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3334,9 +3559,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1331709735}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1728454839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3349,9 +3579,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1331709735}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1728454840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3364,9 +3599,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 1331709735}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1728454841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3693,9 +3933,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 185925456}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1998983136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3708,9 +3953,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 185925456}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1998983137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3723,9 +3973,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
   m_target: {fileID: 185925456}
-  m_dataFormat: F3
-  m_sampleTime: 0.25
 --- !u!114 &1998983138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3751,29 +4006,99 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 34690181918696414, guid: 1037a735319069b4791cf6dd742c8156,
+    - target: {fileID: 2760890475370970616, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
-      propertyPath: m_Color.r
-      value: 1
+      propertyPath: m_AnchorMin.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 34690181918696414, guid: 1037a735319069b4791cf6dd742c8156,
+    - target: {fileID: 2760890475370970616, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
-      propertyPath: m_Color.g
-      value: 1
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 34690181918696414, guid: 1037a735319069b4791cf6dd742c8156,
+    - target: {fileID: 2760890475370970616, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
-      propertyPath: m_Color.b
-      value: 1
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760890475370970616, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760890475370970616, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760890475370970616, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3755796901405897563, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
       propertyPath: m_Name
       value: __ Recording_Manager __
       objectReference: {fileID: 0}
-    - target: {fileID: 5720544048909116257, guid: 1037a735319069b4791cf6dd742c8156,
+    - target: {fileID: 4056275332262244130, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4056275332262244130, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4056275332262244130, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4056275332262244130, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4056275332262244130, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4056275332262244130, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950310201173742769, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950310201173742769, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950310201173742769, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950310201173742769, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950310201173742769, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950310201173742769, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7268475622841266064, guid: 1037a735319069b4791cf6dd742c8156,
@@ -3829,6 +4154,36 @@ PrefabInstance:
     - target: {fileID: 7268475622841266064, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952559247214221311, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952559247214221311, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952559247214221311, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952559247214221311, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952559247214221311, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952559247214221311, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

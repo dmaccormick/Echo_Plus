@@ -74,6 +74,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Scale.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Recording\Recording_Manager.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Recording\Recording_Object.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\Recording\Recording_Settings.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_ObjectSetListElement.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_RecordingManager.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_VisualizationManager.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Assets\Thesis\Test Assets\Scripts\Test_Spawner.cs" />
     <None Include="Assets\Thesis\QuickOutline\Resources\Shaders\OutlineMask.shader" />
     <None Include="Assets\Thesis\QuickOutline\Readme.txt" />
+    <None Include="Assets\Thesis\My Assets\Shaders\Sprite_DrawOnTop.shader" />
     <None Include="Assets\Thesis\QuickOutline\Resources\Shaders\OutlineFill.shader" />
     <None Include="Assets\Thesis\My Assets\Shaders\BlurUI.shader" />
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
