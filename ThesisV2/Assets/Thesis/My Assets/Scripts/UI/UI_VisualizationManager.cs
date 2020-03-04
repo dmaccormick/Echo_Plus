@@ -186,10 +186,6 @@ namespace Thesis.UI
                 m_sldTimeline.minValue = m_visManager.GetStartTime();
                 m_sldTimeline.maxValue = m_visManager.GetEndTime();
 
-                // Show the timeline and speed controls
-                m_pnlTimeLineControls.SetActive(true);
-                m_pnlSpeedControls.SetActive(true);
-
                 // Update the UI elements for the list of loaded object sets
                 CreateObjectListUI();
 
@@ -269,7 +265,14 @@ namespace Thesis.UI
             // Delete all of the object list elements currently in the UI
             for (int i = 0; i < m_objectListParent.childCount; i++)
             {
-                var child = m_objectListParent.GetChild(i);
+                // Get the element
+                Transform child = m_objectListParent.GetChild(i);
+
+                // Get the list element component from the child and unregister from the event before destroying it
+                UI_ObjectSetListElement uiComp = child.gameObject.GetComponent<UI_ObjectSetListElement>();
+                uiComp.m_onDeleteSet.RemoveAllListeners();
+
+                // Detroy the element
                 Destroy(child.gameObject);
             }
         }
@@ -282,6 +285,29 @@ namespace Thesis.UI
             // Grab the list element component and set it up
             UI_ObjectSetListElement uiComp = listElement.GetComponent<UI_ObjectSetListElement>();
             uiComp.InitWithObjectSet(_targetSet);
+
+            // Register for the deletion event
+            uiComp.m_onDeleteSet.AddListener(OnSetListDeleted);
+        }
+
+        public void OnSetListDeleted(Visualization_ObjectSet _deletedSet)
+        {
+            // Delete the set from the visualization manager
+            if (!m_visManager.DeleteObjectSet(_deletedSet))
+            {
+                // If the deletion failed for some reason, show a dialog box indicating that
+                EditorUtility.DisplayDialog("Set Deletion Failed!", "There was an error when trying to delete the set!", "Continue");
+            }
+
+            // If there are no more dynamic sets, we should hide the timeline controls
+            if (m_visManager.GetDynamicObjectSets().Count == 0)
+            {
+                m_pnlTimeLineControls.SetActive(false);
+                m_pnlSpeedControls.SetActive(false);
+            }
+
+            // Rebuild the object set UI
+            CreateObjectListUI();
         }
 
 
@@ -295,13 +321,28 @@ namespace Thesis.UI
             m_btnForwardPlayback.interactable = (_newPlaystate != Playstate.Forward);
         }
 
-        public void OnVisTimeUpdated(float _newTime)
+        public void OnVisTimeUpdated(float _startTime, float _currentTime, float _endTime)
         {
-            // Move the slider handle to match the new time
-            m_sldTimeline.value = _newTime;
+            // Ensure none of the values are infinity
+            float startTime = (_startTime == Mathf.Infinity) ? 0.0f : _startTime;
+            float currentTime = (_currentTime == Mathf.Infinity) ? 0.0f : _currentTime;
+            float endTime = (_endTime == Mathf.Infinity) ? 0.0f : _endTime;
 
-            // Update the text above the slider handle
-            m_txtCurrentTime.text = _newTime.ToString("F2");
+            // If the slider start needs to be adjusted to match the new value, do so
+            if (m_sldTimeline.minValue != startTime)
+                m_sldTimeline.minValue = startTime;
+
+            // If the slider end needs to be adjusted to match the new value, do so
+            if (m_sldTimeline.maxValue != endTime)
+                m_sldTimeline.maxValue = endTime;
+
+            // Move the slider handle to match the new time
+            m_sldTimeline.value = currentTime;
+
+            // Update the text above the slider handle and at the start and end of the timeline
+            m_txtStartTime.text = startTime.ToString("F2");
+            m_txtCurrentTime.text = currentTime.ToString("F2");
+            m_txtEndTime.text = endTime.ToString("F2");
         }
     }
 }
