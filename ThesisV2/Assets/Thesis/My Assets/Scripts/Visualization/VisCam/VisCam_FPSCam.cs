@@ -75,8 +75,8 @@ namespace Thesis.Visualization.VisCam
             Vector3 transformedMovement = m_cam.transform.TransformDirection(movementVec);
             m_cam.transform.position += transformedMovement;
 
-            // The user can rotate the camera by holding down left click
-            if (Input.GetMouseButton(0))
+            // The user can rotate the camera by holding down right click
+            if (Input.GetMouseButton(1))
             {
                 // Get the mouse x and y
                 float mouseX = Input.GetAxis("Mouse X");

@@ -26,7 +26,11 @@ namespace Thesis.Visualization.VisCam
         [Header("Focus Controls")]
         public LayerMask m_pickLayers;
         public float m_maxFocusPickDist;
-        public GameObject m_targetIndicator;
+        public GameObject m_targetIndicator;      // This indicator stays at the center of the object that is currently being focussed on
+        public SpriteRenderer m_targetRenderer;
+        public Color m_targetFollowColour;
+        public GameObject m_pointerIndicator;     // This indicator represents the end of the laser beam when picking an object
+        public float m_focusTargetScaleDistance;
 
 
 
@@ -54,26 +58,46 @@ namespace Thesis.Visualization.VisCam
             // If there is a focus target, the pivot point should always move with them
             // We don't want to parent the pivot point because then rotations would mess it up
             if (m_focusTarget != null && m_followFocusTarget)
+            {
+                // Follow the target
                 m_pivotPoint.position = m_focusTarget.position;
+
+                // Set the targeting icon to be a different color to indicate that follow mode is on
+                m_targetRenderer.color = m_targetFollowColour;
+            }
+            else
+            {
+                // Use the normal target icon colour
+                m_targetRenderer.color = Color.white;
+            }
 
             // Get the mouse x, y, and scroll wheel
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
             float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
 
-            // When holding shift, move the target indicator so that it shows where the pointer is aiming
-            // When not holding shift, leave the indicator inside of the already picked target OR hide it entirely if there is no picked target
-            if (Input.GetKey(KeyCode.LeftShift) && m_shouldShowTargetIndicator)
-                ShowPickingTarget();
-            else if (m_focusTarget != null && m_shouldShowTargetIndicator)
-                DisplayPickedTargetIndicator();
-            else
-                HidePickingTarget();
+            // Show the pointing indicator and the target indicator if we should do so
+            if (m_shouldShowTargetIndicator)
+            {
+                // If holding control, we should show the pointing icon, otherwise we should hide it
+                if (Input.GetKey(KeyCode.LeftControl))
+                    ShowPointer();
+                else
+                    HidePointer();
 
-            // Click the scroll wheel for pan, alt/left mouse for rotate, wheel for zoom in/out
-            // Also, shift/right click to focus on a different object
-            // Also, alt/right click clears the focus
-            // Also shift/F will follow the focus target
+                // If a target was already picked, we should show the indicator inside of it as well, otherwise we should hide it
+                if (m_focusTarget != null)
+                    ShowTargetIndicator();
+                else
+                    HideTargetIndicator();
+            }
+            else
+            {
+                // Otherwise, hide them
+                HidePickingTargetIcons();
+            }
+
+            // Handle all of the controls for the camera system
             if (Input.GetMouseButton(2)) // Middle click
             {
                 // We cannot pan if we are following the focus target since we are moving with them the whole time
@@ -93,12 +117,7 @@ namespace Thesis.Visualization.VisCam
                 // If the mouse wheel was moved, we should zoom in or out
                 Zoom(mouseWheel, _speedMultiplier);
             }
-            else if (Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.LeftShift)) // Right mouse + left shift
-            {
-                // If shift and right click were pressed, move towards a new focus target
-                CheckForFocusTarget();
-            }
-            else if (Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.LeftAlt)) // Right mouse + left alt
+            else if (Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.LeftControl)) // Right mouse + left alt + left control
             {
                 // Clear the focus target
                 m_focusTarget = null;
@@ -106,7 +125,12 @@ namespace Thesis.Visualization.VisCam
                 // Stop following the focus target
                 m_followFocusTarget = false;
             }
-            else if (Input.GetKeyDown(KeyCode.F) && Input.GetKey(KeyCode.LeftShift)) // F + left shift
+            else if (Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.LeftControl)) // Right mouse + left control
+            {
+                // If shift and right click were pressed, move towards a new focus target
+                CheckForFocusTarget();
+            }
+            else if (Input.GetKeyDown(KeyCode.F) && Input.GetKey(KeyCode.LeftControl)) // F + left control
             {
                 // If there is a focus target, we should toggle following it around
                 // Also use the same key to turn off the folow
@@ -120,19 +144,20 @@ namespace Thesis.Visualization.VisCam
                         MoveToMaxZoomPoint();
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftShift)) // R + Left Shift
+            else if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftControl)) // R + Left control
             {
                 // Reset the view to the focus target OR just go all the way back to 0,0,0
                 if (m_focusTarget != null)
                 {
                     m_pivotPoint.transform.position = m_focusTarget.position;
+                    MoveToMaxZoomPoint();
                 }
                 else
                 {
                     m_pivotPoint.transform.position = Vector3.zero;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.LeftShift)) // H + Left Shift
+            else if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.LeftControl)) // H + Left Control
             {
                 // Toggle whether or not we should draw the targeting indicator at all
                 m_shouldShowTargetIndicator = !m_shouldShowTargetIndicator;
@@ -233,11 +258,11 @@ namespace Thesis.Visualization.VisCam
             else
             {
                 // If we didn't find a target, we should hide the indicator
-                HidePickingTarget();
+                HidePickingTargetIcons();
             }
         }
 
-        public void ShowPickingTarget()
+        public void ShowPointer()
         {
             // Create a ray that is fired from the mouse relative to the controllable camera
             Ray ray = m_cam.ScreenPointToRay(Input.mousePosition);
@@ -245,19 +270,24 @@ namespace Thesis.Visualization.VisCam
             // Fire the ray and check for a hit
             if (Physics.Raycast(ray, out var raycastHit, m_maxFocusPickDist, m_pickLayers))
             {
-                // Enable the picking target
-                m_targetIndicator.SetActive(true);
+                // Enable the pointer picking target
+                m_pointerIndicator.SetActive(true);
 
                 // If we hit an object put the indicator at the location of the hit
-                m_targetIndicator.transform.position = raycastHit.point;
-                m_targetIndicator.transform.forward = raycastHit.normal;
-                m_targetIndicator.transform.position += m_targetIndicator.transform.forward * 0.1f;
+                m_pointerIndicator.transform.position = raycastHit.point;
+                m_pointerIndicator.transform.forward = raycastHit.normal;
+                m_pointerIndicator.transform.position += m_pointerIndicator.transform.forward * 0.1f;
+            }
+            else
+            {
+                // Hide the pointer if nothing is hit
+                m_pointerIndicator.SetActive(false);
             }
         }
 
-        public void DisplayPickedTargetIndicator()
+        public void ShowTargetIndicator()
         {
-            // Enable the picking target
+            // Enable the locked target
             m_targetIndicator.SetActive(true);
 
             // Move the target indicator to the middle of the focus target
@@ -266,12 +296,38 @@ namespace Thesis.Visualization.VisCam
             // Billboard to the camera
             Vector3 billboardVec = -m_cam.transform.forward;
             m_targetIndicator.transform.forward = billboardVec;
+
+            // Calculate a scale based on the distance to the target. If under the distance range, scale normally. Otherwise, use the range as a multiplier
+            float distToTarget = Vector3.Distance(m_cam.transform.position, m_targetIndicator.transform.position);
+            float distanceMultiplier = (distToTarget < m_focusTargetScaleDistance) ? 1.0f : distToTarget / m_focusTargetScaleDistance;
+
+            // Scale the object
+            m_targetIndicator.transform.localScale = Vector3.one * distanceMultiplier;
         }
 
-        public void HidePickingTarget()
+        public void HidePointer()
         {
-            // Don't show the picking target at all
+            // Hide the pointer
+            m_pointerIndicator.SetActive(false);
+        }
+
+        public void HideTargetIndicator()
+        {
+            // Hide the focus indicator
             m_targetIndicator.SetActive(false);
+        }
+
+        public void HidePickingTargetIcons()
+        {
+            // Hide both icons
+            HidePointer();
+            HideTargetIndicator();
+        }
+
+        public void StopFollowing()
+        {
+            // Disable the follow
+            m_followFocusTarget = false;
         }
     }
 }

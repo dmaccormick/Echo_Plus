@@ -18,7 +18,7 @@ namespace Thesis.Visualization
 
 
     //--- Event Classes ---//
-    [System.Serializable] public class FloatEvent : UnityEvent<float>
+    [System.Serializable] public class MultiFloatEvent : UnityEvent<float, float, float>
     {
     }
 
@@ -34,7 +34,7 @@ namespace Thesis.Visualization
     public class Visualization_Manager : MonoBehaviour
     {
         //--- Public Variables ---//
-        public UnityEvent<float> m_onTimeUpdated;
+        public UnityEvent<float, float, float> m_onTimeUpdated;
         public UnityEvent<Playstate> m_onPlaystateUpdated;
         public List<Color> m_outlineColours;
 
@@ -55,7 +55,7 @@ namespace Thesis.Visualization
         private void Awake()
         {
             // Init the events
-            m_onTimeUpdated = new FloatEvent();
+            m_onTimeUpdated = new MultiFloatEvent();
             m_onPlaystateUpdated = new PlaystateEvent();
         }
 
@@ -81,7 +81,7 @@ namespace Thesis.Visualization
                 }
 
                 // Trigger the time update event
-                m_onTimeUpdated.Invoke(m_currentTime);
+                m_onTimeUpdated.Invoke(m_startTime, m_currentTime, m_endTime);
 
                 // Update the visualization to the current point in time
                 UpdateVisualization();
@@ -105,7 +105,7 @@ namespace Thesis.Visualization
                 }
 
                 // Trigger the time update event
-                m_onTimeUpdated.Invoke(m_currentTime);
+                m_onTimeUpdated.Invoke(m_startTime, m_currentTime, m_endTime);
 
                 // Update the visualization to the current point in time
                 UpdateVisualization();
@@ -158,7 +158,7 @@ namespace Thesis.Visualization
             m_staticObjectSet.StartVisualization(m_startTime);
 
             // Trigger the update event since the times have been changed and everything is setup
-            m_onTimeUpdated.Invoke(m_currentTime);
+            m_onTimeUpdated.Invoke(m_startTime, m_currentTime, m_endTime);
 
             // Return true if everything parsed correctly
             return true;
@@ -216,10 +216,62 @@ namespace Thesis.Visualization
             newObjectSet.EnableOutline(nextColour);
 
             // Trigger the update event since the times have been changed and everything is setup
-            m_onTimeUpdated.Invoke(m_currentTime);
+            m_onTimeUpdated.Invoke(m_startTime, m_currentTime, m_endTime);
 
             // Return true if everything parsed correctly
             return true;
+        }
+
+        public bool DeleteObjectSet(Visualization_ObjectSet _deletedSet)
+        {
+            // We should pause the playback now and therefore trigger the event
+            m_playstate = Playstate.Paused;
+            m_onPlaystateUpdated.Invoke(m_playstate);
+
+            // Check if the object set in question is the loaded static one
+            if (m_staticObjectSet == _deletedSet)
+            {
+                // Destroy the static set
+                m_staticObjectSet.DestroyAllObjects();
+
+                // Remove the reference to the set
+                m_staticObjectSet = null;
+
+                // Look for the new start and end times
+                m_startTime = CalcNewStartTime();
+                m_endTime = CalcNewEndTime();
+                m_currentTime = m_startTime;
+
+                // Trigger the update event since the times have been changed
+                m_onTimeUpdated.Invoke(m_startTime, m_currentTime, m_endTime);
+
+                // Return true to indicate that the deletion was successful
+                return true;
+            }
+
+            // Otherwise, check if it is one of the dynamic ones
+            if (m_dynamicObjectSets != null && m_dynamicObjectSets.Contains(_deletedSet))
+            {
+                // Remove the set from the list
+                m_dynamicObjectSets.Remove(_deletedSet);
+
+                // Destroy the set objects
+                _deletedSet.DestroyAllObjects();
+
+                // Look for the new start and end times
+                m_startTime = CalcNewStartTime();
+                m_endTime = CalcNewEndTime();
+                m_currentTime = m_startTime;
+
+                // Trigger the update event since the times have been changed
+                m_onTimeUpdated.Invoke(m_startTime, m_currentTime, m_endTime);
+
+                // Return true to indicate that the deletion was successful
+                return true;
+            }
+
+            // If we reached this point, the deletion failed so return false
+            return false;
         }
 
 

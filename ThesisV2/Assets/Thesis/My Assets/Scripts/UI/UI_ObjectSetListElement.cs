@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEditor;
 using Thesis.Visualization;
 
 namespace Thesis.UI
 {
+    //--- Event Classes ---//
+    [System.Serializable]
+    public class ObjectSetEvent : UnityEvent<Visualization_ObjectSet>
+    {
+    }
+
+
+
+    //--- Main Class ---//
     public class UI_ObjectSetListElement : MonoBehaviour
     {
         //--- Public Variables ---//
@@ -16,9 +27,13 @@ namespace Thesis.UI
         [Header("Outline Controls")]
         public Slider m_sldOutlineHue;
         public Image m_imgOutlineColour;
+        public Text m_txtOutlineLabel;
 
         [Header("Misc")]
         public Text m_txtSetName;
+
+        [Header("Events")]
+        public ObjectSetEvent m_onDeleteSet;
 
 
 
@@ -45,6 +60,7 @@ namespace Thesis.UI
             {
                 m_sldOutlineHue.gameObject.SetActive(false);
                 m_imgOutlineColour.gameObject.SetActive(false);
+                m_txtOutlineLabel.gameObject.SetActive(false);
             }
         }
 
@@ -77,6 +93,18 @@ namespace Thesis.UI
             // Update the outline colour of the actual set itself
             m_refObjectSet.UpdateOutlineColour(newColor);
         }
-    }
 
+
+
+        //--- Delete Controls ---//
+        public void OnDeletePressed()
+        {
+            // Show a confirm dialog box to make sure they actually want to delete it
+            if (EditorUtility.DisplayDialog("Delete Set?", "Are you sure you want to delete this set? This action cannot be undone.", "Delete Set", "Cancel"))
+            {
+                // They pressed the "Delete Set" button so we should trigger the action to perform the deletion
+                m_onDeleteSet.Invoke(m_refObjectSet);
+            }
+        }
+    }
 }
