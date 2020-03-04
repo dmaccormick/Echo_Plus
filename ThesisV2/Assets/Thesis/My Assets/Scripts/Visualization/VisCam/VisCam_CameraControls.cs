@@ -66,9 +66,15 @@ namespace Thesis.Visualization.VisCam
             // If the current cam is the FPS cam, we should release the pivot
             // If it is the orbit cam, we should hide the orbit target indicator
             if (m_activeCam == VisCam_CamName.Fps)
+            {
                 m_fpsCam.ReleasePivot();
+            }
             else if (m_activeCam == VisCam_CamName.Orbit)
-                m_orbitCam.HidePickingTarget();
+            {
+                // Hide the target and disable follow so that we don't get jolted back when switching back to the orbit camera
+                m_orbitCam.HidePickingTargetIcons();
+                m_orbitCam.StopFollowing();
+            }
 
             // Switch to the next camera in the list
             int currentCamIndex = (int)m_activeCam;

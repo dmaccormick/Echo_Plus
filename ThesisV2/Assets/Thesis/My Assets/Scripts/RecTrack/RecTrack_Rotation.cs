@@ -105,8 +105,6 @@ namespace Thesis.RecTrack
 
         public void RecordData(float _currentTime)
         {
-            Debug.Log("Recording Data at time = " + _currentTime);
-
             // Ensure the datapoints are setup
             Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
 
