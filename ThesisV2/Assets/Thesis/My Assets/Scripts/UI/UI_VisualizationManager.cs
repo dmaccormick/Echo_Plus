@@ -168,34 +168,48 @@ namespace Thesis.UI
         //--- Settings Callbacks ---//
         public void OnLoadStaticFile()
         {
-            // Get the static file location from the input field
-            string staticPath = m_inStaticLoadLoc.text;
+            // Decide if we actually should load the file after all
+            bool proceedWithLoading = true;
 
-            // Tell the visualization manager to load the static data
-            bool loadSuccess = m_visManager.LoadStaticData(staticPath);
-
-            // Handle the results of the loading
-            if (loadSuccess)
+            // Since there can only be one static file, we should confirm if the user wants to overwrite any currently loaded static files
+            if (m_visManager.GetStaticObjectSet() != null)
             {
-                // Update the time indicators to match the new values
-                m_txtStartTime.text = m_visManager.GetStartTime().ToString("F2");
-                m_txtEndTime.text = m_visManager.GetEndTime().ToString("F2");
-                m_txtCurrentTime.text = m_visManager.GetCurrentTime().ToString("F2");
-
-                // Update the slider so that its values match the start and end time
-                m_sldTimeline.minValue = m_visManager.GetStartTime();
-                m_sldTimeline.maxValue = m_visManager.GetEndTime();
-
-                // Update the UI elements for the list of loaded object sets
-                CreateObjectListUI();
-
-                // Show a message that the file loaded correctly
-                EditorUtility.DisplayDialog("Static File Load Successful", "The static log file data loaded correctly!", "Continue");
+                // Show a dialog box that lets the user cancel loading if they want to
+                proceedWithLoading = EditorUtility.DisplayDialog("Overwrite Current Static Objects?", "Only one static object set can be loaded at a time. If you load this file, it will overwrite the static objects you already have loaded. Do you wish to proceed?", "Yes, Overwrite The Static Objects", "Cancel");
             }
-            else
+
+            // Load the file if requested to do so
+            if (proceedWithLoading)
             {
-                // Show a message that the file failed to load correctly
-                EditorUtility.DisplayDialog("Static File Load Failed", "The static log file failed to load!", "Continue");
+                // Get the static file location from the input field
+                string staticPath = m_inStaticLoadLoc.text;
+
+                // Tell the visualization manager to load the static data
+                bool loadSuccess = m_visManager.LoadStaticData(staticPath);
+
+                // Handle the results of the loading
+                if (loadSuccess)
+                {
+                    // Update the time indicators to match the new values
+                    m_txtStartTime.text = m_visManager.GetStartTime().ToString("F2");
+                    m_txtEndTime.text = m_visManager.GetEndTime().ToString("F2");
+                    m_txtCurrentTime.text = m_visManager.GetCurrentTime().ToString("F2");
+
+                    // Update the slider so that its values match the start and end time
+                    m_sldTimeline.minValue = m_visManager.GetStartTime();
+                    m_sldTimeline.maxValue = m_visManager.GetEndTime();
+
+                    // Update the UI elements for the list of loaded object sets
+                    CreateObjectListUI();
+
+                    // Show a message that the file loaded correctly
+                    EditorUtility.DisplayDialog("Static File Load Successful", "The static log file data loaded correctly!", "Continue");
+                }
+                else
+                {
+                    // Show a message that the file failed to load correctly
+                    EditorUtility.DisplayDialog("Static File Load Failed", "The static log file failed to load!", "Continue");
+                }
             }
         }
 
