@@ -16,6 +16,7 @@ namespace Thesis.UI
         [Header("Outline Controls")]
         public Slider m_sldOutlineHue;
         public Image m_imgOutlineColour;
+        public Text m_txtOutlineLabel;
 
         [Header("Misc")]
         public Text m_txtSetName;
@@ -45,6 +46,7 @@ namespace Thesis.UI
             {
                 m_sldOutlineHue.gameObject.SetActive(false);
                 m_imgOutlineColour.gameObject.SetActive(false);
+                m_txtOutlineLabel.gameObject.SetActive(false);
             }
         }
 

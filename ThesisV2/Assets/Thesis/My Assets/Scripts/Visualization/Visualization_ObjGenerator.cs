@@ -15,8 +15,7 @@ namespace Thesis.Visualization
             List<Visualization_Object> generatedObjects = new List<Visualization_Object>();
 
             // Generate a new gameobject to be the parent of all the spawned objects
-            string parentName = "--- " + _nameInfo + " ---";
-            GameObject parentObj = new GameObject(parentName);
+            GameObject parentObj = new GameObject(_nameInfo);
             Transform parentTransform = parentObj.transform;
 
             // The parent object will also hold the object set management script that we are going to now setup
@@ -60,7 +59,7 @@ namespace Thesis.Visualization
             }
 
             // Now that the objects are created, we should finalize the set manager so we can return it
-            objectSetComp.Setup(parentName, generatedObjects);
+            objectSetComp.Setup(_nameInfo, generatedObjects);
 
             // If the set was generated correctly, return it
             return objectSetComp;
