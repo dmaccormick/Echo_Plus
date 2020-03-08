@@ -67,6 +67,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\FileIO\FileIO_FileWriter.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Interface\Interface_IRecordable.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Interface\Interface_IVisualizable.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Camera.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Lifetime.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Position.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Renderables.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_RecordingManager.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_VisualizationManager.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Utility\Utility_Functions.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Camera.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Lifetime.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Position.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Renderables.cs" />
