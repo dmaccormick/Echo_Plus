@@ -327,6 +327,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 53500895}
   m_targetFilter: {fileID: 53500896}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!1001 &185925455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -598,6 +599,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 234427783}
   m_targetFilter: {fileID: 234427784}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!1001 &260812896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -986,6 +988,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 447061687}
   m_targetFilter: {fileID: 447061688}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &447061691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1223,6 +1226,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 535138812}
   m_targetFilter: {fileID: 535138813}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &628841912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,6 +1386,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 330597150}
   m_targetFilter: {fileID: 330597151}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &639916903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,6 +1426,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1696685885}
   m_targetFilter: {fileID: 1696685886}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &650128114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1591,6 +1597,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plane_Custom_Primitive
       objectReference: {fileID: 0}
+    - target: {fileID: 3464482737486636272, guid: 13a1f3b15406f4245803da6c0b187a51,
+        type: 3}
+      propertyPath: m_CookingOptions
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3464482737486636272, guid: 13a1f3b15406f4245803da6c0b187a51,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4195404494940336644, guid: 13a1f3b15406f4245803da6c0b187a51,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1695,6 +1711,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 345167502}
   m_targetFilter: {fileID: 345167503}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &697209532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1889,6 +1906,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1096054696}
   m_targetFilter: {fileID: 1096054697}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &772316523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2035,6 +2053,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1426839486}
   m_targetFilter: {fileID: 1426839487}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &793052657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2168,6 +2187,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 271673545}
   m_targetFilter: {fileID: 271673546}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &862651348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2378,6 +2398,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1411839216}
   m_targetFilter: {fileID: 1411839217}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &1001164913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2477,6 +2498,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1408287025}
   m_targetFilter: {fileID: 1408287026}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &1009334595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2875,6 +2897,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1747250848}
   m_targetFilter: {fileID: 1747250849}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &1384364662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3171,6 +3194,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1406793819}
   m_targetFilter: {fileID: 1406793820}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!23 &1408287025 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 360564095617867920, guid: e8b4a6a1452df2d469f6bf93b6a7f2a3,
@@ -3261,6 +3285,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1095357041}
   m_targetFilter: {fileID: 1095357042}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &1571414688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3547,6 +3572,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1398243658}
   m_targetFilter: {fileID: 1398243659}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &1728454838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3921,6 +3947,7 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 775028691}
   m_targetFilter: {fileID: 775028692}
   m_dataFormat: F3
+  m_generatePickingCollider: 1
 --- !u!114 &1998983135
 MonoBehaviour:
   m_ObjectHideFlags: 0

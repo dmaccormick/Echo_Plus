@@ -43,6 +43,7 @@ namespace Thesis.RecTrack
         public MeshRenderer m_targetRenderer;
         public MeshFilter m_targetFilter;
         public string m_dataFormat = "F3";
+        public bool m_generatePickingCollider = true; // If yes, generate a collider in the vis that allows for mouse picking
 
 
 
@@ -112,6 +113,9 @@ namespace Thesis.RecTrack
 
             // Use a string builder to compile the data string efficiently
             StringBuilder stringBuilder = new StringBuilder();
+
+            // The first line should just be a bool for whether or not a collider should be generated for this object in vis
+            stringBuilder.AppendLine(m_generatePickingCollider.ToString());
 
             // Add all of the datapoints to the string
             foreach (Data_Renderables data in m_dataPoints)
