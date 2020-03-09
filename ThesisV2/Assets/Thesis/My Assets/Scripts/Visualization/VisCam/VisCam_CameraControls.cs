@@ -132,9 +132,14 @@ namespace Thesis.Visualization.VisCam
 
 
         //--- Getters ---//
-        public VisCam_CamName GetActiveCamera()
+        public VisCam_CamName GetActiveCameraType()
         {
             return m_activeCam;
+        }
+
+        public Camera GetActiveCameraRef()
+        {
+            return m_combinedCam.m_cam; // TODO: Add support for returning the orbit or the FPS cams 
         }
     }
 

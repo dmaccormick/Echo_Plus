@@ -78,5 +78,32 @@ namespace Thesis.Visualization.VisCam
             for (int i = 0; i < m_cameras.Count; i++)
                 m_cameras[i].enabled = (i == m_activeCamIdx);
         }
+
+        public void EnableCamera(Camera _cam)
+        {
+            // Find the camera in the list and activate it
+            for (int i = 0; i < m_cameras.Count; i++)
+            {
+                // Enable the right camera and store its index
+                if (m_cameras[i] == _cam)
+                {
+                    m_cameras[i].enabled = true;
+                    m_activeCamIdx = i;
+                }
+                else
+                {
+                    // Disable all other cameras
+                    m_cameras[i].enabled = false;
+                }
+            }
+        }
+
+
+
+        //--- Getters ---//
+        public Camera[] GetAllCameras()
+        {
+            return this.m_cameras.ToArray();
+        }
     }
 }

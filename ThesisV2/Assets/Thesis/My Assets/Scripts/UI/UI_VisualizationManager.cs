@@ -57,6 +57,14 @@ namespace Thesis.UI
         public Transform m_objectListParent;
         public GameObject m_objectListElementPrefab;
 
+        [Header("Camera List UI Elements")]
+        public GameObject m_pnlCameraList;
+        public Transform m_cameraListParent;
+        public GameObject m_cameraListElementPrefab;
+
+        [Header("Camera Quick Switch UI Elements")]
+        public GameObject m_pnlCameraQuickSwitch;
+
 
 
         //--- Unity Methods ---//
@@ -83,8 +91,9 @@ namespace Thesis.UI
             bool isPanelActive = m_pnlSettings.gameObject.activeSelf;
             m_pnlSettings.gameObject.SetActive(!isPanelActive);
 
-            // Hide the object list menu
+            // Hide the other menus
             m_pnlObjectList.gameObject.SetActive(false);
+            m_pnlCameraList.gameObject.SetActive(false);
 
             // Toggle the camera controls depending on if the menu is open or not
             m_camControls.SetMenuOpen(m_pnlSettings.gameObject.activeSelf);
@@ -99,8 +108,9 @@ namespace Thesis.UI
             bool isPanelActive = m_pnlObjectList.gameObject.activeSelf;
             m_pnlObjectList.gameObject.SetActive(!isPanelActive);
 
-            // Hide the settings menu
+            // Hide the other menus
             m_pnlSettings.gameObject.SetActive(false);
+            m_pnlCameraList.gameObject.SetActive(false);
 
             // Toggle the camera controls depending on if the menu is open or not
             m_camControls.SetMenuOpen(m_pnlObjectList.gameObject.activeSelf);
@@ -109,19 +119,21 @@ namespace Thesis.UI
             m_pnlInfoParent.SetActive(!m_pnlObjectList.gameObject.activeSelf);
         }
         
-        public void OnToggleCameraControls()
+        public void OnToggleCameraList()
         {
-            // Cycle the active camera in the camera controls and get the newly selected one
-            VisCam_CamName activeCamType = m_camControls.CycleActiveCamera();
+            // Toggle the camera list UI panel
+            bool isPanelActive = m_pnlCameraList.gameObject.activeSelf;
+            m_pnlCameraList.gameObject.SetActive(!isPanelActive);
 
-            // Show the correct icon in the toolbar
-            int camIconIndex = (int)activeCamType;
-            m_imgCamIcon.sprite = m_sprCamIcons[camIconIndex];
+            // Hide the other menus
+            m_pnlSettings.gameObject.SetActive(false);
+            m_pnlObjectList.gameObject.SetActive(false);
 
-            // Enable the correct info panel
-            m_pnlInfoOrbitCam.SetActive(activeCamType == VisCam_CamName.Orbit);
-            m_pnlInfoFPSCam.SetActive(activeCamType == VisCam_CamName.Fps);
-            m_pnlInfoNoCam.SetActive(activeCamType == VisCam_CamName.None);
+            // Toggle the camera controls depending on if the menu is open or not
+            m_camControls.SetMenuOpen(m_pnlCameraList.gameObject.activeSelf);
+
+            // Toggle the info panel depending on if the menu is open or not
+            m_pnlInfoParent.SetActive(!m_pnlCameraList.gameObject.activeSelf);
         }
 
 
@@ -199,8 +211,12 @@ namespace Thesis.UI
                     m_sldTimeline.minValue = m_visManager.GetStartTime();
                     m_sldTimeline.maxValue = m_visManager.GetEndTime();
 
-                    // Update the UI elements for the list of loaded object sets
+                    // Setup the player camera manager system
+                    GameObject.FindObjectOfType<VisCam_PlayerCameraManager>().Setup();
+
+                    // Update the UI elements for the list of loaded object sets and the cameras
                     CreateObjectListUI();
+                    CreateCameraListUI();
 
                     // Show a message that the file loaded correctly
                     EditorUtility.DisplayDialog("Static File Load Successful", "The static log file data loaded correctly!", "Continue");
@@ -237,8 +253,12 @@ namespace Thesis.UI
                 m_pnlTimeLineControls.SetActive(true);
                 m_pnlSpeedControls.SetActive(true);
 
-                // Update the UI elements for the list of loaded object sets
+                // Setup the player camera manager system
+                GameObject.FindObjectOfType<VisCam_PlayerCameraManager>().Setup();
+
+                // Update the UI elements for the list of loaded object sets and the cameras
                 CreateObjectListUI();
+                CreateCameraListUI();
 
                 // Show a message that the file loaded correctly
                 EditorUtility.DisplayDialog("Dynamic File Load Successful", "The dynamic log file data loaded correctly!", "Continue");
@@ -322,6 +342,83 @@ namespace Thesis.UI
 
             // Rebuild the object set UI
             CreateObjectListUI();
+        }
+
+
+
+        //--- Camera List Methods ---//
+        public void CreateCameraListUI()
+        {
+            // Clear the current list elements
+            ClearCameraListUI();
+
+            // Get the main controllable camera and create a UI element for it
+            Camera controllableCam = GameObject.FindObjectOfType<VisCam_CameraControls>().GetActiveCameraRef();
+            CreateCameraListElement(controllableCam);
+
+            // Create UI elements for any loaded player cameras as well
+            var playerCamManager = GameObject.FindObjectOfType<VisCam_PlayerCameraManager>();
+            if (playerCamManager != null)
+            {
+                Camera[] playerCams = playerCamManager.GetAllCameras();
+                foreach (var cam in playerCams)
+                    CreateCameraListElement(cam);
+            }
+        }
+
+        public void ClearCameraListUI()
+        {
+            // Delete all of the camera list elements currently in the UI
+            for (int i = 0; i < m_cameraListParent.childCount; i++)
+            {
+                // Get the element
+                Transform child = m_cameraListParent.GetChild(i);
+
+                // Get the list element component from the child and unregister from the event before destroying it
+                UI_CameraListElement uiComp = child.gameObject.GetComponent<UI_CameraListElement>();
+                uiComp.m_onActivateCamera.RemoveAllListeners();
+
+                // Detroy the element
+                Destroy(child.gameObject);
+            }
+        }
+
+        public void CreateCameraListElement(Camera _cam)
+        {
+            // Instantiate a new list element under the list parent
+            GameObject listElement = Instantiate(m_cameraListElementPrefab, m_cameraListParent);
+
+            // Grab the list element UI component and set it up
+            UI_CameraListElement uiComp = listElement.GetComponent<UI_CameraListElement>();
+            uiComp.InitWithCam(_cam);
+
+            // Register for the camera activation event
+            uiComp.m_onActivateCamera.AddListener(OnCameraEnabled);
+        }
+
+        public void OnCameraEnabled(Camera _cam)
+        {
+            // Activate the given camera
+            _cam.enabled = true;
+
+            // If the camera is not the controllable one, we should disable that one
+            Camera controllableCam = m_camControls.GetActiveCameraRef();
+            if (_cam != controllableCam)
+            {
+                controllableCam.enabled = false;
+                m_camControls.SetMenuOpen(true); // using this as a way of disabling the camera controls for now
+            }
+            else
+            {
+                m_camControls.SetMenuOpen(false); // using this as a way of disabling the camera controls for now
+            }
+
+            // Disable all of the unused cameras and activate the right one
+            GameObject.FindObjectOfType<VisCam_PlayerCameraManager>().EnableCamera(_cam);
+
+            // Update all of the camera UI elements so they show the icon or not
+            foreach (var camUI in GameObject.FindObjectsOfType<UI_CameraListElement>())
+                camUI.UpdateActiveIcon();
         }
 
 
