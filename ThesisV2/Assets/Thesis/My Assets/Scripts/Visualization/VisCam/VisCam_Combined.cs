@@ -27,9 +27,11 @@ namespace Thesis.Visualization.VisCam
         public float m_zoomSpeed;
         public float m_closestZoomDistance;
 
-        [Header("Focus Controls")]
+        [Header("Pick Controls")]
         public LayerMask m_pickLayers;
         public float m_maxFocusPickDist;
+        public float m_pickCooldown; // How long after letting go of alt before we can pick again (prevents accidentally picking a new target right after orbiting)
+        private bool m_canPick; 
 
         [Header("Mouse Cursors")]
         public Texture2D m_cursorPan;
@@ -50,6 +52,7 @@ namespace Thesis.Visualization.VisCam
         {
             // Init the private variables
             m_focusTarget = null;
+            m_canPick = true;
         }
 
 
@@ -110,6 +113,16 @@ namespace Thesis.Visualization.VisCam
                     if (Input.GetMouseButton(0))
                         RotateOrbit(mouseX, mouseY);
                 }
+
+                // If letting go of the orbit, temporarily disable picking to prevent accidentally picking right away
+                if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.RightAlt))
+                {
+                    // Disable picking for now
+                    m_canPick = false;
+
+                    // Reactivate it shortly
+                    Invoke("EnablePicking", m_pickCooldown);
+                }
             }
 
             //--- Zooming Functionality ---//
@@ -148,6 +161,10 @@ namespace Thesis.Visualization.VisCam
             // We can check this by determining what the current cursor is
             if (m_currentCursor != m_cursorOrbit && m_currentCursor != m_cursorPan)
             {
+                // If we can't pick since the cooldown isn't over, return
+                if (!m_canPick)
+                    return;
+
                 // Create a ray that is fired from the mouse relative to the controllable camera
                 Ray ray = m_cam.ScreenPointToRay(Input.mousePosition);
 
@@ -320,6 +337,12 @@ namespace Thesis.Visualization.VisCam
                 // Apply the rotation
                 m_cam.transform.rotation = Quaternion.Euler(newRot);
             }
+        }
+
+        public void EnablePicking()
+        {
+            // Turn picking back on
+            m_canPick = true;
         }
     }
 }
