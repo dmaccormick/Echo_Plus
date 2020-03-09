@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Thesis.VisTrack;
+using Thesis.Visualization;
 
 namespace Thesis.UI
 {
@@ -18,7 +19,6 @@ namespace Thesis.UI
         public Image m_imgCamSelectIndicator;
 
         [Header("Outline Controls")]
-        public Slider m_sldOutlineHue;
         public Image m_imgOutlineColour;
         public Text m_txtOutlineLabel;
 
@@ -37,7 +37,7 @@ namespace Thesis.UI
 
 
         //--- Initialization Method ---//
-        public void InitWithCam(Camera _refCamera)
+        public void InitWithCam(Camera _refCamera, bool _hasParentSet)
         {
             // Store the data internally
             this.m_refCamTrack = null;
@@ -45,6 +45,31 @@ namespace Thesis.UI
 
             // Toggle the icon to show if the camera is active or not
             this.m_imgCamSelectIndicator.gameObject.SetActive(m_refCamera.enabled);
+
+            // Grab the camera's parent set type if there is one and use it to setup the rest of the UI elements
+            if (_hasParentSet)
+            {
+                // Grab the parent set
+                Visualization_ObjectSet parentSet = _refCamera.gameObject.GetComponentInParent<Visualization_ObjectSet>();
+
+                // Use the object set's current values to setup the outline information
+                Color.RGBToHSV(parentSet.GetOutlineColour(), out float Hue, out float S, out float V);
+                m_imgOutlineColour.color = Color.HSVToRGB(Hue, 1.0f, 1.0f);
+
+                // Set the label that shows the name of the camera
+                string camName = _refCamera.gameObject.name + " (" + parentSet.GetSetName() + ")";
+                m_txtCamName.text = camName;
+            }
+            else
+            {
+                // Hide the outline controls
+                m_imgOutlineColour.gameObject.SetActive(false);
+                m_txtOutlineLabel.gameObject.SetActive(false);
+
+                // Set the label that shows the name of the camera
+                string camName = "Controllable Camera";
+                m_txtCamName.text = camName;
+            }
         }
 
         public void InitWithCamTrack(VisTrack_Camera _refCamTrack)
@@ -68,6 +93,13 @@ namespace Thesis.UI
 
         public void UpdateActiveIcon()
         {
+            // If the ref camera doesn't exist, destroy this and return
+            if (m_refCamera == null)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+
             // Toggle the icon to show if the camera is active or not
             this.m_imgCamSelectIndicator.gameObject.SetActive(m_refCamera.enabled);
         }

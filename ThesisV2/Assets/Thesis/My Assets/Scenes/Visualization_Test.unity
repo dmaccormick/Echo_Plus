@@ -270,24 +270,6 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
---- !u!1 &1640047263 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 226393058, guid: 8866668d7c6e8a54f9dd207f53e949ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 126580873298820597}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1640047264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1640047263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 540cfbeb0c49d0c4dbdaf64fb76e6333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1955637277
 GameObject:
   m_ObjectHideFlags: 0

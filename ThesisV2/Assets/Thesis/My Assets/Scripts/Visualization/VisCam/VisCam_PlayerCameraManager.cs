@@ -81,6 +81,10 @@ namespace Thesis.Visualization.VisCam
 
         public void EnableCamera(Camera _cam)
         {
+            // Return if the list is not setup yet
+            if (m_cameras == null)
+                return;
+
             // Find the camera in the list and activate it
             for (int i = 0; i < m_cameras.Count; i++)
             {
@@ -98,12 +102,25 @@ namespace Thesis.Visualization.VisCam
             }
         }
 
+        public void OnCamDestroyed(Camera _cam)
+        {
+            // Remove the camera from the list
+            m_cameras.Remove(_cam);
+
+            // If the current camera index is now too high, we should lower it
+            while (m_activeCamIdx > m_cameras.Count)
+                m_activeCamIdx--;
+        }
+
 
 
         //--- Getters ---//
         public Camera[] GetAllCameras()
         {
-            return this.m_cameras.ToArray();
+            if (m_cameras == null)
+                return null;
+            else
+                return this.m_cameras.ToArray();
         }
     }
 }

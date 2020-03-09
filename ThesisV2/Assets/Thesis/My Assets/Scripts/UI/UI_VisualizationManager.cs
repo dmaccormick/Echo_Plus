@@ -134,6 +134,10 @@ namespace Thesis.UI
 
             // Toggle the info panel depending on if the menu is open or not
             m_pnlInfoParent.SetActive(!m_pnlCameraList.gameObject.activeSelf);
+
+            // Create the camera list UI if the panel is now active
+            if (m_pnlCameraList.gameObject.activeSelf)
+                CreateCameraListUI();
         }
 
 
@@ -342,6 +346,10 @@ namespace Thesis.UI
 
             // Rebuild the object set UI
             CreateObjectListUI();
+
+            // Switch back to the main camera
+            m_camControls.m_cam.enabled = true;
+            FindObjectOfType<VisCam_PlayerCameraManager>().DisableAllCameras();
         }
 
 
@@ -354,15 +362,28 @@ namespace Thesis.UI
 
             // Get the main controllable camera and create a UI element for it
             Camera controllableCam = GameObject.FindObjectOfType<VisCam_CameraControls>().GetActiveCameraRef();
-            CreateCameraListElement(controllableCam);
+            CreateCameraListElement(controllableCam, false);
 
             // Create UI elements for any loaded player cameras as well
             var playerCamManager = GameObject.FindObjectOfType<VisCam_PlayerCameraManager>();
             if (playerCamManager != null)
             {
                 Camera[] playerCams = playerCamManager.GetAllCameras();
-                foreach (var cam in playerCams)
-                    CreateCameraListElement(cam);
+                if (playerCams != null && playerCams.Length > 0)
+                {
+                    foreach (var cam in playerCams)
+                        CreateCameraListElement(cam, true);
+                }
+                else
+                {
+                    // If there are no player cams, we should ensure the controllable one is active
+                    OnCameraEnabled(controllableCam);
+                }
+            }
+            else
+            {
+                // No player cam manager so the controllable camera should be the active one
+                OnCameraEnabled(controllableCam);
             }
         }
 
@@ -383,14 +404,14 @@ namespace Thesis.UI
             }
         }
 
-        public void CreateCameraListElement(Camera _cam)
+        public void CreateCameraListElement(Camera _cam, bool _hasParentSet)
         {
             // Instantiate a new list element under the list parent
             GameObject listElement = Instantiate(m_cameraListElementPrefab, m_cameraListParent);
 
             // Grab the list element UI component and set it up
             UI_CameraListElement uiComp = listElement.GetComponent<UI_CameraListElement>();
-            uiComp.InitWithCam(_cam);
+            uiComp.InitWithCam(_cam, _hasParentSet);
 
             // Register for the camera activation event
             uiComp.m_onActivateCamera.AddListener(OnCameraEnabled);

@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 226393060}
   - component: {fileID: 5587051410707545784}
   - component: {fileID: 1848982220}
+  - component: {fileID: 1640047269}
   m_Layer: 0
   m_Name: Vis_ControllableCamera
   m_TagString: Untagged
@@ -197,6 +198,18 @@ MonoBehaviour:
   m_cursorPan: {fileID: 2800000, guid: 6c3fff9e56c67f44eb529271bbb23878, type: 3}
   m_cursorOrbit: {fileID: 2800000, guid: c49b779e38674204b8502e81222f0686, type: 3}
   m_cursorFPS: {fileID: 2800000, guid: 9cf57006362a934499713541e46ae5eb, type: 3}
+--- !u!114 &1640047269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226393058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540cfbeb0c49d0c4dbdaf64fb76e6333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &272982628
 GameObject:
   m_ObjectHideFlags: 0

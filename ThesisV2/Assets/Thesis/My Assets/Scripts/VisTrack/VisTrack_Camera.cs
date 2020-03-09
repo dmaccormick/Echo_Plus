@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEditor;
 using Thesis.Interface;
-using Thesis.Utility;
+using Thesis.Visualization.VisCam;
 
 namespace Thesis.VisTrack
 {
@@ -66,6 +65,15 @@ namespace Thesis.VisTrack
         //--- Private Variables ---//
         private Camera m_targetCam;
         private List<Data_Camera> m_dataPoints;
+
+
+
+        //--- Unity Methods ---//
+        public void OnDestroy()
+        {
+            // Look for the player camera manager and tell it to remove this camera
+            FindObjectOfType<VisCam_PlayerCameraManager>().OnCamDestroyed(m_targetCam);
+        }
 
 
 
