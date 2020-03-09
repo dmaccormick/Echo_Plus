@@ -54,7 +54,8 @@ namespace Thesis.Visualization.VisCam
 
                 // Update the active camera script and pass it the speed multiplier
                 if (m_activeCam == VisCam_CamName.Orbit)
-                    m_orbitCam.UpdateCamera(speedMultiplier);
+                    //m_orbitCam.UpdateCamera(speedMultiplier);
+                    m_combinedCam.UpdateCamera(speedMultiplier);
                 else
                     m_fpsCam.UpdateCamera(speedMultiplier);
             }

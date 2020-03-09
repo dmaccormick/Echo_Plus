@@ -204,6 +204,12 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!4 &988896401 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 18774547, guid: 8866668d7c6e8a54f9dd207f53e949ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 126580873298820597}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1455020402
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +408,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1848982220, guid: 8866668d7c6e8a54f9dd207f53e949ff, type: 3}
+      propertyPath: m_movementSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848982220, guid: 8866668d7c6e8a54f9dd207f53e949ff, type: 3}
+      propertyPath: m_fpsMoveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848982220, guid: 8866668d7c6e8a54f9dd207f53e949ff, type: 3}
+      propertyPath: m_fpsRotSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848982220, guid: 8866668d7c6e8a54f9dd207f53e949ff, type: 3}
+      propertyPath: m_pivotObj
+      value: 
+      objectReference: {fileID: 988896401}
     - target: {fileID: 828975224437135390, guid: 8866668d7c6e8a54f9dd207f53e949ff,
         type: 3}
       propertyPath: m_Name

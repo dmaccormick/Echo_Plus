@@ -9,12 +9,16 @@ namespace Thesis.Visualization.VisCam
         public Camera m_cam;
         public float m_sprintMultiplier;
 
+        [Header("FPS Cam Controls")]
+        public float m_fpsMoveSpeed;
+        public float m_fpsRotSpeed;
+
         [Header("Pan Controls")]
         public float m_panningSpeed;
         public bool m_invertPan;
 
         [Header("Rotation Controls")]
-        public Transform m_pivotPoint;
+        public Transform m_pivotObj;
         public float m_rotationSpeed;
         public bool m_invertYaw;
         public bool m_invertPitch;
@@ -37,6 +41,7 @@ namespace Thesis.Visualization.VisCam
         //--- Private Variables ---//
         private Transform m_focusTarget;
         private Texture2D m_currentCursor;
+        private Transform m_pivotParent;
 
 
 
@@ -60,19 +65,24 @@ namespace Thesis.Visualization.VisCam
             // Choose what cursor to use based on the inputs. It should be the basic one by default
             m_currentCursor = null;
 
-
-
             //--- FPS Camera Functionality ---//
             {
-                // Initiate the FPS camera mode by holding the right click
+                // Grab the pivot when pressing the right click down and release it when letting go
+                if (Input.GetMouseButtonDown(1))
+                    GrabPivot();
+                else if (Input.GetMouseButtonUp(1))
+                    ReleasePivot();
+
+                // Now, move in the FPS camera mode by holding the right click
                 if (Input.GetMouseButton(1))
                 {
                     // Change the mouse cursor to the FPS icon
                     m_currentCursor = m_cursorFPS;
+
+                    // Perform the FPS movements
+                    UpdateFPSMovement(_speedMultiplier);
                 }
             }
-
-
 
             //--- Mouse Picking Functionality ---//
             {
@@ -84,11 +94,9 @@ namespace Thesis.Visualization.VisCam
                 if (m_focusTarget != null)
                 {
                     // Move the pivot point so it stays with the focus target
-                    m_pivotPoint.position = m_focusTarget.position;
+                    m_pivotObj.position = m_focusTarget.position;
                 }
             }
-
-
 
             //--- Orbiting Functionality ---//
             {
@@ -104,8 +112,6 @@ namespace Thesis.Visualization.VisCam
                 }
             }
 
-
-
             //--- Zooming Functionality ---//
             {
                 // If the mouse wheel has moved at all, we should control the zoom
@@ -114,8 +120,6 @@ namespace Thesis.Visualization.VisCam
                     Zoom(mouseWheel, _speedMultiplier);
                 }
             }
-
-
 
             //--- Panning Functionality ---//
             {
@@ -129,8 +133,6 @@ namespace Thesis.Visualization.VisCam
                     Pan(mouseX, mouseY, _speedMultiplier);
                 }
             }
-
-
 
             // Set the final selected cursor based on what action is being performed
             Vector2 cursorOffset = (m_currentCursor == null) ? Vector2.zero : new Vector2(m_currentCursor.width / 2.0f, m_currentCursor.height / 2.0f);
@@ -154,7 +156,7 @@ namespace Thesis.Visualization.VisCam
                 {
                     // If we hit an object, move the pivot point to it and set it as the focus target
                     m_focusTarget = raycastHit.transform;
-                    m_pivotPoint.position = m_focusTarget.position;
+                    m_pivotObj.position = m_focusTarget.position;
                 }
             }
         }
@@ -177,7 +179,7 @@ namespace Thesis.Visualization.VisCam
             Vector3 transformedDir = m_cam.transform.TransformDirection(movementDir);
 
             // Now, move the actual pivot point instead so the camera goes with it
-            m_pivotPoint.position += transformedDir;
+            m_pivotObj.position += transformedDir;
         }
 
         public void RotateOrbit(float _mouseX, float _mouseY)
@@ -196,8 +198,8 @@ namespace Thesis.Visualization.VisCam
 
             // Rotate the pivot point around according to the pitch and yaw
             // Always use the global up vector but use the local right vector
-            m_pivotPoint.Rotate(Vector3.right, pitch, Space.Self);
-            m_pivotPoint.Rotate(Vector3.up, yaw, Space.World);
+            m_pivotObj.Rotate(Vector3.right, pitch, Space.Self);
+            m_pivotObj.Rotate(Vector3.up, yaw, Space.World);
         }
 
         public void Zoom(float _mouseWheel, float _speedMultiplier)
@@ -236,6 +238,88 @@ namespace Thesis.Visualization.VisCam
 
             // Apply the movement to the camera
             m_cam.transform.position = newCamPosition;
+        }
+
+        public void GrabPivot()
+        {
+            // Store a reference to the pivot's parent so we can re-establish their connection afterwards
+            m_pivotParent = m_pivotObj.parent;
+
+            // Move the camera so it is a direct child of the pivot's current parent
+            m_cam.transform.parent = m_pivotParent;
+
+            // Make the orbit cam's pivot a child of the camera so it moves around with us as we move the FPS cam
+            m_pivotObj.parent = m_cam.transform;
+        }
+
+        public void ReleasePivot()
+        {
+            // Return if we haven't grabbed the pivot yet
+            if (m_pivotParent == null)
+                return;
+
+            // Put the pivot back as a child of its original parent
+            m_pivotObj.parent = m_pivotParent;
+
+            // Put the camera back as a child of the pivot
+            m_cam.transform.parent = m_pivotObj;
+
+            // Clear the reference to the pivot's parent
+            m_pivotParent = null;
+        }
+
+        public void UpdateFPSMovement(float _speedMultiplier)
+        {
+            // If "sprinting", the movement speeds should be multiplied
+            float finalMoveSpeed = (Input.GetKey(KeyCode.LeftShift)) ? m_fpsMoveSpeed * m_sprintMultiplier : m_fpsMoveSpeed;
+
+            // Also, should consider the speed multiplier that comes from the height of the camera
+            finalMoveSpeed *= _speedMultiplier;
+
+            // Get the movement axes
+            float hAxis = Input.GetAxisRaw("Horizontal");
+            float vAxis = Input.GetAxisRaw("Vertical");
+
+            // X and Z movement comes from WASD
+            float xMovement = hAxis * finalMoveSpeed * Time.deltaTime;
+            float zMovement = vAxis * finalMoveSpeed * Time.deltaTime;
+            float yMovement = 0.0f;
+
+            // Y movement comes from space and LCTRL
+            if (Input.GetKey(KeyCode.Space))
+                yMovement = finalMoveSpeed * Time.deltaTime;
+            else if (Input.GetKey(KeyCode.LeftControl))
+                yMovement = -finalMoveSpeed * Time.deltaTime;
+
+            // Move along all of the axes, relative to the camera
+            Vector3 movementVec = new Vector3(xMovement, yMovement, zMovement);
+            Vector3 transformedMovement = m_cam.transform.TransformDirection(movementVec);
+            m_cam.transform.position += transformedMovement;
+
+            // The user can rotate the camera by holding down right click
+            if (Input.GetMouseButton(1))
+            {
+                // Get the mouse x and y
+                float mouseX = Input.GetAxis("Mouse X");
+                float mouseY = Input.GetAxis("Mouse Y");
+
+                // Rotate yaw and pitch, but not roll
+                // Need to invert the pitch to fix actual inversion
+                float yawMovement = mouseX * m_fpsRotSpeed;
+                float pitchMovement = -mouseY * m_fpsRotSpeed;
+
+                // Perform the rotations
+                Vector3 eulerRotations = new Vector3(pitchMovement, yawMovement, 0.0f);
+                Vector3 currentEuler = m_cam.transform.localRotation.eulerAngles;
+                Vector3 newRot = eulerRotations + currentEuler;
+
+                // Clamp the pitch to [-89, 89] to prevent flipping
+                // Code adapted from here: https://answers.unity.com/questions/1382504/mathfclamp-negative-rotation-for-the-10th-million.html
+                newRot = new Vector3(Mathf.Clamp((newRot.x <= 180) ? newRot.x : -(360 - newRot.x), -89.0f, 89.0f), newRot.y, newRot.z);
+
+                // Apply the rotation
+                m_cam.transform.rotation = Quaternion.Euler(newRot);
+            }
         }
     }
 }

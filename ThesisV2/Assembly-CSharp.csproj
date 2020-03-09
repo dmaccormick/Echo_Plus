@@ -95,6 +95,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_ObjGenerator.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_Object.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_ObjectSet.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_PlayerCameraManager.cs" />
     <Compile Include="Assets\Thesis\QuickOutline\Scripts\QuickOutline.cs" />
     <Compile Include="Assets\Thesis\Test Assets\Scripts\Test_CameraFollow.cs" />
     <Compile Include="Assets\Thesis\Test Assets\Scripts\Test_MeshBounds.cs" />
