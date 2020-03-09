@@ -21,6 +21,7 @@ namespace Thesis.Visualization.VisCam
         private VisCam_CamName m_activeCam;
         private VisCam_OrbitCam m_orbitCam;
         private VisCam_FPSCam m_fpsCam;
+        private VisCam_Combined m_combinedCam;
         private bool m_menuOpen;
 
 
@@ -32,6 +33,7 @@ namespace Thesis.Visualization.VisCam
             m_activeCam = VisCam_CamName.Orbit;
             m_orbitCam = GetComponent<VisCam_OrbitCam>();
             m_fpsCam = GetComponent<VisCam_FPSCam>();
+            m_combinedCam = GetComponent<VisCam_Combined>();
             m_menuOpen = false;
         }
 
@@ -55,6 +57,24 @@ namespace Thesis.Visualization.VisCam
                     m_orbitCam.UpdateCamera(speedMultiplier);
                 else
                     m_fpsCam.UpdateCamera(speedMultiplier);
+            }
+            else
+            {
+                // TEMP: Consider the combined camera to be the none setting
+                if (m_activeCam == VisCam_CamName.None && !m_menuOpen)
+                {
+                    // Determine the current height of the camera. Use absolute value so it considers being below the level as well
+                    float camHeight = Mathf.Abs(m_cam.transform.position.y);
+
+                    // Calculate the speed multiplier depending on the height of the camera
+                    // Under the interval, the camera moves at the base speed
+                    // Above the interval, the multiplier is applied
+                    // The multiplier is how many intervals the camera is currently at
+                    // Ex: If the interval is 10m, the camera is at base speed 10m and under. At 50m, it moves 5x faster
+                    float speedMultiplier = (camHeight < m_heightMultiplerInterval) ? 1.0f : camHeight / m_heightMultiplerInterval;
+
+                    m_combinedCam.UpdateCamera(speedMultiplier);
+                }
             }
         }
 

@@ -327,7 +327,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 53500895}
   m_targetFilter: {fileID: 53500896}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!1001 &185925455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -599,7 +598,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 234427783}
   m_targetFilter: {fileID: 234427784}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!1001 &260812896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -988,7 +986,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 447061687}
   m_targetFilter: {fileID: 447061688}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &447061691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,7 +1223,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 535138812}
   m_targetFilter: {fileID: 535138813}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &628841912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,7 +1382,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 330597150}
   m_targetFilter: {fileID: 330597151}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &639916903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1426,7 +1421,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1696685885}
   m_targetFilter: {fileID: 1696685886}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &650128114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1711,7 +1705,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 345167502}
   m_targetFilter: {fileID: 345167503}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &697209532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1906,7 +1899,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1096054696}
   m_targetFilter: {fileID: 1096054697}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &772316523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2053,7 +2045,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1426839486}
   m_targetFilter: {fileID: 1426839487}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &793052657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2187,7 +2178,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 271673545}
   m_targetFilter: {fileID: 271673546}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &862651348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2294,6 +2284,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7263282703251846421}
+  - {fileID: 1805869333}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2398,7 +2389,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1411839216}
   m_targetFilter: {fileID: 1411839217}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &1001164913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2498,7 +2488,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1408287025}
   m_targetFilter: {fileID: 1408287026}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &1009334595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2760,7 +2749,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1529577093}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1136167679
 MonoBehaviour:
@@ -2897,7 +2886,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1747250848}
   m_targetFilter: {fileID: 1747250849}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &1384364662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3194,7 +3182,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1406793819}
   m_targetFilter: {fileID: 1406793820}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!23 &1408287025 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 360564095617867920, guid: e8b4a6a1452df2d469f6bf93b6a7f2a3,
@@ -3259,7 +3246,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 570137714}
-  - {fileID: 1805869333}
   - {fileID: 1136167678}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3285,7 +3271,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1095357041}
   m_targetFilter: {fileID: 1095357042}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &1571414688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3572,7 +3557,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 1398243658}
   m_targetFilter: {fileID: 1398243659}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &1728454838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3769,6 +3753,13 @@ GameObject:
   - component: {fileID: 1805869333}
   - component: {fileID: 1805869332}
   - component: {fileID: 1805869331}
+  - component: {fileID: 1805869340}
+  - component: {fileID: 1805869339}
+  - component: {fileID: 1805869338}
+  - component: {fileID: 1805869337}
+  - component: {fileID: 1805869335}
+  - component: {fileID: 1805869334}
+  - component: {fileID: 1805869341}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3835,12 +3826,132 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805869330}
   m_LocalRotation: {x: 0.53729963, y: -0, z: -0, w: 0.8433915}
-  m_LocalPosition: {x: 0, y: 11.09, z: -5}
+  m_LocalPosition: {x: 0, y: 10, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1529577093}
+  m_Father: {fileID: 917341032}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
+--- !u!114 &1805869334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805869330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c262ab9e80f47c44bbb9ac0a841f62bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_targetCam: {fileID: 1805869332}
+  m_dataFormat: F3
+--- !u!114 &1805869335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805869330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b537bd0ce940b924ca9b878304ce8a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dataFormat: F3
+--- !u!114 &1805869337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805869330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae1b5f909a6bcb4697cb1650bc27597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
+  m_target: {fileID: 1805869333}
+--- !u!114 &1805869338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805869330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
+  m_target: {fileID: 1805869333}
+--- !u!114 &1805869339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805869330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
+  m_target: {fileID: 1805869333}
+--- !u!114 &1805869340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805869330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc28b55405aff468ca545170f76787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_trackComponents:
+  - {fileID: 1805869339}
+  - {fileID: 1805869338}
+  - {fileID: 1805869337}
+  - {fileID: 1805869335}
+  - {fileID: 1805869334}
+  m_isStatic: 0
+--- !u!114 &1805869341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805869330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 423b3db1388e6aa4da86cdaa54b595ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_target: {fileID: 7263282703251846421}
+  m_offset: {x: 0, y: 10, z: -5}
 --- !u!1001 &1885635725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3947,7 +4058,6 @@ MonoBehaviour:
   m_targetRenderer: {fileID: 775028691}
   m_targetFilter: {fileID: 775028692}
   m_dataFormat: F3
-  m_generatePickingCollider: 1
 --- !u!114 &1998983135
 MonoBehaviour:
   m_ObjectHideFlags: 0

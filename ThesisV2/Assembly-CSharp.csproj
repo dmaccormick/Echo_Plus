@@ -87,6 +87,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Rotation.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Scale.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_CameraControls.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_Combined.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_FPSCam.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_OrbitCam.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_LogParser.cs" />
@@ -95,12 +96,14 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_Object.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_ObjectSet.cs" />
     <Compile Include="Assets\Thesis\QuickOutline\Scripts\QuickOutline.cs" />
+    <Compile Include="Assets\Thesis\Test Assets\Scripts\Test_CameraFollow.cs" />
     <Compile Include="Assets\Thesis\Test Assets\Scripts\Test_MeshBounds.cs" />
     <Compile Include="Assets\Thesis\Test Assets\Scripts\Test_Mover.cs" />
     <Compile Include="Assets\Thesis\Test Assets\Scripts\Test_ShrinkingProjectile.cs" />
     <Compile Include="Assets\Thesis\Test Assets\Scripts\Test_Spawner.cs" />
     <None Include="Assets\Thesis\QuickOutline\Resources\Shaders\OutlineMask.shader" />
     <None Include="Assets\Thesis\QuickOutline\Readme.txt" />
+    <None Include="Assets\Thesis\My Assets\Sprites\External\External Sources.txt" />
     <None Include="Assets\Thesis\My Assets\Shaders\Sprite_DrawOnTop.shader" />
     <None Include="Assets\Thesis\QuickOutline\Resources\Shaders\OutlineFill.shader" />
     <None Include="Assets\Thesis\My Assets\Shaders\BlurUI.shader" />
