@@ -63,7 +63,7 @@ namespace Thesis.UI
         public GameObject m_cameraListElementPrefab;
 
         [Header("Camera Quick Switch UI Elements")]
-        public GameObject m_pnlCameraQuickSwitch;
+        public GameObject m_pnlQuickSelect;
 
 
 
@@ -349,6 +349,7 @@ namespace Thesis.UI
 
             // Switch back to the main camera
             m_camControls.m_cam.enabled = true;
+            m_pnlQuickSelect.SetActive(true);
             FindObjectOfType<VisCam_PlayerCameraManager>().DisableAllCameras();
         }
 
@@ -428,10 +429,16 @@ namespace Thesis.UI
             {
                 controllableCam.enabled = false;
                 m_camControls.SetMenuOpen(true); // using this as a way of disabling the camera controls for now
+
+                // Hide the quick selection UI
+                m_pnlQuickSelect.SetActive(false);
             }
             else
             {
-                m_camControls.SetMenuOpen(false); // using this as a way of disabling the camera controls for now
+                m_camControls.SetMenuOpen(false); // using this as a way of disabling the camera controls
+
+                // Show the quick selection UI
+                m_pnlQuickSelect.SetActive(true);
             }
 
             // Disable all of the unused cameras and activate the right one

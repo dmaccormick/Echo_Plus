@@ -30,7 +30,7 @@ namespace Thesis.Visualization
 
                 // Give the object the visualization script
                 Visualization_Object visObjComp = visObj.AddComponent<Visualization_Object>();
-                visObjComp.Setup();
+                visObjComp.Setup(objParse.m_isKeyObj);
 
                 // Attach the related tracks to the object and connect them to the visualization script
                 foreach (KeyValuePair<string, string> trackInfo in objParse.m_trackData)

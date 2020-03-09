@@ -72,7 +72,9 @@ namespace Thesis.VisTrack
         public void OnDestroy()
         {
             // Look for the player camera manager and tell it to remove this camera
-            FindObjectOfType<VisCam_PlayerCameraManager>().OnCamDestroyed(m_targetCam);
+            var camManager = FindObjectOfType<VisCam_PlayerCameraManager>();
+            if (camManager != null)
+                camManager.OnCamDestroyed(m_targetCam);
         }
 
 

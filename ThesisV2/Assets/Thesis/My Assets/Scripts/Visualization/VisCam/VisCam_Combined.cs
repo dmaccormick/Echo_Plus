@@ -31,7 +31,7 @@ namespace Thesis.Visualization.VisCam
         public LayerMask m_pickLayers;
         public float m_maxFocusPickDist;
         public float m_pickCooldown; // How long after letting go of alt before we can pick again (prevents accidentally picking a new target right after orbiting)
-        private bool m_canPick; 
+        public VisCam_QuickFocus m_quickFocus;
 
         [Header("Mouse Cursors")]
         public Texture2D m_cursorPan;
@@ -44,6 +44,7 @@ namespace Thesis.Visualization.VisCam
         private Transform m_focusTarget;
         private Texture2D m_currentCursor;
         private Transform m_pivotParent;
+        private bool m_canPick;
 
 
 
@@ -91,7 +92,13 @@ namespace Thesis.Visualization.VisCam
             {
                 // Clear the focus target by pressing the right mouse button
                 if (Input.GetMouseButtonDown(1))
+                {
+                    // Clear the target
                     m_focusTarget = null;
+
+                    // Update the quick selection ui
+                    m_quickFocus.RemoveTempTarget();
+                }
 
                 // Follow the focus target if it has moved
                 if (m_focusTarget != null)
@@ -171,11 +178,23 @@ namespace Thesis.Visualization.VisCam
                 // Fire the ray and check for a hit
                 if (Physics.Raycast(ray, out var raycastHit, m_maxFocusPickDist, m_pickLayers))
                 {
-                    // If we hit an object, move the pivot point to it and set it as the focus target
-                    m_focusTarget = raycastHit.transform;
-                    m_pivotObj.position = m_focusTarget.position;
+                    // If we hit an object, set is as the new focus target
+                    SetNewFocusTarget(raycastHit.transform);
+
+                    // Tell the selection UI about the new pick target
+                    m_quickFocus.AddTempTarget(m_focusTarget);
                 }
             }
+        }
+
+        public void SetNewFocusTarget(Transform _target)
+        {
+            // Set the focus target
+            m_focusTarget = _target;
+
+            // If the target exists, move the pivot point to it
+            if (m_focusTarget != null)
+                m_pivotObj.position = m_focusTarget.position;
         }
 
         public void Pan(float _mouseX, float _mouseY, float _speedMultiplier)

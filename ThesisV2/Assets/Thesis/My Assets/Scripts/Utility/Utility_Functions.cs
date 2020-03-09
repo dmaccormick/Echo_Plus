@@ -96,5 +96,30 @@ namespace Thesis.Utility
             // Return the created quaternion
             return newQuat;
         }
+
+        public static string RemoveIDString(string _name)
+        {
+            // Find the last '_' in the name, since that is where the ID starts
+            int underscoreIdx = _name.LastIndexOf('_');
+
+            // Shorten the string to cut off anything at the underscore and beyond
+            string nameWithoutID = _name.Substring(0, underscoreIdx);
+
+            // Return the shortened name
+            return nameWithoutID;
+        }
+
+        public static string GetFileNameFromSetName(string _setName)
+        {
+            // Find the last '(' since that is where the file name starts
+            int openBracketIdx = _setName.LastIndexOf('(');
+            int length = _setName.Length - openBracketIdx - 2; // Subtract an extra value to compensate for the end bracket
+
+            // Shorten the string
+            string fileName = _setName.Substring(openBracketIdx + 1, length);
+
+            // Return the shortened string
+            return fileName;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 using Thesis.Interface;
+using Thesis.Visualization.VisCam;
 
 namespace Thesis.Visualization
 {
@@ -9,14 +10,16 @@ namespace Thesis.Visualization
     {
         //--- Private Variables ---//
         private List<IVisualizable> m_tracks;
+        private bool m_isKeyObj;
 
 
 
         //--- Methods ---//
-        public void Setup()
+        public void Setup(bool _isKeyObj)
         {
             // Init the private variables
             m_tracks = new List<IVisualizable>();
+            m_isKeyObj = _isKeyObj;
         }
 
         public void AddTrack(IVisualizable _newTrack)
@@ -33,6 +36,10 @@ namespace Thesis.Visualization
             // Start the visualization on all of the tracks
             foreach (IVisualizable track in m_tracks)
                 track.StartVisualization(_startTime);
+
+            // If this object is a key object, we should register with the quick focus selector system
+            if (m_isKeyObj)
+                FindObjectOfType<VisCam_QuickFocus>().AddFocusTarget(this.transform);
         }
 
         public void UpdateVisualization(float _currentTime)

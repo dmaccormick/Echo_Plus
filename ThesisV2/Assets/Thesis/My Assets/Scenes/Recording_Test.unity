@@ -252,6 +252,7 @@ MonoBehaviour:
   - {fileID: 53500901}
   - {fileID: 53500902}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!114 &53500899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,6 +524,7 @@ MonoBehaviour:
   - {fileID: 234427789}
   - {fileID: 234427790}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!114 &234427787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,6 +1066,7 @@ MonoBehaviour:
   - {fileID: 447061691}
   - {fileID: 447061690}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!23 &535138812 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8571150447850764887, guid: 10c02d3467b59054b914ff7f6a3c8a1e,
@@ -1301,6 +1304,7 @@ MonoBehaviour:
   - {fileID: 628841912}
   - {fileID: 628841911}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1 &639916898 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 892359170847146007, guid: 13a1f3b15406f4245803da6c0b187a51,
@@ -1400,6 +1404,7 @@ MonoBehaviour:
   - {fileID: 639916900}
   - {fileID: 639916899}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1 &650128112 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5951230906091038222, guid: e8b4a6a1452df2d469f6bf93b6a7f2a3,
@@ -1499,6 +1504,7 @@ MonoBehaviour:
   - {fileID: 650128114}
   - {fileID: 650128113}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1001 &678877270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1783,6 +1789,7 @@ MonoBehaviour:
   - {fileID: 697209532}
   - {fileID: 697209531}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1001 &725217224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1977,6 +1984,7 @@ MonoBehaviour:
   - {fileID: 772316523}
   - {fileID: 772316522}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!23 &775028691 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 630336299032139204, guid: a6dfd0c83dcc31942b6a51275e05d028,
@@ -2123,6 +2131,7 @@ MonoBehaviour:
   - {fileID: 793052657}
   - {fileID: 793052656}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1 &846612426
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,6 +2265,7 @@ MonoBehaviour:
   - {fileID: 862651348}
   - {fileID: 862651347}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1 &917341031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2467,6 +2477,7 @@ MonoBehaviour:
   - {fileID: 1001164913}
   - {fileID: 1001164912}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1 &1009334593 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5951230906091038222, guid: e8b4a6a1452df2d469f6bf93b6a7f2a3,
@@ -2566,6 +2577,7 @@ MonoBehaviour:
   - {fileID: 1009334595}
   - {fileID: 1009334594}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!23 &1095357041 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 630336299032139204, guid: a6dfd0c83dcc31942b6a51275e05d028,
@@ -2964,6 +2976,7 @@ MonoBehaviour:
   - {fileID: 1384364662}
   - {fileID: 1384364661}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!23 &1398243658 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8571150447850764887, guid: 10c02d3467b59054b914ff7f6a3c8a1e,
@@ -3107,6 +3120,7 @@ MonoBehaviour:
   - {fileID: 1406793825}
   - {fileID: 1406793826}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!114 &1406793823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3349,6 +3363,7 @@ MonoBehaviour:
   - {fileID: 1571414688}
   - {fileID: 1571414687}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1001 &1626259208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3635,6 +3650,7 @@ MonoBehaviour:
   - {fileID: 1728454838}
   - {fileID: 1728454837}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1001 &1730970746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3938,6 +3954,7 @@ MonoBehaviour:
   - {fileID: 1805869335}
   - {fileID: 1805869334}
   m_isStatic: 0
+  m_isKeyFocusObj: 0
 --- !u!114 &1805869341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4136,6 +4153,7 @@ MonoBehaviour:
   - {fileID: 1998983135}
   - {fileID: 1998983134}
   m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1001 &2749502447887946061
 PrefabInstance:
   m_ObjectHideFlags: 0

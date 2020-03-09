@@ -92,6 +92,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_FPSCam.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_OrbitCam.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_PlayerCameraManager.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_QuickFocus.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_LogParser.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_Manager.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_ObjGenerator.cs" />
