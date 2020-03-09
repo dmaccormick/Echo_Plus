@@ -158,5 +158,13 @@ namespace Thesis.VisTrack
             // Return the timestamp for the last data point
             return m_dataPoints[m_dataPoints.Count - 1].m_timestamp;
         }
+
+
+
+        //--- Getters ---//
+        public Camera GetTargetCam()
+        {
+            return this.m_targetCam;
+        }
     }
 }
