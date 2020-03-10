@@ -58,12 +58,12 @@ namespace Thesis.Visualization.VisCam
             else if (currentTarget == m_focusTargets[0])
             {
                 // Indicate that the target is the one that was selected by the user
-                m_txtFocusName.text = Utility_Functions.RemoveIDString(currentTarget.name) + " (User Selected)";
+                m_txtFocusName.text = "\"" + Utility_Functions.RemoveIDString(currentTarget.name) + "\" (User Selected)";
             }
             else
             {
                 // Indicate the focus target's name and set name as well
-                string targetName = Utility_Functions.RemoveIDString(currentTarget.name);
+                string targetName = "\"" + Utility_Functions.RemoveIDString(currentTarget.name) + "\"";
                 string fullSetName = currentTarget.GetComponentInParent<Visualization_ObjectSet>().GetSetName();
                 string shortSetName = Utility_Functions.GetFileNameFromSetName(fullSetName);
                 m_txtFocusName.text = targetName + " (" + shortSetName + ")";

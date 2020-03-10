@@ -51,8 +51,9 @@ namespace Thesis.UI
                 Visualization_ObjectSet parentSet = _refCamera.gameObject.GetComponentInParent<Visualization_ObjectSet>();
 
                 // Set the label that shows the name of the camera
-                string camName = _refCamera.gameObject.name + " (" + Utility_Functions.GetFileNameFromSetName(parentSet.GetSetName()) + ")";
-                m_txtCamName.text = camName;
+                string camName = Utility_Functions.RemoveIDString(_refCamera.gameObject.name);
+                string fullName = "\"" + camName + "\" (" + Utility_Functions.GetFileNameFromSetName(parentSet.GetSetName()) + ")";
+                m_txtCamName.text = fullName;
 
                 // Setup the outline information if the parent set has an outline, otherwise hide it
                 if (parentSet.GetHasOutline())

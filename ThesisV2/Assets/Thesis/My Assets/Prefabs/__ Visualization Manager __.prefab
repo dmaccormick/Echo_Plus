@@ -10127,7 +10127,11 @@ MonoBehaviour:
     Use WASD to move.
 
     Move
-    the mouse to rotate.'
+    the mouse to rotate.
+
+
+    Select a different non-controllable camera from the
+    menu in the top left.'
 --- !u!1 &7984851119565213592
 GameObject:
   m_ObjectHideFlags: 0
