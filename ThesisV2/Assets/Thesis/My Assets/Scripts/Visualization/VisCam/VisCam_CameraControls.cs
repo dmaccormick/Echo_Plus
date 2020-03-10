@@ -40,7 +40,7 @@ namespace Thesis.Visualization.VisCam
         private void Update()
         {
             // Only control the camera if actually able to do so. Can't move the camera if another menu is open
-            if (m_activeCam != VisCam_CamName.None && !m_menuOpen)
+            if (m_activeCam != VisCam_CamName.None && !m_menuOpen && m_cam.enabled)
             {
                 // Determine the current height of the camera. Use absolute value so it considers being below the level as well
                 float camHeight = Mathf.Abs(m_cam.transform.position.y);

@@ -164,6 +164,10 @@ namespace Thesis.Visualization.VisCam
         //--- Utility Functions ---//
         public void CheckForFocusTarget()
         {
+            // If the camera is not currently active, back out
+            if (!m_cam.enabled)
+                return;
+
             // If currently panning or orbiting, we shouldn't allow for changing focus
             // We can check this by determining what the current cursor is
             if (m_currentCursor != m_cursorOrbit && m_currentCursor != m_cursorPan)

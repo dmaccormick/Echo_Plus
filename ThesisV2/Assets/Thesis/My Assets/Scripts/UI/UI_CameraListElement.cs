@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using Thesis.VisTrack;
 using Thesis.Visualization;
+using Thesis.Utility;
 
 namespace Thesis.UI
 {
@@ -32,7 +32,6 @@ namespace Thesis.UI
 
         //--- Private Variables ---//
         private Camera m_refCamera;
-        private VisTrack_Camera m_refCamTrack;
 
 
 
@@ -40,7 +39,6 @@ namespace Thesis.UI
         public void InitWithCam(Camera _refCamera, bool _hasParentSet)
         {
             // Store the data internally
-            this.m_refCamTrack = null;
             this.m_refCamera = _refCamera;
 
             // Toggle the icon to show if the camera is active or not
@@ -52,13 +50,23 @@ namespace Thesis.UI
                 // Grab the parent set
                 Visualization_ObjectSet parentSet = _refCamera.gameObject.GetComponentInParent<Visualization_ObjectSet>();
 
-                // Use the object set's current values to setup the outline information
-                Color.RGBToHSV(parentSet.GetOutlineColour(), out float Hue, out float S, out float V);
-                m_imgOutlineColour.color = Color.HSVToRGB(Hue, 1.0f, 1.0f);
-
                 // Set the label that shows the name of the camera
-                string camName = _refCamera.gameObject.name + " (" + parentSet.GetSetName() + ")";
+                string camName = _refCamera.gameObject.name + " (" + Utility_Functions.GetFileNameFromSetName(parentSet.GetSetName()) + ")";
                 m_txtCamName.text = camName;
+
+                // Setup the outline information if the parent set has an outline, otherwise hide it
+                if (parentSet.GetHasOutline())
+                {
+                    // Use the object set's current values to setup the outline information
+                    Color.RGBToHSV(parentSet.GetOutlineColour(), out float Hue, out float S, out float V);
+                    m_imgOutlineColour.color = Color.HSVToRGB(Hue, 1.0f, 1.0f);
+                }
+                else
+                {
+                    // Hide the outline controls
+                    m_imgOutlineColour.gameObject.SetActive(false);
+                    m_txtOutlineLabel.gameObject.SetActive(false);
+                }
             }
             else
             {
@@ -70,16 +78,6 @@ namespace Thesis.UI
                 string camName = "Controllable Camera";
                 m_txtCamName.text = camName;
             }
-        }
-
-        public void InitWithCamTrack(VisTrack_Camera _refCamTrack)
-        {
-            // Store the data internally
-            this.m_refCamTrack = _refCamTrack;
-            this.m_refCamera = _refCamTrack.GetTargetCam();
-
-            // Toggle the icon to show if the camera is active or not
-            this.m_imgCamSelectIndicator.gameObject.SetActive(m_refCamera.enabled);
         }
 
 

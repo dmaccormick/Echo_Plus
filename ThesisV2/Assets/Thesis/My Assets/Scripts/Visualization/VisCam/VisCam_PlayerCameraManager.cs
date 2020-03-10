@@ -118,9 +118,42 @@ namespace Thesis.Visualization.VisCam
         public Camera[] GetAllCameras()
         {
             if (m_cameras == null)
+            {
                 return null;
+            }
             else
-                return this.m_cameras.ToArray();
+            {
+                // Sort so that all static cameras are first
+                return GetSortedCameras().ToArray();
+            }
+        }
+
+
+
+        //--- Utility Functions ---//
+        private List<Camera> GetSortedCameras()
+        {
+            // Create a list of cameras
+            List<Camera> sortedList = new List<Camera>();
+
+            // Push all of the static ones in first
+            foreach(Camera cam in m_cameras)
+            {
+                // Get the parent set and check if it has an outline. If it doesn't, it's static and we should add it
+                if (!cam.transform.GetComponentInParent<Visualization_ObjectSet>().GetHasOutline())
+                    sortedList.Add(cam);
+            }
+
+            // Now add all of the dynamic ones
+            foreach (Camera cam in m_cameras)
+            {
+                // Get the parent set and check if it has an outline. If it does, it's dynamic and we should add it
+                if (cam.transform.GetComponentInParent<Visualization_ObjectSet>().GetHasOutline())
+                    sortedList.Add(cam);
+            }
+
+            // Return the sorted list
+            return sortedList;
         }
     }
 }
