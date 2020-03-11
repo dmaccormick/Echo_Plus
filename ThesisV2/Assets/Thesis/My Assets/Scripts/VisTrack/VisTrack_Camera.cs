@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEditor;
 using Thesis.Interface;
-using Thesis.Utility;
+using Thesis.Visualization.VisCam;
 
 namespace Thesis.VisTrack
 {
-    [RequireComponent(typeof(MeshFilter))]
-    [RequireComponent(typeof(MeshRenderer))]
-    [RequireComponent(typeof(MeshCollider))]
-    public class VisTrack_Renderables : MonoBehaviour, IVisualizable
+    [RequireComponent(typeof(Camera))]
+    public class VisTrack_Camera : MonoBehaviour, IVisualizable
     {
         //--- Data Struct ---//
-        public struct Data_Renderables
+        public struct Data_Camera
         {
-            public Data_Renderables(string _dataStr)
+            public Data_Camera(string _dataStr)
             {
                 // Split the data string
                 string[] tokens = _dataStr.Split('~');
@@ -24,20 +21,20 @@ namespace Thesis.VisTrack
                 // The first token is the timestamp so just parse the float
                 m_timestamp = float.Parse(tokens[0]);
 
-                // The second token is the path to the mesh so we need to get the mesh itself from the asset database
-                m_mesh = AssetDatabase.LoadAssetAtPath(tokens[1], typeof(Mesh)) as Mesh;
+                // The second token is the FOV
+                m_fov = float.Parse(tokens[1]);
 
-                // The third token is the path to the material so load that too
-                m_material = AssetDatabase.LoadAssetAtPath(tokens[2], typeof(Material)) as Material;
+                // The third token is the near clip plane distance
+                m_clipClose = float.Parse(tokens[2]);
 
-                // The fourth token is the colour which is a vector3 so parse that
-                m_color = Utility_Functions.ParseColor(tokens[3]);
+                // The fourth token is the far clip plane distance
+                m_clipFar = float.Parse(tokens[3]);
             }
 
-            public static List<Data_Renderables> ParseDataList(string _data)
+            public static List<Data_Camera> ParseDataList(string _data)
             {
                 // Create a list to hold the parsed data
-                List<Data_Renderables> dataPoints = new List<Data_Renderables>();
+                List<Data_Camera> dataPoints = new List<Data_Camera>();
 
                 // Split the string into individual lines which each are one data point
                 string[] lines = _data.Split('\n');
@@ -50,7 +47,7 @@ namespace Thesis.VisTrack
                         continue;
 
                     // Otherwise, create a new data point
-                    dataPoints.Add(new Data_Renderables(line));
+                    dataPoints.Add(new Data_Camera(line));
                 }
 
                 // Return the list of data points
@@ -58,17 +55,27 @@ namespace Thesis.VisTrack
             }
 
             public float m_timestamp;
-            public Mesh m_mesh;
-            public Material m_material;
-            public Color m_color;
+            public float m_fov;
+            public float m_clipClose;
+            public float m_clipFar;
         }
 
 
 
         //--- Private Variables ---//
-        private MeshFilter m_targetFilter;
-        private MeshRenderer m_targetRenderer;
-        private List<Data_Renderables> m_dataPoints;
+        private Camera m_targetCam;
+        private List<Data_Camera> m_dataPoints;
+
+
+
+        //--- Unity Methods ---//
+        public void OnDestroy()
+        {
+            // Look for the player camera manager and tell it to remove this camera
+            var camManager = FindObjectOfType<VisCam_PlayerCameraManager>();
+            if (camManager != null)
+                camManager.OnCamDestroyed(m_targetCam);
+        }
 
 
 
@@ -78,7 +85,7 @@ namespace Thesis.VisTrack
             try
             {
                 // Create a list of data points by parsing the string
-                m_dataPoints = Data_Renderables.ParseDataList(_data);
+                m_dataPoints = Data_Camera.ParseDataList(_data);
 
                 // If everything worked correctly, return true
                 return true;
@@ -94,34 +101,22 @@ namespace Thesis.VisTrack
         public void StartVisualization(float _startTime)
         {
             // Init the targets
-            m_targetFilter = GetComponent<MeshFilter>();
-            m_targetRenderer = GetComponent<MeshRenderer>();
+            m_targetCam = GetComponent<Camera>();
 
             // Apply the initial visualization
             UpdateVisualization(_startTime);
-
-            // Setup the mesh collider so it is ready for mouse picking and uses the correct mesh
-            // Use all of the cooking options
-            MeshCollider meshCollider = this.GetComponent<MeshCollider>();
-            meshCollider.cookingOptions = MeshColliderCookingOptions.CookForFasterSimulation | MeshColliderCookingOptions.EnableMeshCleaning | MeshColliderCookingOptions.UseFastMidphase | MeshColliderCookingOptions.WeldColocatedVertices;
-            meshCollider.sharedMesh = m_targetFilter.sharedMesh;
-            meshCollider.convex = false;
-
-            // We need to set the object to be on the focus picking layer so that we can focus it with the camera controls
-            // NOTE: This feature REQUIRES that this layer is added and is exactly this
-            this.gameObject.layer = LayerMask.NameToLayer("FocusTargetPicking");
         }
 
         public void UpdateVisualization(float _time)
         {
             // Get the relevant data point for the given time
             int dataIdx = FindDataPointForTime(_time);
-            Data_Renderables dataPoint = m_dataPoints[dataIdx];
+            Data_Camera dataPoint = m_dataPoints[dataIdx];
 
             // Apply the data point to the visualization
-            m_targetFilter.sharedMesh = dataPoint.m_mesh;
-            m_targetRenderer.sharedMaterial = dataPoint.m_material;
-            m_targetRenderer.sharedMaterial.color = dataPoint.m_color;
+            m_targetCam.fieldOfView = dataPoint.m_fov;
+            m_targetCam.nearClipPlane = dataPoint.m_clipClose;
+            m_targetCam.farClipPlane = dataPoint.m_clipFar;
         }
 
         public int FindDataPointForTime(float _time)
@@ -151,7 +146,7 @@ namespace Thesis.VisTrack
 
         public string GetTrackName()
         {
-            return "Renderables";
+            return "Camera";
         }
 
         public float GetFirstTimestamp()
@@ -172,6 +167,14 @@ namespace Thesis.VisTrack
 
             // Return the timestamp for the last data point
             return m_dataPoints[m_dataPoints.Count - 1].m_timestamp;
+        }
+
+
+
+        //--- Getters ---//
+        public Camera GetTargetCam()
+        {
+            return this.m_targetCam;
         }
     }
 }

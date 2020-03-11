@@ -10,6 +10,7 @@ namespace Thesis.Recording
         //--- Public Variables ---//
         public List<MonoBehaviour> m_trackComponents;
         public bool m_isStatic;
+        public bool m_isKeyFocusObj; // If this is true, the vis will allow for easy focus on this object
 
 
 
@@ -106,7 +107,7 @@ namespace Thesis.Recording
             StringBuilder builder = new StringBuilder();
 
             // Add object header information
-            builder.AppendLine("OBJ_START~" + this.m_gameObjectName + this.m_uniqueID);
+            builder.AppendLine("OBJ_START~" + this.m_gameObjectName + this.m_uniqueID + "~" + this.m_isKeyFocusObj.ToString());
 
             // Add all of the string data from the tracks together into one set of data
             foreach (IRecordable track in m_trackInterfaces)

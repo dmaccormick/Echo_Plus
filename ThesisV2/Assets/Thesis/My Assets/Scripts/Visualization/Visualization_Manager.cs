@@ -192,7 +192,7 @@ namespace Thesis.Visualization
                 return false;
 
             // Generate an actual object set from the list and hold onto it for now
-            Visualization_ObjectSet newObjectSet = Visualization_ObjGenerator.GenerateObjectSet(parsedDynamicObjects, "Dynamic Objects(" + fileName + ")");
+            Visualization_ObjectSet newObjectSet = Visualization_ObjGenerator.GenerateObjectSet(parsedDynamicObjects, "Dynamic Objects (" + fileName + ")");
 
             // Return false if the object generation failed
             if (newObjectSet == null)

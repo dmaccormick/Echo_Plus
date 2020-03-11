@@ -10,10 +10,12 @@ namespace Thesis.Visualization
         public Visualization_ObjParse()
         {
             this.m_objName = null;
+            this.m_isKeyObj = false;
             this.m_trackData = new Dictionary<string, string>();
         }
 
         public string m_objName;
+        public bool m_isKeyObj;
         public Dictionary<string, string> m_trackData;
     }
 
@@ -65,6 +67,10 @@ namespace Thesis.Visualization
 
                         // The second token is the name of the object so we should set that
                         currentParsedObject.m_objName = tokens[1];
+
+                        // The next token should be if the object is a key focus object or not
+                        // If it is, it can be quick selected
+                        currentParsedObject.m_isKeyObj = (tokens.Length >= 3 && tokens[2] == "True");
                     }
                     else if (firstToken == "OBJ_END")
                     {
