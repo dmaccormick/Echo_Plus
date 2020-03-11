@@ -26,6 +26,7 @@ namespace Thesis.Visualization.VisCam
         [Header("Zoom Controls")]
         public float m_zoomSpeed;
         public float m_closestZoomDistance;
+        public float m_focusDistance;
 
         [Header("Pick Controls")]
         public LayerMask m_pickLayers;
@@ -35,6 +36,7 @@ namespace Thesis.Visualization.VisCam
 
         [Header("Mouse Cursors")]
         public Texture2D m_cursorPan;
+        public Texture2D m_cursorPanDisabled;
         public Texture2D m_cursorOrbit;
         public Texture2D m_cursorFPS;
 
@@ -139,6 +141,10 @@ namespace Thesis.Visualization.VisCam
                 {
                     Zoom(mouseWheel, _speedMultiplier);
                 }
+
+                // Press 'F' to zoom and focus on the targeted object
+                if (m_focusTarget != null && Input.GetKeyDown(KeyCode.F))
+                    ZoomToFocus();
             }
 
             //--- Panning Functionality ---//
@@ -146,11 +152,21 @@ namespace Thesis.Visualization.VisCam
                 // Pan by holding the middle click
                 if (Input.GetMouseButton(2))
                 {
-                    // Change the mouse cursor to the grab icon
-                    m_currentCursor = m_cursorPan;
+                    // If panning is enabled, pan. Otherwise, show the disabled panning icon
+                    // Panning is enabled when not currently focusing on a target
+                    if (m_focusTarget == null)
+                    {
+                        // Change the mouse cursor to the grab icon
+                        m_currentCursor = m_cursorPan;
 
-                    // The scroll wheel has been pressed in so we should pan
-                    Pan(mouseX, mouseY, _speedMultiplier);
+                        // The scroll wheel has been pressed in so we should pan
+                        Pan(mouseX, mouseY, _speedMultiplier);
+                    }
+                    else
+                    {
+                        // Change the mouse cursor to the disabled grab icon
+                        m_currentCursor = m_cursorPanDisabled;
+                    }
                 }
             }
 
@@ -366,6 +382,24 @@ namespace Thesis.Visualization.VisCam
         {
             // Turn picking back on
             m_canPick = true;
+        }
+
+        public void ZoomToFocus()
+        {
+            // Put the pivot directly back on the target
+            m_pivotObj.position = m_focusTarget.position;
+
+            // Calculate the vector from the target to the camera's current position
+            Vector3 vTargetToCam = m_cam.transform.position - m_focusTarget.position;
+
+            // Scale it down to the focus distance set in the inspector
+            Vector3 vTargetToCamScaled = vTargetToCam.normalized * m_focusDistance;
+
+            // Calculate the new position by offsetting from the target by the calculated vector
+            Vector3 newCamPos = m_focusTarget.position + vTargetToCamScaled;
+
+            // Move the camera to the new position
+            m_cam.transform.position = newCamPos;
         }
     }
 }

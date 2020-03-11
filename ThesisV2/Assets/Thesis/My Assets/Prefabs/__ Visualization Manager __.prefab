@@ -191,6 +191,7 @@ MonoBehaviour:
   m_invertPitch: 1
   m_zoomSpeed: 500
   m_closestZoomDistance: 2
+  m_focusDistance: 10
   m_pickLayers:
     serializedVersion: 2
     m_Bits: 256
@@ -198,6 +199,7 @@ MonoBehaviour:
   m_pickCooldown: 0.2
   m_quickFocus: {fileID: 4013919031110916117}
   m_cursorPan: {fileID: 2800000, guid: 6c3fff9e56c67f44eb529271bbb23878, type: 3}
+  m_cursorPanDisabled: {fileID: 2800000, guid: 174663c44f1db5f45ae5acabc999b160, type: 3}
   m_cursorOrbit: {fileID: 2800000, guid: c49b779e38674204b8502e81222f0686, type: 3}
   m_cursorFPS: {fileID: 2800000, guid: 9cf57006362a934499713541e46ae5eb, type: 3}
 --- !u!114 &1640047269
@@ -3459,6 +3461,8 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0.8229513, a: 1}
   - {r: 1, g: 0.5589782, b: 0, a: 1}
   - {r: 0.53834724, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.7406938, a: 1}
+  - {r: 1, g: 0, b: 0.43205452, a: 1}
 --- !u!1 &1034843826409365526
 GameObject:
   m_ObjectHideFlags: 0
@@ -10110,7 +10114,8 @@ MonoBehaviour:
     Use Alt
     + Left Click + Drag To Orbit.
 
-    Use Middle Click + Drag to Pan.
+    Use Middle Click + Drag to Pan. You cannot
+    pan when you have a selection focus as you will follow it instead.
 
     Use Middle
     Mouse to Zoom.
