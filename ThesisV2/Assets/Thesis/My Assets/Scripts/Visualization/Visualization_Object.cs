@@ -14,6 +14,20 @@ namespace Thesis.Visualization
 
 
 
+        //--- Unity Methods ---//
+        private void OnDestroy()
+        {
+            // If this object is a key object, we should de-register with the quick focus selector system
+            if (m_isKeyObj)
+            {
+                var quickFocus = FindObjectOfType<VisCam_QuickFocus>();
+                if (quickFocus != null)
+                    quickFocus.RemoveFocusTarget(this.transform);
+            }
+        }
+
+
+
         //--- Methods ---//
         public void Setup(bool _isKeyObj)
         {
@@ -39,7 +53,11 @@ namespace Thesis.Visualization
 
             // If this object is a key object, we should register with the quick focus selector system
             if (m_isKeyObj)
-                FindObjectOfType<VisCam_QuickFocus>().AddFocusTarget(this.transform);
+            {
+                var quickFocus = FindObjectOfType<VisCam_QuickFocus>();
+                if (quickFocus != null)
+                    quickFocus.AddFocusTarget(this.transform);
+            } 
         }
 
         public void UpdateVisualization(float _currentTime)

@@ -151,6 +151,18 @@ namespace Thesis.Visualization.VisCam
             // Update the UI
             UpdateUI();
         }
+
+        public void RemoveFocusTarget(Transform _target)
+        {
+            // Remove the focus target from the list
+            m_focusTargets.Remove(_target);
+
+            // Reset the focus target back to the first one
+            m_focusTargetIdx = 0;
+
+            // Update the camera and the UI
+            OnFocusTargetChanged();
+        }
     }
 
 }

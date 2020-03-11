@@ -259,6 +259,7 @@ namespace Thesis.UI
 
                 // Setup the player camera manager system
                 GameObject.FindObjectOfType<VisCam_PlayerCameraManager>().Setup();
+                OnCameraEnabled(m_camControls.GetActiveCameraRef());
 
                 // Update the UI elements for the list of loaded object sets and the cameras
                 CreateObjectListUI();

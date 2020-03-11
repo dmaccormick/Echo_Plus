@@ -197,7 +197,7 @@ MonoBehaviour:
     m_Bits: 256
   m_maxFocusPickDist: 500
   m_pickCooldown: 0.2
-  m_quickFocus: {fileID: 4013919031110916117}
+  m_quickFocus: {fileID: 2763696232852994191}
   m_cursorPan: {fileID: 2800000, guid: 6c3fff9e56c67f44eb529271bbb23878, type: 3}
   m_cursorPanDisabled: {fileID: 2800000, guid: 174663c44f1db5f45ae5acabc999b160, type: 3}
   m_cursorOrbit: {fileID: 2800000, guid: c49b779e38674204b8502e81222f0686, type: 3}
@@ -5586,7 +5586,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4013919031110916117}
+      - m_Target: {fileID: 2763696232852994191}
         m_MethodName: OnNextClicked
         m_Mode: 1
         m_Arguments:
@@ -7089,7 +7089,6 @@ GameObject:
   - component: {fileID: 6239926335105969253}
   - component: {fileID: 905445763125952682}
   - component: {fileID: 4707869242372903402}
-  - component: {fileID: 4013919031110916117}
   m_Layer: 0
   m_Name: Pnl_QuickFocus
   m_TagString: Untagged
@@ -7155,22 +7154,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4013919031110916117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4645182507496000755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4291b6362cd4cd40957b912b50c9f35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pnlQuickFocus: {fileID: 4645182507496000755}
-  m_btnNextFocus: {fileID: 4007555466193510869}
-  m_btnPrevFocus: {fileID: 5879956861591058747}
-  m_txtFocusName: {fileID: 4148071130806935320}
 --- !u!1 &4693054838645446945
 GameObject:
   m_ObjectHideFlags: 0
@@ -9418,6 +9401,7 @@ GameObject:
   - component: {fileID: 4254326410160974996}
   - component: {fileID: 2140863415297059934}
   - component: {fileID: 126580873298820603}
+  - component: {fileID: 2763696232852994191}
   m_Layer: 0
   m_Name: UI_VisualizationManager
   m_TagString: Untagged
@@ -9566,6 +9550,22 @@ MonoBehaviour:
   m_cameraListElementPrefab: {fileID: 1356853153148987217, guid: cceecf66a7068224faf7bacd55e411f0,
     type: 3}
   m_pnlQuickSelect: {fileID: 4645182507496000755}
+--- !u!114 &2763696232852994191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7620386353504356633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4291b6362cd4cd40957b912b50c9f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pnlQuickFocus: {fileID: 4645182507496000755}
+  m_btnNextFocus: {fileID: 4007555466193510869}
+  m_btnPrevFocus: {fileID: 5879956861591058747}
+  m_txtFocusName: {fileID: 4148071130806935320}
 --- !u!1 &7774113023499712913
 GameObject:
   m_ObjectHideFlags: 0
@@ -10977,7 +10977,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4013919031110916117}
+      - m_Target: {fileID: 2763696232852994191}
         m_MethodName: OnPrevClicked
         m_Mode: 1
         m_Arguments:
