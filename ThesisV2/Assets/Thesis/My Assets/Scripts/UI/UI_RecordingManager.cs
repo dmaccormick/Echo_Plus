@@ -54,6 +54,7 @@ namespace Thesis.UI
             string dynamicPath = m_inDynamicSaveLoc.text;
             bool dynamicSaveWorked = m_recManager.SaveDynamicData(dynamicPath);
 
+#if UNITY_EDITOR
             // Show a dialog to indicate if the saving worked
             if (staticSaveWorked && dynamicSaveWorked)
             {
@@ -63,6 +64,7 @@ namespace Thesis.UI
             {
                 EditorUtility.DisplayDialog("Save Failed", "There was an error when saving the static file and the dynamic file!", "Continue");
             }
+#endif
         }
     }
 }

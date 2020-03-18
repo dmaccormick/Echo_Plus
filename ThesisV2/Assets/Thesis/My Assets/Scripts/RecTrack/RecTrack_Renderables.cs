@@ -25,10 +25,14 @@ namespace Thesis.RecTrack
 
             public string GetString(string _format)
             {
+#if UNITY_EDITOR
                 return this.m_timestamp.ToString(_format) + "~" + 
                     AssetDatabase.GetAssetPath(this.m_mesh) + "~" +
                     AssetDatabase.GetAssetPath(this.m_material) + "~" +
                     this.m_color.ToString(_format);
+#else
+                return null;
+#endif
             }
 
             public float m_timestamp;

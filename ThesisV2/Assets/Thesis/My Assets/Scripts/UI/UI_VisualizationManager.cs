@@ -190,8 +190,10 @@ namespace Thesis.UI
             // Since there can only be one static file, we should confirm if the user wants to overwrite any currently loaded static files
             if (m_visManager.GetStaticObjectSet() != null)
             {
+#if UNITY_EDITOR
                 // Show a dialog box that lets the user cancel loading if they want to
                 proceedWithLoading = EditorUtility.DisplayDialog("Overwrite Current Static Objects?", "Only one static object set can be loaded at a time. If you load this file, it will overwrite the static objects you already have loaded. Do you wish to proceed?", "Yes, Overwrite The Static Objects", "Cancel");
+#endif
             }
 
             // Load the file if requested to do so
@@ -222,13 +224,17 @@ namespace Thesis.UI
                     CreateObjectListUI();
                     CreateCameraListUI();
 
+#if UNITY_EDITOR
                     // Show a message that the file loaded correctly
                     EditorUtility.DisplayDialog("Static File Load Successful", "The static log file data loaded correctly!", "Continue");
+#endif
                 }
                 else
                 {
+#if UNITY_EDITOR
                     // Show a message that the file failed to load correctly
                     EditorUtility.DisplayDialog("Static File Load Failed", "The static log file failed to load!", "Continue");
+#endif
                 }
             }
         }
@@ -265,13 +271,17 @@ namespace Thesis.UI
                 CreateObjectListUI();
                 CreateCameraListUI();
 
+#if UNITY_EDITOR
                 // Show a message that the file loaded correctly
                 EditorUtility.DisplayDialog("Dynamic File Load Successful", "The dynamic log file data loaded correctly!", "Continue");
+#endif
             }
             else
             {
+#if UNITY_EDITOR
                 // Show a message that the file failed to load correctly
                 EditorUtility.DisplayDialog("Dynamic File Load Failed", "The dynamic log file failed to load!", "Continue");
+#endif
             }
         }
 
@@ -334,8 +344,10 @@ namespace Thesis.UI
             // Delete the set from the visualization manager
             if (!m_visManager.DeleteObjectSet(_deletedSet))
             {
+#if UNITY_EDITOR
                 // If the deletion failed for some reason, show a dialog box indicating that
                 EditorUtility.DisplayDialog("Set Deletion Failed!", "There was an error when trying to delete the set!", "Continue");
+#endif
             }
 
             // If there are no more dynamic sets, we should hide the timeline controls
