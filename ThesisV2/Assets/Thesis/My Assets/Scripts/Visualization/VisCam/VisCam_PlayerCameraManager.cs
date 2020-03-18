@@ -139,16 +139,22 @@ namespace Thesis.Visualization.VisCam
             // Push all of the static ones in first
             foreach(Camera cam in m_cameras)
             {
-                // Get the parent set and check if it has an outline. If it doesn't, it's static and we should add it
-                if (!cam.transform.GetComponentInParent<Visualization_ObjectSet>().GetHasOutline())
+                // Get the parent set
+                var parentSet = cam.transform.GetComponentInParent<Visualization_ObjectSet>();
+
+                // If the set exists, we should check if it has an outline. If it doesn't it's static and we should add it
+                if (parentSet != null && !parentSet.GetHasOutline())
                     sortedList.Add(cam);
             }
 
             // Now add all of the dynamic ones
             foreach (Camera cam in m_cameras)
             {
-                // Get the parent set and check if it has an outline. If it does, it's dynamic and we should add it
-                if (cam.transform.GetComponentInParent<Visualization_ObjectSet>().GetHasOutline())
+                // Get the parent set
+                var parentSet = cam.transform.GetComponentInParent<Visualization_ObjectSet>();
+
+                // If the set exists, we should check if it has an outline. If it does it's dynamic and we should add it
+                if (parentSet != null && parentSet.GetHasOutline())
                     sortedList.Add(cam);
             }
 
