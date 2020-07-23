@@ -20,10 +20,10 @@ namespace Thesis.UI
 
         [Header("Outline Controls")]
         public Image m_imgOutlineColour;
-        public Text m_txtOutlineLabel;
 
         [Header("Misc")]
         public Text m_txtCamName;
+        public Text m_txtSetName;
 
         [Header("Events")]
         public CameraEvent m_onActivateCamera;
@@ -52,8 +52,11 @@ namespace Thesis.UI
 
                 // Set the label that shows the name of the camera
                 string camName = Utility_Functions.RemoveIDString(_refCamera.gameObject.name);
-                string fullName = "\"" + camName + "\" (" + Utility_Functions.GetFileNameFromSetName(parentSet.GetSetName()) + ")";
-                m_txtCamName.text = fullName;
+                m_txtCamName.text = camName;
+
+                // Set the label that shows the name of the set
+                string setName = parentSet.GetSetName();
+                m_txtSetName.text = setName;
 
                 // Setup the outline information if the parent set has an outline, otherwise hide it
                 if (parentSet.GetHasOutline())
@@ -66,18 +69,17 @@ namespace Thesis.UI
                 {
                     // Hide the outline controls
                     m_imgOutlineColour.gameObject.SetActive(false);
-                    m_txtOutlineLabel.gameObject.SetActive(false);
                 }
             }
             else
             {
                 // Hide the outline controls
                 m_imgOutlineColour.gameObject.SetActive(false);
-                m_txtOutlineLabel.gameObject.SetActive(false);
 
                 // Set the label that shows the name of the camera
                 string camName = "Controllable Camera";
                 m_txtCamName.text = camName;
+                m_txtSetName.text = "";
             }
         }
 
@@ -101,6 +103,15 @@ namespace Thesis.UI
 
             // Toggle the icon to show if the camera is active or not
             this.m_imgCamSelectIndicator.gameObject.SetActive(m_refCamera.enabled);
+        }
+
+
+
+        //--- Colour Palette Methods ---//
+        public void OnColourPaletteSelected()
+        {
+            // TODO: Show the colour palette window
+            Debug.Log("Open Colour Palette!");
         }
     }
 }
