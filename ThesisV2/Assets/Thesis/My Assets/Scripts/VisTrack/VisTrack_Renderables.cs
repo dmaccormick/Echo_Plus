@@ -5,6 +5,7 @@ using UnityEngine.Assertions;
 using UnityEditor;
 using Thesis.Interface;
 using Thesis.Utility;
+using System.IO;
 
 namespace Thesis.VisTrack
 {
@@ -24,11 +25,21 @@ namespace Thesis.VisTrack
                 // The first token is the timestamp so just parse the float
                 m_timestamp = float.Parse(tokens[0]);
 
+#if UNITY_EDITOR
                 // The second token is the path to the mesh so we need to get the mesh itself from the asset database
                 m_mesh = AssetDatabase.LoadAssetAtPath(tokens[1], typeof(Mesh)) as Mesh;
 
                 // The third token is the path to the material so load that too
                 m_material = AssetDatabase.LoadAssetAtPath(tokens[2], typeof(Material)) as Material;
+#else
+                // Convert the mesh and mat file paths to be resources based paths instead
+                string meshResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[1]);
+                string matResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[2]);
+
+                // Load the mesh and material from the resource folders
+                m_mesh = Resources.Load(meshResourcePath, typeof(Mesh)) as Mesh;
+                m_material = Resources.Load(matResourcePath, typeof(Material)) as Material;
+#endif
 
                 // The fourth token is the colour which is a vector3 so parse that
                 m_color = Utility_Functions.ParseColor(tokens[3]);

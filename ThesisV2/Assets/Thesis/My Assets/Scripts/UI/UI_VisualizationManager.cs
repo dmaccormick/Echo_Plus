@@ -4,6 +4,7 @@ using UnityEditor;
 using Thesis.Visualization;
 using Thesis.Visualization.VisCam;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Thesis.UI
 {
@@ -64,6 +65,11 @@ namespace Thesis.UI
 
         [Header("Camera Quick Switch UI Elements")]
         public GameObject m_pnlQuickSelect;
+
+        [Header("EXE File Path")]
+        public string m_exeLogFileFolderName;
+        public int m_firstDynamicIndex;
+        public int m_lastDynamicIndex;
 
 
 
@@ -190,15 +196,23 @@ namespace Thesis.UI
             // Since there can only be one static file, we should confirm if the user wants to overwrite any currently loaded static files
             if (m_visManager.GetStaticObjectSet() != null)
             {
+#if UNITY_EDITOR
                 // Show a dialog box that lets the user cancel loading if they want to
                 proceedWithLoading = EditorUtility.DisplayDialog("Overwrite Current Static Objects?", "Only one static object set can be loaded at a time. If you load this file, it will overwrite the static objects you already have loaded. Do you wish to proceed?", "Yes, Overwrite The Static Objects", "Cancel");
+#endif
             }
 
             // Load the file if requested to do so
             if (proceedWithLoading)
             {
+#if UNITY_EDITOR
                 // Get the static file location from the input field
                 string staticPath = m_inStaticLoadLoc.text;
+#else
+                // If in build mode, use the log files that are directly beside the EXE
+                string staticPath = Path.GetDirectoryName(Application.dataPath);
+                staticPath = Path.Combine(new string[] { staticPath, "Phase1Data", m_exeLogFileFolderName, "Logs", "StaticData_" + m_exeLogFileFolderName + ".log"});
+#endif
 
                 // Tell the visualization manager to load the static data
                 bool loadSuccess = m_visManager.LoadStaticData(staticPath);
@@ -222,19 +236,24 @@ namespace Thesis.UI
                     CreateObjectListUI();
                     CreateCameraListUI();
 
+#if UNITY_EDITOR
                     // Show a message that the file loaded correctly
                     EditorUtility.DisplayDialog("Static File Load Successful", "The static log file data loaded correctly!", "Continue");
+#endif
                 }
                 else
                 {
+#if UNITY_EDITOR
                     // Show a message that the file failed to load correctly
                     EditorUtility.DisplayDialog("Static File Load Failed", "The static log file failed to load!", "Continue");
+#endif
                 }
             }
         }
 
         public void OnLoadDynamicFile()
         {
+#if UNITY_EDITOR
             // Get the dynamic file location from the input field
             string dynamicPath = m_inDynamicLoadLoc.text;
 
@@ -273,6 +292,43 @@ namespace Thesis.UI
                 // Show a message that the file failed to load correctly
                 EditorUtility.DisplayDialog("Dynamic File Load Failed", "The dynamic log file failed to load!", "Continue");
             }
+#else
+            // Load all of the dynamic files for this dataset
+            for (int i = m_firstDynamicIndex; i <= m_lastDynamicIndex; i++)
+            {
+                // If in build mode, use the log files that are directly beside the EXE
+                string dynamicPath = Path.GetDirectoryName(Application.dataPath);
+                dynamicPath = Path.Combine(new string[] { dynamicPath, "Phase1Data", m_exeLogFileFolderName, "Logs", "DynamicData_" + m_exeLogFileFolderName  + "_" + i.ToString() + ".log" });
+
+                // Tell the visualization manager to load the dynamic data
+                bool loadSuccess = m_visManager.LoadDynamicData(dynamicPath);
+
+                // Handle the results of the loading
+                if (loadSuccess)
+                {
+                    // Update the time indicators to match the new values
+                    m_txtStartTime.text = m_visManager.GetStartTime().ToString("F2");
+                    m_txtEndTime.text = m_visManager.GetEndTime().ToString("F2");
+                    m_txtCurrentTime.text = m_visManager.GetCurrentTime().ToString("F2");
+
+                    // Update the slider so that its values match the start and end time
+                    m_sldTimeline.minValue = m_visManager.GetStartTime();
+                    m_sldTimeline.maxValue = m_visManager.GetEndTime();
+
+                    // Show the timeline and speed controls
+                    m_pnlTimeLineControls.SetActive(true);
+                    m_pnlSpeedControls.SetActive(true);
+
+                    // Setup the player camera manager system
+                    GameObject.FindObjectOfType<VisCam_PlayerCameraManager>().Setup();
+                    OnCameraEnabled(m_camControls.GetActiveCameraRef());
+
+                    // Update the UI elements for the list of loaded object sets and the cameras
+                    CreateObjectListUI();
+                    CreateCameraListUI();
+                }
+            }
+#endif
         }
 
 
@@ -334,8 +390,10 @@ namespace Thesis.UI
             // Delete the set from the visualization manager
             if (!m_visManager.DeleteObjectSet(_deletedSet))
             {
+#if UNITY_EDITOR
                 // If the deletion failed for some reason, show a dialog box indicating that
                 EditorUtility.DisplayDialog("Set Deletion Failed!", "There was an error when trying to delete the set!", "Continue");
+#endif
             }
 
             // If there are no more dynamic sets, we should hide the timeline controls

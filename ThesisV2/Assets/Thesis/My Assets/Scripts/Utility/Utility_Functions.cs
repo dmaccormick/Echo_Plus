@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.IO;
 
 namespace Thesis.Utility
 {
@@ -120,6 +121,38 @@ namespace Thesis.Utility
 
             // Return the shortened string
             return fileName;
+        }
+
+        public static string ConvertAssetToResourcePath(string _assetPath)
+        {
+            try
+            {
+                // Find the end of the "Assets/" part of the file path
+                int endOfAssetsStr = _assetPath.IndexOf("Assets") + "Assets/".Length;
+
+                // Get everything after that part of the file path
+                string pathAfterAssets = _assetPath.Substring(endOfAssetsStr, _assetPath.Length - endOfAssetsStr);
+
+                // Find the file extension index
+                int fileExtensionIdx = pathAfterAssets.LastIndexOf('.');
+
+                // Remove the file extension
+                string pathWithoutExtension = pathAfterAssets.Substring(0, pathAfterAssets.Length - (pathAfterAssets.Length - fileExtensionIdx));
+
+                // Return the final path
+                return pathWithoutExtension;
+
+                // Pre-pend the resources folder onto it
+                //string resourcePath = Path.Combine("Resources/", pathAfterAssets);
+
+                // Return the final path
+                //return resourcePath;
+            }
+            catch(Exception e)
+            {
+                Debug.LogError("Error in ConvertAssetToResourcePath(): " + e.Message);
+                return null;
+            }
         }
     }
 }

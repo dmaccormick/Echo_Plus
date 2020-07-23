@@ -99,12 +99,14 @@ namespace Thesis.UI
         //--- Delete Controls ---//
         public void OnDeletePressed()
         {
+#if UNITY_EDITOR
             // Show a confirm dialog box to make sure they actually want to delete it
             if (EditorUtility.DisplayDialog("Delete Set?", "Are you sure you want to delete this set? This action cannot be undone.", "Delete Set", "Cancel"))
             {
                 // They pressed the "Delete Set" button so we should trigger the action to perform the deletion
                 m_onDeleteSet.Invoke(m_refObjectSet);
             }
+#endif
         }
     }
 }
