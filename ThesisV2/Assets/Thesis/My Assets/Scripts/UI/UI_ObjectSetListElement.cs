@@ -25,12 +25,14 @@ namespace Thesis.UI
         public Sprite m_sprVisibility_Off;
 
         [Header("Outline Controls")]
-        public Slider m_sldOutlineHue;
         public Image m_imgOutlineColour;
-        public Text m_txtOutlineLabel;
 
         [Header("Misc")]
         public Text m_txtSetName;
+        public Text m_txtStaticOrDynamic;
+
+        [Header("Solo Controls")]
+        public Button m_btnSolo;
 
         [Header("Events")]
         public ObjectSetEvent m_onDeleteSet;
@@ -51,16 +53,18 @@ namespace Thesis.UI
             // Use the object set's current values to setup the UI
             m_tglVisibility.isOn = _refObjectSet.GetIsVisible();
             Color.RGBToHSV(_refObjectSet.GetOutlineColour(), out float Hue, out float S, out float V);
-            m_sldOutlineHue.value = Hue;
+            //m_sldOutlineHue.value = Hue;
             m_imgOutlineColour.color = Color.HSVToRGB(Hue, 1.0f, 1.0f);
             m_txtSetName.text = _refObjectSet.GetSetName();
+            m_txtStaticOrDynamic.text = (_refObjectSet.GetHasOutline()) ? "Dynamic" : "Static";
 
             // If the set doesn't have an outline, we should remove the controls for it
             if (!_refObjectSet.GetHasOutline())
             {
-                m_sldOutlineHue.gameObject.SetActive(false);
+                //m_sldOutlineHue.gameObject.SetActive(false);
                 m_imgOutlineColour.gameObject.SetActive(false);
-                m_txtOutlineLabel.gameObject.SetActive(false);
+                //m_txtOutlineLabel.gameObject.SetActive(false);
+                m_btnSolo.gameObject.SetActive(false);
             }
         }
 
@@ -107,6 +111,24 @@ namespace Thesis.UI
                 m_onDeleteSet.Invoke(m_refObjectSet);
             }
 #endif
+        }
+
+
+
+        //--- Solo Controls ---//
+        public void OnSoloPressed()
+        {
+            // TODO: Hide all of the other dynamic sets (not static)
+            Debug.Log("Solo Pressed!");
+        }
+
+
+
+        //--- Colour Palette Methods ---//
+        public void OnColourPaletteSelected()
+        {
+            // TODO: Show the colour palette window
+            Debug.Log("Open Colour Palette!");
         }
     }
 }
