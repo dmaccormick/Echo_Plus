@@ -32,6 +32,7 @@ namespace Thesis.UI
 
         //--- Private Variables ---//
         private Camera m_refCamera;
+        private Visualization_ObjectSet m_parentSet;
 
 
 
@@ -48,21 +49,21 @@ namespace Thesis.UI
             if (_hasParentSet)
             {
                 // Grab the parent set
-                Visualization_ObjectSet parentSet = _refCamera.gameObject.GetComponentInParent<Visualization_ObjectSet>();
+                m_parentSet = _refCamera.gameObject.GetComponentInParent<Visualization_ObjectSet>();
 
                 // Set the label that shows the name of the camera
                 string camName = Utility_Functions.RemoveIDString(_refCamera.gameObject.name);
                 m_txtCamName.text = camName;
 
                 // Set the label that shows the name of the set
-                string setName = parentSet.GetSetName();
+                string setName = m_parentSet.GetSetName();
                 m_txtSetName.text = setName;
 
                 // Setup the outline information if the parent set has an outline, otherwise hide it
-                if (parentSet.GetHasOutline())
+                if (m_parentSet.GetHasOutline())
                 {
                     // Use the object set's current values to setup the outline information
-                    Color.RGBToHSV(parentSet.GetOutlineColour(), out float Hue, out float S, out float V);
+                    Color.RGBToHSV(m_parentSet.GetOutlineColour(), out float Hue, out float S, out float V);
                     m_imgOutlineColour.color = Color.HSVToRGB(Hue, 1.0f, 1.0f);
                 }
                 else
@@ -110,8 +111,9 @@ namespace Thesis.UI
         //--- Colour Palette Methods ---//
         public void OnColourPaletteSelected()
         {
-            // TODO: Show the colour palette window
-            Debug.Log("Open Colour Palette!");
+            // Open the colour selector window
+            if (m_parentSet != null)
+                FindObjectOfType<UI_VisualizationManager>().OpenColourSelector(this.gameObject, m_parentSet);
         }
     }
 }

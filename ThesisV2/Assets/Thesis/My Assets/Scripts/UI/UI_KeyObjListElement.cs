@@ -23,6 +23,7 @@ namespace Thesis.UI
 
         //--- Private Variables ---//
         private GameObject m_refObj;
+        private Visualization_ObjectSet m_parentSet;
 
 
 
@@ -31,14 +32,14 @@ namespace Thesis.UI
         {
             // Store the data internally
             this.m_refObj = _refObj;
+            m_parentSet = m_refObj.GetComponentInParent<Visualization_ObjectSet>();
 
             // Indicate the object's name and set name as well
-            var parentSet = m_refObj.GetComponentInParent<Visualization_ObjectSet>();
             m_txtObjName.text = Utility_Functions.RemoveIDString(m_refObj.name);
-            m_txtSetName.text = parentSet.GetSetName();
+            m_txtSetName.text = m_parentSet.GetSetName();
 
             // Use the object set's current values to setup the UI
-            Color.RGBToHSV(parentSet.GetOutlineColour(), out float Hue, out float S, out float V);
+            Color.RGBToHSV(m_parentSet.GetOutlineColour(), out float Hue, out float S, out float V);
             m_imgOutlineColour.color = Color.HSVToRGB(Hue, 1.0f, 1.0f);
 
             // By default, this object is not selected in the quick select
@@ -74,8 +75,8 @@ namespace Thesis.UI
         //--- Colour Palette Methods ---//
         public void OnColourPaletteSelected()
         {
-            // TODO: Show the colour palette window
-            Debug.Log("Open Colour Palette!");
+            // Open the colour selector window
+            FindObjectOfType<UI_VisualizationManager>().OpenColourSelector(this.gameObject, m_parentSet);
         }
     }
 }

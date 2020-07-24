@@ -71,6 +71,10 @@ namespace Thesis.UI
         public Transform m_keyObjectListParent;
         public GameObject m_keyObjectListElementPrefab;
 
+        [Header("Colour Selector UI Elements")]
+        public GameObject m_pnlColourSelector;
+        public UI_ColourSelector m_scriptColourSelector;
+
         [Header("EXE File Path")]
         public string m_exeLogFileFolderName;
         public int m_firstDynamicIndex;
@@ -543,6 +547,18 @@ namespace Thesis.UI
             // Grab the list element UI component and set it up
             UI_KeyObjListElement uiComp = listElement.GetComponent<UI_KeyObjListElement>();
             uiComp.InitWithObject(_keyObj);
+        }
+
+
+
+        //--- Colour Selector Methods ---//
+        public void OpenColourSelector(GameObject _callingUIElement, Visualization_ObjectSet _setToChange)
+        {
+            // Activate the colour selector
+            m_pnlColourSelector.SetActive(true);
+
+            // Update it so it references the right object and set
+            m_scriptColourSelector.OpenForObject(_callingUIElement, _setToChange);
         }
 
 

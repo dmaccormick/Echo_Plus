@@ -77,6 +77,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\Recording\Recording_Object.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Recording\Recording_Settings.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_CameraListElement.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_ColourSelector.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_KeyObjListElement.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_ObjectSetListElement.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_RecordingManager.cs" />

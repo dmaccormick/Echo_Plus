@@ -127,8 +127,8 @@ namespace Thesis.UI
         //--- Colour Palette Methods ---//
         public void OnColourPaletteSelected()
         {
-            // TODO: Show the colour palette window
-            Debug.Log("Open Colour Palette!");
+            // Open the colour selector window
+            FindObjectOfType<UI_VisualizationManager>().OpenColourSelector(this.gameObject, m_refObjectSet);
         }
     }
 }
