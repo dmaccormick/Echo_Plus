@@ -198,6 +198,7 @@ MonoBehaviour:
   m_maxFocusPickDist: 500
   m_pickCooldown: 0.2
   m_quickFocus: {fileID: 2763696232852994191}
+  m_pickIndicator: {fileID: 488842883040808235}
   m_cursorPan: {fileID: 2800000, guid: 6c3fff9e56c67f44eb529271bbb23878, type: 3}
   m_cursorPanDisabled: {fileID: 2800000, guid: 174663c44f1db5f45ae5acabc999b160, type: 3}
   m_cursorOrbit: {fileID: 2800000, guid: c49b779e38674204b8502e81222f0686, type: 3}
@@ -11706,7 +11707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1408178807913840605
 RectTransform:
   m_ObjectHideFlags: 0

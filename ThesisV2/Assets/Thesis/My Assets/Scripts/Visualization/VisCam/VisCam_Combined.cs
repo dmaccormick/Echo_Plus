@@ -40,6 +40,7 @@ namespace Thesis.Visualization.VisCam
         public float m_maxFocusPickDist;
         public float m_pickCooldown; // How long after letting go of alt before we can pick again (prevents accidentally picking a new target right after orbiting)
         public VisCam_QuickFocus m_quickFocus;
+        public GameObject m_pickIndicator;
 
         [Header("Mouse Cursors")]
         public Texture2D m_cursorPan;
@@ -182,6 +183,16 @@ namespace Thesis.Visualization.VisCam
                     }
                 }
             }
+
+            // If there is a focus target, move the indicator to it and billboard to the camera
+            if (m_focusTarget != null)
+            {
+                m_pickIndicator.transform.position = m_focusTarget.position;
+                m_pickIndicator.SetActive(true);
+                m_pickIndicator.transform.forward = m_cam.transform.position - m_pickIndicator.transform.position;
+            }
+            else
+                m_pickIndicator.SetActive(false);
 
             // Set the final selected cursor based on what action is being performed
             Vector2 cursorOffset = (m_currentCursor == null) ? Vector2.zero : new Vector2(m_currentCursor.width / 2.0f, m_currentCursor.height / 2.0f);
