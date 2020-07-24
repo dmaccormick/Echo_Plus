@@ -18,11 +18,18 @@ namespace Thesis.Visualization
 
 
     //--- Event Classes ---//
-    [System.Serializable] public class MultiFloatEvent : UnityEvent<float, float, float>
+    [System.Serializable]
+    public class MultiFloatEvent : UnityEvent<float, float, float>
     {
     }
 
-    [System.Serializable] public class PlaystateEvent : UnityEvent<Playstate>
+    [System.Serializable]
+    public class PlaystateEvent : UnityEvent<Playstate>
+    {
+    }
+
+    [System.Serializable]
+    public class KeyObjectListChangeEvent : UnityEvent<List<GameObject>>
     {
     }
 
@@ -36,6 +43,7 @@ namespace Thesis.Visualization
         //--- Public Variables ---//
         public UnityEvent<float, float, float> m_onTimeUpdated;
         public UnityEvent<Playstate> m_onPlaystateUpdated;
+        public UnityEvent<List<GameObject>> m_onKeyObjectListUpdated;
         public List<Color> m_outlineColours;
 
 
@@ -43,6 +51,7 @@ namespace Thesis.Visualization
         //--- Private Variables ---//
         private Visualization_ObjectSet m_staticObjectSet;
         private List<Visualization_ObjectSet> m_dynamicObjectSets;
+        private List<GameObject> m_keyObjects;
         private Playstate m_playstate;
         private float m_startTime = Mathf.Infinity;
         private float m_endTime = 0.0f;
@@ -57,6 +66,10 @@ namespace Thesis.Visualization
             // Init the events
             m_onTimeUpdated = new MultiFloatEvent();
             m_onPlaystateUpdated = new PlaystateEvent();
+            m_onKeyObjectListUpdated = new KeyObjectListChangeEvent();
+
+            // Init the private variables
+            m_keyObjects = new List<GameObject>();
         }
 
         private void Update()
@@ -272,6 +285,27 @@ namespace Thesis.Visualization
 
             // If we reached this point, the deletion failed so return false
             return false;
+        }
+
+
+
+        //--- Key Object List Methods ---//
+        public void AddKeyObject(GameObject _newObj)
+        {
+            // Add the key object to the list
+            m_keyObjects.Add(_newObj);
+
+            // Invoke the event
+            m_onKeyObjectListUpdated.Invoke(m_keyObjects);
+        }
+
+        public void RemoveKeyObject(GameObject _objToRemove)
+        {
+            // Remove the key object from the list
+            m_keyObjects.Add(_objToRemove);
+
+            // Invoke the event
+            m_onKeyObjectListUpdated.Invoke(m_keyObjects);
         }
 
 

@@ -20,9 +20,13 @@ namespace Thesis.Visualization
             // If this object is a key object, we should de-register with the quick focus selector system
             if (m_isKeyObj)
             {
+                // De-register form the quick select
                 var quickFocus = FindObjectOfType<VisCam_QuickFocus>();
                 if (quickFocus != null)
                     quickFocus.RemoveFocusTarget(this.transform);
+
+                // De-register from the vis manager
+                //FindObjectOfType<Visualization_Manager>().RemoveKeyObject(this.gameObject);
             }
         }
 
@@ -54,9 +58,13 @@ namespace Thesis.Visualization
             // If this object is a key object, we should register with the quick focus selector system
             if (m_isKeyObj)
             {
+                // Register with the quick focus
                 var quickFocus = FindObjectOfType<VisCam_QuickFocus>();
                 if (quickFocus != null)
                     quickFocus.AddFocusTarget(this.transform);
+
+                // Register with the objvis manager
+                FindObjectOfType<Visualization_Manager>().AddKeyObject(this.gameObject);
             } 
         }
 

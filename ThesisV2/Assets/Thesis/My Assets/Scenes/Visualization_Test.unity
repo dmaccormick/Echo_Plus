@@ -402,6 +402,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 647194162901610095, guid: 8866668d7c6e8a54f9dd207f53e949ff,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 647194162901610095, guid: 8866668d7c6e8a54f9dd207f53e949ff,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 828975224437135390, guid: 8866668d7c6e8a54f9dd207f53e949ff,
         type: 3}
       propertyPath: m_Name
@@ -457,6 +467,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3415505316085107644, guid: 8866668d7c6e8a54f9dd207f53e949ff,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4023818091794737612, guid: 8866668d7c6e8a54f9dd207f53e949ff,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -466,6 +481,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645182507496000755, guid: 8866668d7c6e8a54f9dd207f53e949ff,
+        type: 3}
+      propertyPath: m_Name
+      value: '*DEPRECATED* Pnl_QuickFocus'
       objectReference: {fileID: 0}
     - target: {fileID: 6575407065335416021, guid: 8866668d7c6e8a54f9dd207f53e949ff,
         type: 3}

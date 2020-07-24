@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Thesis.Visualization.VisCam
 {
+    //--- Event Classes ---//
+    [System.Serializable]
+    public class TargetChangeEvent : UnityEvent<Transform>
+    {
+    }
+
     public class VisCam_Combined : MonoBehaviour
     {
         //--- Public Variables ---//
@@ -40,6 +47,9 @@ namespace Thesis.Visualization.VisCam
         public Texture2D m_cursorOrbit;
         public Texture2D m_cursorFPS;
 
+        [Header("Events")]
+        public TargetChangeEvent m_onFocusTargetChanged;
+
 
 
         //--- Private Variables ---//
@@ -53,8 +63,11 @@ namespace Thesis.Visualization.VisCam
         //--- Unity Methods ---//
         private void Awake()
         {
+            // Init the events
+            m_onFocusTargetChanged = new TargetChangeEvent();
+
             // Init the private variables
-            m_focusTarget = null;
+            FocusTarget = null;
             m_canPick = true;
         }
 
@@ -96,7 +109,7 @@ namespace Thesis.Visualization.VisCam
                 if (Input.GetMouseButtonDown(1))
                 {
                     // Clear the target
-                    m_focusTarget = null;
+                    FocusTarget = null;
 
                     // Update the quick selection ui
                     m_quickFocus.RemoveTempTarget();
@@ -210,11 +223,31 @@ namespace Thesis.Visualization.VisCam
         public void SetNewFocusTarget(Transform _target)
         {
             // Set the focus target
-            m_focusTarget = _target;
+            FocusTarget = _target;
 
             // If the target exists, move the pivot point to it
             if (m_focusTarget != null)
                 m_pivotObj.position = m_focusTarget.position;
+        }
+
+        public Transform ToggleFocusTarget(Transform _target)
+        {
+            // If it is the same target, turn it off
+            // Otherwise, set it as the new focus target
+            if (m_focusTarget == _target)
+                FocusTarget = null;
+            else
+                FocusTarget = _target;
+
+            // If the target exists, move the pivot point to it
+            if (m_focusTarget != null)
+                m_pivotObj.position = m_focusTarget.position;
+
+            // Send the new target out in the event
+            m_onFocusTargetChanged.Invoke(m_focusTarget);
+
+            // Return the focus target
+            return m_focusTarget;
         }
 
         public void Pan(float _mouseX, float _mouseY, float _speedMultiplier)
@@ -400,6 +433,22 @@ namespace Thesis.Visualization.VisCam
 
             // Move the camera to the new position
             m_cam.transform.position = newCamPos;
+        }
+
+
+
+        //--- Setters ---//
+        public Transform FocusTarget
+        {
+            get => m_focusTarget;
+            set
+            {
+                // Set the target
+                m_focusTarget = value;
+
+                // Send the new target out in the event
+                m_onFocusTargetChanged.Invoke(m_focusTarget);
+            }
         }
     }
 }

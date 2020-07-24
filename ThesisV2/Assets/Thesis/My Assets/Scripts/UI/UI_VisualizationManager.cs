@@ -66,6 +66,11 @@ namespace Thesis.UI
         [Header("Camera Quick Switch UI Elements")]
         public GameObject m_pnlQuickSelect;
 
+        [Header("Key Object List UI Elements")]
+        public GameObject m_pnlKeyObjectList;
+        public Transform m_keyObjectListParent;
+        public GameObject m_keyObjectListElementPrefab;
+
         [Header("EXE File Path")]
         public string m_exeLogFileFolderName;
         public int m_firstDynamicIndex;
@@ -79,6 +84,7 @@ namespace Thesis.UI
             // Register the visualization manager events
             m_visManager.m_onPlaystateUpdated.AddListener(this.OnVisPlaystateUpdated);
             m_visManager.m_onTimeUpdated.AddListener(this.OnVisTimeUpdated);
+            m_visManager.m_onKeyObjectListUpdated.AddListener(this.OnKeyObjectListUpdated);
         }
 
         private void OnDisable()
@@ -86,6 +92,7 @@ namespace Thesis.UI
             // Unregister the visualization manager events
             m_visManager.m_onPlaystateUpdated.RemoveListener(this.OnVisPlaystateUpdated);
             m_visManager.m_onTimeUpdated.RemoveListener(this.OnVisTimeUpdated);
+            m_visManager.m_onKeyObjectListUpdated.RemoveListener(this.OnKeyObjectListUpdated);
         }
 
 
@@ -408,7 +415,7 @@ namespace Thesis.UI
 
             // Switch back to the main camera
             m_camControls.m_cam.enabled = true;
-            m_pnlQuickSelect.SetActive(true);
+            //m_pnlQuickSelect.SetActive(true);
             FindObjectOfType<VisCam_PlayerCameraManager>().DisableAllCameras();
         }
 
@@ -490,14 +497,14 @@ namespace Thesis.UI
                 m_camControls.SetMenuOpen(true); // using this as a way of disabling the camera controls for now
 
                 // Hide the quick selection UI
-                m_pnlQuickSelect.SetActive(false);
+               // m_pnlQuickSelect.SetActive(false);
             }
             else
             {
                 m_camControls.SetMenuOpen(false); // using this as a way of disabling the camera controls
 
                 // Show the quick selection UI
-                m_pnlQuickSelect.SetActive(true);
+                //m_pnlQuickSelect.SetActive(true);
             }
 
             // Disable all of the unused cameras and activate the right one
@@ -507,6 +514,37 @@ namespace Thesis.UI
             foreach (var camUI in GameObject.FindObjectsOfType<UI_CameraListElement>())
                 camUI.UpdateActiveIcon();
         }
+
+
+
+        //--- Key Object List Methods ---//
+        public void ClearKeyObjectList()
+        {
+            // Delete all of the key object list elements currently in the UI
+            for (int i = 0; i < m_keyObjectListParent.childCount; i++)
+            {
+                // Get the element
+                Transform child = m_keyObjectListParent.GetChild(i);
+
+                //// Get the list element component from the child and unregister from the event before destroying it
+                //UI_CameraListElement uiComp = child.gameObject.GetComponent<UI_CameraListElement>();
+                //uiComp.m_onActivateCamera.RemoveAllListeners();
+
+                // Detroy the element
+                Destroy(child.gameObject);
+            }
+        }
+
+        public void CreateKeyObjectListElement(GameObject _keyObj)
+        {
+            // Instantiate a new list element under the list parent
+            GameObject listElement = Instantiate(m_keyObjectListElementPrefab, m_keyObjectListParent);
+
+            // Grab the list element UI component and set it up
+            UI_KeyObjListElement uiComp = listElement.GetComponent<UI_KeyObjListElement>();
+            uiComp.InitWithObject(_keyObj);
+        }
+
 
 
 
@@ -541,6 +579,16 @@ namespace Thesis.UI
             m_txtStartTime.text = startTime.ToString("F2");
             m_txtCurrentTime.text = currentTime.ToString("F2");
             m_txtEndTime.text = endTime.ToString("F2");
+        }
+
+        public void OnKeyObjectListUpdated(List<GameObject> _keyObjs)
+        {
+            // Clear the current list
+            ClearKeyObjectList();
+
+            // Create new elements for all of the key objects
+            foreach (var keyObject in _keyObjs)
+                CreateKeyObjectListElement(keyObject);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System.Collections.Generic;
 using Thesis.Utility;
 
@@ -162,6 +163,18 @@ namespace Thesis.Visualization.VisCam
 
             // Update the camera and the UI
             OnFocusTargetChanged();
+        }
+
+        public void ToggleFocusTarget(GameObject _target)
+        {
+            // Get the transform component
+            var transform = _target.transform;
+
+            // Tell the camera to toggle the focus on the target
+            var newTarget = m_camControls.ToggleFocusTarget(transform);
+
+            // Update the UI
+            UpdateUI();
         }
     }
 
