@@ -66,6 +66,11 @@ namespace Thesis.UI
                 //m_txtOutlineLabel.gameObject.SetActive(false);
                 m_btnSolo.gameObject.SetActive(false);
             }
+            else
+            {
+                // Connect to the set's colour change event
+                m_refObjectSet.m_onOutlineColourChanged.AddListener(this.OnSetColourUpdated);
+            }
         }
 
 
@@ -129,6 +134,12 @@ namespace Thesis.UI
         {
             // Open the colour selector window
             FindObjectOfType<UI_VisualizationManager>().OpenColourSelector(this.gameObject, m_refObjectSet);
+        }
+
+        public void OnSetColourUpdated(Color _newColor)
+        {
+            // Update the colour indicator
+            m_imgOutlineColour.color = _newColor;
         }
     }
 }

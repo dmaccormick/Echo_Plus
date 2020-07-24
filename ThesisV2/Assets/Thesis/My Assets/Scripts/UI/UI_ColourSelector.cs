@@ -46,5 +46,24 @@ namespace Thesis.UI
             m_sldSat.value = S;
             m_sldVal.value = V;
         }
+
+        public void UpdateColour()
+        {
+            // If there is no set attached, just back out
+            if (m_refSet == null)
+                return;
+
+            // Grab the HSV values from the sliders
+            float newH = m_sldHue.value;
+            float newS = m_sldSat.value;
+            float newV = m_sldVal.value;
+            Color newColor = Color.HSVToRGB(newH, newS, newV);
+
+            // Update the colour in the image
+            m_imgColourIcon.color = newColor;
+
+            // Set the colour on the set
+            m_refSet.UpdateOutlineColour(newColor);
+        }
     }
 }

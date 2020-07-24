@@ -47,6 +47,9 @@ namespace Thesis.UI
 
             // Hook into the quick focus camera's focus change event
             FindObjectOfType<VisCam_Combined>().m_onFocusTargetChanged.AddListener(this.OnFocusTargetChanged);
+
+            // Connect to the set's colour change event
+            m_parentSet.m_onOutlineColourChanged.AddListener(this.OnSetColourUpdated);
         }
 
         private void OnDestroy()
@@ -77,6 +80,12 @@ namespace Thesis.UI
         {
             // Open the colour selector window
             FindObjectOfType<UI_VisualizationManager>().OpenColourSelector(this.gameObject, m_parentSet);
+        }
+
+        public void OnSetColourUpdated(Color _newColor)
+        {
+            // Update the colour indicator
+            m_imgOutlineColour.color = _newColor;
         }
     }
 }

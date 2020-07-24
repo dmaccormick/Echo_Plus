@@ -65,6 +65,9 @@ namespace Thesis.UI
                     // Use the object set's current values to setup the outline information
                     Color.RGBToHSV(m_parentSet.GetOutlineColour(), out float Hue, out float S, out float V);
                     m_imgOutlineColour.color = Color.HSVToRGB(Hue, 1.0f, 1.0f);
+
+                    // Connect to the set's colour change event
+                    m_parentSet.m_onOutlineColourChanged.AddListener(this.OnSetColourUpdated);
                 }
                 else
                 {
@@ -114,6 +117,12 @@ namespace Thesis.UI
             // Open the colour selector window
             if (m_parentSet != null)
                 FindObjectOfType<UI_VisualizationManager>().OpenColourSelector(this.gameObject, m_parentSet);
+        }
+
+        public void OnSetColourUpdated(Color _newColor)
+        {
+            // Update the colour indicator
+            m_imgOutlineColour.color = _newColor;
         }
     }
 }
