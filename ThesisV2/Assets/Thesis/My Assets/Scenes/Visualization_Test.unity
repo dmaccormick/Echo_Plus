@@ -482,11 +482,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4645182507496000755, guid: 8866668d7c6e8a54f9dd207f53e949ff,
-        type: 3}
-      propertyPath: m_Name
-      value: '*DEPRECATED* Pnl_QuickFocus'
-      objectReference: {fileID: 0}
     - target: {fileID: 6575407065335416021, guid: 8866668d7c6e8a54f9dd207f53e949ff,
         type: 3}
       propertyPath: m_LocalPosition.x
