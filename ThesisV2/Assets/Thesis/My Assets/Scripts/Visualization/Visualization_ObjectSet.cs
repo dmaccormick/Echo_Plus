@@ -1,11 +1,23 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections.Generic;
 using Thesis.External;
 
 namespace Thesis.Visualization
 {
+    //--- Event Classes ---//
+    [System.Serializable]
+    public class OutlineColourChangeEvent : UnityEvent<Color>
+    {
+    }
+
     public class Visualization_ObjectSet : MonoBehaviour
     {
+        //--- Public Variables ---//
+        public OutlineColourChangeEvent m_onOutlineColourChanged;
+
+
+
         //--- Private Constants ---//
         private const float c_OUTLINE_WIDTH = 10.0f;
 
@@ -28,6 +40,9 @@ namespace Thesis.Visualization
             this.m_isVisible = true;
             this.m_hasOutline = false;
             this.m_outlineColour = Color.black;
+
+            // Init the event
+            m_onOutlineColourChanged = new OutlineColourChangeEvent();
         }
 
         public void EnableOutline(Color _outlineColor)
@@ -51,6 +66,9 @@ namespace Thesis.Visualization
                 outlineComp.OutlineColor = this.m_outlineColour;
                 outlineComp.OutlineWidth = c_OUTLINE_WIDTH;
             }
+
+            // Trigger the event
+            m_onOutlineColourChanged.Invoke(this.m_outlineColour);
         }
 
         public void UpdateOutlineColour(Color _outlineColor)
@@ -72,6 +90,9 @@ namespace Thesis.Visualization
                 if (outlineComp != null)
                     outlineComp.OutlineColor = this.m_outlineColour;
             }
+
+            // Trigger the event
+            m_onOutlineColourChanged.Invoke(this.m_outlineColour);
         }
 
         public void StartVisualization(float _startTime)
