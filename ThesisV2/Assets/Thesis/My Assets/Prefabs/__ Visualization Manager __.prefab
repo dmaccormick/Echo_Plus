@@ -16760,8 +16760,9 @@ GameObject:
   - component: {fileID: 3438001929618101106}
   - component: {fileID: 4181073566538254005}
   - component: {fileID: 3964836156900875755}
+  - component: {fileID: 4282872289753014573}
   m_Layer: 0
-  m_Name: Btn_TryFocusPicking
+  m_Name: Btn_MouseDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16876,6 +16877,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4282872289753014573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8770919106860014196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6002f1877bc8848429ff6cea69f2d493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8809002229969561842
 GameObject:
   m_ObjectHideFlags: 0

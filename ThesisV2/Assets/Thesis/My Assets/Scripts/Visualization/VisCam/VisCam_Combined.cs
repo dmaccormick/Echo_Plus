@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Thesis.UI;
 
 namespace Thesis.Visualization.VisCam
 {
@@ -54,6 +55,7 @@ namespace Thesis.Visualization.VisCam
 
 
         //--- Private Variables ---//
+        private UI_VIsMenuMouseDetector m_mouseDetector;
         private Transform m_focusTarget;
         private Texture2D m_currentCursor;
         private Transform m_pivotParent;
@@ -68,6 +70,7 @@ namespace Thesis.Visualization.VisCam
             m_onFocusTargetChanged = new TargetChangeEvent();
 
             // Init the private variables
+            m_mouseDetector = FindObjectOfType<UI_VIsMenuMouseDetector>();
             FocusTarget = null;
             m_canPick = true;
         }
@@ -81,6 +84,9 @@ namespace Thesis.Visualization.VisCam
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
             float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
+
+            // Determine if the mouse is currently hovering over the main window or not
+            bool mouseOverWindow = m_mouseDetector.IsMouseDetected;
 
             // Choose what cursor to use based on the inputs. It should be the basic one by default
             m_currentCursor = null;
@@ -151,7 +157,8 @@ namespace Thesis.Visualization.VisCam
             //--- Zooming Functionality ---//
             {
                 // If the mouse wheel has moved at all, we should control the zoom
-                if (mouseWheel != 0.0f)
+                // We should only be able to do this if hovering over the main window
+                if (mouseOverWindow && mouseWheel != 0.0f)
                 {
                     Zoom(mouseWheel, _speedMultiplier);
                 }

@@ -81,6 +81,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_KeyObjListElement.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_ObjectSetListElement.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_RecordingManager.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_VIsMenuMouseDetector.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_VisualizationManager.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Utility\Utility_Functions.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Camera.cs" />
