@@ -788,6 +788,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2346996162509416490, guid: 8866668d7c6e8a54f9dd207f53e949ff,
+        type: 3}
+      propertyPath: m_Text
+      value: C:\Repos\Thesis\Log Files\DynamicData_V1.log
+      objectReference: {fileID: 0}
     - target: {fileID: 2379172080617891394, guid: 8866668d7c6e8a54f9dd207f53e949ff,
         type: 3}
       propertyPath: m_AnchorMin.y
