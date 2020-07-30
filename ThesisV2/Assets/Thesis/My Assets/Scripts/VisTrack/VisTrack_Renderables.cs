@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 using UnityEditor;
 using Thesis.Interface;
 using Thesis.Utility;
-using System.IO;
+using Thesis.Visualization;
 
 namespace Thesis.VisTrack
 {
@@ -111,16 +111,20 @@ namespace Thesis.VisTrack
             // Apply the initial visualization
             UpdateVisualization(_startTime);
 
-            // Setup the mesh collider so it is ready for mouse picking and uses the correct mesh
-            // Use all of the cooking options
-            MeshCollider meshCollider = this.GetComponent<MeshCollider>();
-            meshCollider.cookingOptions = MeshColliderCookingOptions.CookForFasterSimulation | MeshColliderCookingOptions.EnableMeshCleaning | MeshColliderCookingOptions.UseFastMidphase | MeshColliderCookingOptions.WeldColocatedVertices;
-            meshCollider.sharedMesh = m_targetFilter.sharedMesh;
-            meshCollider.convex = false;
+            // Only configure the mesh collider if this object is a key object
+            if (GetComponent<Visualization_Object>().IsKeyObj)
+            {
+                // Setup the mesh collider so it is ready for mouse picking and uses the correct mesh
+                // Use all of the cooking options
+                MeshCollider meshCollider = this.GetComponent<MeshCollider>();
+                meshCollider.cookingOptions = MeshColliderCookingOptions.CookForFasterSimulation | MeshColliderCookingOptions.EnableMeshCleaning | MeshColliderCookingOptions.UseFastMidphase | MeshColliderCookingOptions.WeldColocatedVertices;
+                meshCollider.sharedMesh = m_targetFilter.sharedMesh;
+                meshCollider.convex = false;
 
-            // We need to set the object to be on the focus picking layer so that we can focus it with the camera controls
-            // NOTE: This feature REQUIRES that this layer is added and is exactly this
-            this.gameObject.layer = LayerMask.NameToLayer("FocusTargetPicking");
+                // We need to set the object to be on the focus picking layer so that we can focus it with the camera controls
+                // NOTE: This feature REQUIRES that this layer is added and is exactly this
+                this.gameObject.layer = LayerMask.NameToLayer("FocusTargetPicking");
+            }
         }
 
         public void UpdateVisualization(float _time)

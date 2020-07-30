@@ -100,5 +100,13 @@ namespace Thesis.Visualization
             // Return the latest time
             return endTime;
         }
+
+
+
+        //--- Getters ---//
+        public bool IsKeyObj
+        {
+            get => m_isKeyObj;
+        }
     }
 }
