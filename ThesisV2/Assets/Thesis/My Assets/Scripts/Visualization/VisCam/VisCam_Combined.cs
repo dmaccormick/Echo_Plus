@@ -112,8 +112,8 @@ namespace Thesis.Visualization.VisCam
 
             //--- Mouse Picking Functionality ---//
             {
-                // Clear the focus target by pressing the right mouse button
-                if (Input.GetMouseButtonDown(1))
+                // Clear the focus target by pressing C
+                if (Input.GetKeyDown(KeyCode.C))
                 {
                     // Clear the target
                     FocusTarget = null;
@@ -245,7 +245,15 @@ namespace Thesis.Visualization.VisCam
 
             // If the target exists, move the pivot point to it
             if (m_focusTarget != null)
+            {
+                // Move the pivot to the target
                 m_pivotObj.position = m_focusTarget.position;
+
+                // Move the camera so that it is no longer offset from the pivot
+                // Offsetting can occur when moving with the FPS cam
+                float distFromPivot = Vector3.Distance(m_pivotObj.position, m_cam.transform.position);
+                m_cam.transform.position = m_pivotObj.position + m_pivotObj.TransformVector(new Vector3(0.0f, 0.0f, -distFromPivot));
+            }
         }
 
         public Transform ToggleFocusTarget(Transform _target)
@@ -253,16 +261,9 @@ namespace Thesis.Visualization.VisCam
             // If it is the same target, turn it off
             // Otherwise, set it as the new focus target
             if (m_focusTarget == _target)
-                FocusTarget = null;
+                SetNewFocusTarget(null);
             else
-                FocusTarget = _target;
-
-            // If the target exists, move the pivot point to it
-            if (m_focusTarget != null)
-                m_pivotObj.position = m_focusTarget.position;
-
-            // Send the new target out in the event
-            m_onFocusTargetChanged.Invoke(m_focusTarget);
+                SetNewFocusTarget(_target);
 
             // Return the focus target
             return m_focusTarget;
@@ -441,16 +442,17 @@ namespace Thesis.Visualization.VisCam
             m_pivotObj.position = m_focusTarget.position;
 
             // Calculate the vector from the target to the camera's current position
-            Vector3 vTargetToCam = m_cam.transform.position - m_focusTarget.position;
+            //Vector3 vTargetToCam = m_cam.transform.position - m_focusTarget.position;
 
             // Scale it down to the focus distance set in the inspector
-            Vector3 vTargetToCamScaled = vTargetToCam.normalized * m_focusDistance;
+            //Vector3 vTargetToCamScaled = vTargetToCam.normalized * m_focusDistance;
 
             // Calculate the new position by offsetting from the target by the calculated vector
-            Vector3 newCamPos = m_focusTarget.position + vTargetToCamScaled;
+            //Vector3 newCamPos = m_focusTarget.position + vTargetToCamScaled;
 
             // Move the camera to the new position
-            m_cam.transform.position = newCamPos;
+            //m_cam.transform.position = newCamPos;
+            m_cam.transform.position = m_pivotObj.position + m_pivotObj.TransformVector(new Vector3(0.0f, 0.0f, -m_focusDistance));
         }
 
         public void SetIndicatorVisible(bool _visible)
