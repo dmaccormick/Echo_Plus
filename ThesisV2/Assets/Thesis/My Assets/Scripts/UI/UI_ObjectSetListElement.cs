@@ -33,6 +33,9 @@ namespace Thesis.UI
 
         [Header("Solo Controls")]
         public Button m_btnSolo;
+        public Text m_txtStartSolo;
+        public Text m_txtEndSolo;
+        public Image m_imgSoloIndicator;
 
         [Header("Events")]
         public ObjectSetEvent m_onDeleteSet;
@@ -41,12 +44,18 @@ namespace Thesis.UI
 
         //--- Private Variables ---//
         private Visualization_ObjectSet m_refObjectSet;
+        private bool m_isSoloed;
+        private bool m_canSolo;
 
 
 
         //--- Initialization Methods ---//
         public void InitWithObjectSet(Visualization_ObjectSet _refObjectSet)
         {
+            // Init the private variables
+            m_isSoloed = false;
+            m_canSolo = false;
+
             // Store a reference to the object set so we can update its values
             m_refObjectSet = _refObjectSet;
 
@@ -65,11 +74,18 @@ namespace Thesis.UI
                 m_imgOutlineColour.gameObject.SetActive(false);
                 //m_txtOutlineLabel.gameObject.SetActive(false);
                 m_btnSolo.gameObject.SetActive(false);
+
+                // Hide all of the solo controls
+                m_canSolo = false;
+                m_txtStartSolo.gameObject.SetActive(false);
+                m_txtEndSolo.gameObject.SetActive(false);
+                m_imgSoloIndicator.gameObject.SetActive(false);
             }
             else
             {
                 // Connect to the set's colour change event
                 m_refObjectSet.m_onOutlineColourChanged.AddListener(this.OnSetColourUpdated);
+                m_canSolo = true;
             }
         }
 
@@ -123,8 +139,58 @@ namespace Thesis.UI
         //--- Solo Controls ---//
         public void OnSoloPressed()
         {
-            // TODO: Hide all of the other dynamic sets (not static)
-            Debug.Log("Solo Pressed!");
+            if (m_canSolo)
+            {
+                // Swap the solo state
+                m_isSoloed = !m_isSoloed;
+
+                // Tell the visualization manager that this set was told to solo
+                if (m_isSoloed)
+                    FindObjectOfType<Visualization_Manager>().SetSoloSet(this.m_refObjectSet);
+                else
+                    FindObjectOfType<Visualization_Manager>().SetSoloSet(null);
+            }
+        }
+
+        public void ShowSoloState(Visualization_ObjectSet _soloedSet)
+        {
+            if (m_canSolo)
+            {
+                // If there are not any solo'd sets, revert to the basic state
+                // If this set is solo'd, change the text on the button
+                // If another set is solo'd, show the solo'd indicator
+                if (_soloedSet == null)
+                {
+                    m_txtStartSolo.gameObject.SetActive(true);
+                    m_txtEndSolo.gameObject.SetActive(false);
+                    m_imgSoloIndicator.gameObject.SetActive(false);
+                    m_tglVisibility.enabled = true;
+
+                    // Determine if this set should be visible according to the eye icon state
+                    bool shouldBeVisible = (m_imgVisibilityIcon.sprite == m_sprVisibility_On);
+                    m_refObjectSet.ToggleAllObjectsActive(shouldBeVisible);
+                }
+                else if (_soloedSet == this.m_refObjectSet)
+                {
+                    m_txtStartSolo.gameObject.SetActive(false);
+                    m_txtEndSolo.gameObject.SetActive(true);
+                    m_imgSoloIndicator.gameObject.SetActive(false);
+                    m_tglVisibility.enabled = false;
+
+                    // This set is being solo'd so it should always be visible
+                    m_refObjectSet.ToggleAllObjectsActive(true);
+                }
+                else
+                {
+                    m_txtStartSolo.gameObject.SetActive(false);
+                    m_txtEndSolo.gameObject.SetActive(false);
+                    m_imgSoloIndicator.gameObject.SetActive(true);
+                    m_tglVisibility.enabled = false;
+
+                    // Another set is being solo'd so this should never be visible
+                    m_refObjectSet.ToggleAllObjectsActive(false);
+                }
+            }
         }
 
 

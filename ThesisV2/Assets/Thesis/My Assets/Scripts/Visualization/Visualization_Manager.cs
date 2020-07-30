@@ -4,6 +4,7 @@ using UnityEngine.Assertions;
 using Thesis.FileIO;
 using System.Collections.Generic;
 using System.IO;
+using Thesis.UI;
 
 namespace Thesis.Visualization
 {
@@ -338,6 +339,19 @@ namespace Thesis.Visualization
                 foreach (Visualization_ObjectSet objSet in m_dynamicObjectSets)
                     objSet.UpdateVisualization(m_currentTime);
             }
+        }
+
+
+
+        //--- Solo Functions ---//
+        public void SetSoloSet(Visualization_ObjectSet _newSoloSet)
+        {
+            // TODO: Actually hide the other objects
+
+            // Find all of the visualization elements and tell them the new solo set
+            var uiElements = FindObjectsOfType<UI_ObjectSetListElement>();
+            foreach (var uiElement in uiElements)
+                uiElement.ShowSoloState(_newSoloSet);
         }
 
 
