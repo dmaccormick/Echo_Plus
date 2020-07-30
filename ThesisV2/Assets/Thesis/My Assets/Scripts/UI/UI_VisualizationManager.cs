@@ -499,13 +499,15 @@ namespace Thesis.UI
             {
                 controllableCam.enabled = false;
                 m_camControls.SetMenuOpen(true); // using this as a way of disabling the camera controls for now
+                FindObjectOfType<VisCam_Combined>().SetIndicatorVisible(false);
 
                 // Hide the quick selection UI
                // m_pnlQuickSelect.SetActive(false);
             }
             else
             {
-                m_camControls.SetMenuOpen(false); // using this as a way of disabling the camera controls
+                m_camControls.SetMenuOpen(false); // using this as a way of enabling the camera controls
+                FindObjectOfType<VisCam_Combined>().SetIndicatorVisible(true);
 
                 // Show the quick selection UI
                 //m_pnlQuickSelect.SetActive(true);

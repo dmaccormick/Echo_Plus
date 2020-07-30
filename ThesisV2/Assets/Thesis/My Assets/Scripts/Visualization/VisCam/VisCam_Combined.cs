@@ -201,7 +201,7 @@ namespace Thesis.Visualization.VisCam
 
 
 
-        //--- Utility Functions ---//
+        //--- Methods ---//
         public void CheckForFocusTarget()
         {
             // If the camera is not currently active, back out
@@ -444,6 +444,11 @@ namespace Thesis.Visualization.VisCam
 
             // Move the camera to the new position
             m_cam.transform.position = newCamPos;
+        }
+
+        public void SetIndicatorVisible(bool _visible)
+        {
+            m_pickIndicator.SetActive(_visible);
         }
 
 
