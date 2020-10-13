@@ -29,20 +29,39 @@ namespace Thesis.VisTrack
                 // The second token is the path to the mesh so we need to get the mesh itself from the asset database
                 m_mesh = AssetDatabase.LoadAssetAtPath(tokens[1], typeof(Mesh)) as Mesh;
 
-                // The third token is the path to the material so load that too
-                m_material = AssetDatabase.LoadAssetAtPath(tokens[2], typeof(Material)) as Material;
-#else
-                // Convert the mesh and mat file paths to be resources based paths instead
-                string meshResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[1]);
-                string matResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[2]);
+                // The *third* token is the colour which is a vector3 so parse that
+                m_color = Utility_Functions.ParseColor(tokens[2]);
 
-                // Load the mesh and material from the resource folders
+                //// The third token is the path to the material so load that too
+                //m_material = AssetDatabase.LoadAssetAtPath(tokens[2], typeof(Material)) as Material;
+
+                // Remaining tokens are the materials so load them too
+                m_materials = new List<Material>();
+                for (int i = 3; i < tokens.Length; i++)
+                    m_materials.Add(AssetDatabase.LoadAssetAtPath(tokens[i], typeof(Material)) as Material);
+#else
+                // Convert the mesh file paths to be resources based instead and then load it in
+                string meshResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[1]);
                 m_mesh = Resources.Load(meshResourcePath, typeof(Mesh)) as Mesh;
-                m_material = Resources.Load(matResourcePath, typeof(Material)) as Material;
+                
+                // Convert all of the materials and load them in as well
+                for (int i = 3; i < tokens.Length; i++)
+                {
+                    string matResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[i]);
+                    m_materials.Add(Resources.Load(matResourcePath, typeof(Material)) as Material);
+                }
+
+                //// Convert the mesh and mat file paths to be resources based paths instead
+                //string meshResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[1]);
+                //string matResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[2]);
+
+                //// Load the mesh and material from the resource folders
+                //m_mesh = Resources.Load(meshResourcePath, typeof(Mesh)) as Mesh;
+                //m_material = Resources.Load(matResourcePath, typeof(Material)) as Material;
 #endif
 
-                // The fourth token is the colour which is a vector3 so parse that
-                m_color = Utility_Functions.ParseColor(tokens[3]);
+                //// The fourth token is the colour which is a vector3 so parse that
+                //m_color = Utility_Functions.ParseColor(tokens[3]);
             }
 
             public static List<Data_Renderables> ParseDataList(string _data)
@@ -70,7 +89,8 @@ namespace Thesis.VisTrack
 
             public float m_timestamp;
             public Mesh m_mesh;
-            public Material m_material;
+            //public Material m_material;
+            public List<Material> m_materials;
             public Color m_color;
         }
 
@@ -135,7 +155,7 @@ namespace Thesis.VisTrack
 
             // Apply the data point to the visualization
             m_targetFilter.sharedMesh = dataPoint.m_mesh;
-            m_targetRenderer.sharedMaterial = dataPoint.m_material;
+            m_targetRenderer.sharedMaterials = dataPoint.m_materials.ToArray();
             m_targetRenderer.sharedMaterial.color = dataPoint.m_color;
         }
 

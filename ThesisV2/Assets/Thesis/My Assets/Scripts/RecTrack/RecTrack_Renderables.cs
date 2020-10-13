@@ -15,29 +15,55 @@ namespace Thesis.RecTrack
         [System.Serializable]
         public struct Data_Renderables
         {
-            public Data_Renderables(float _timestamp, Mesh _mesh, Material _material, Color _colour)
+            public Data_Renderables(float _timestamp, Mesh _mesh, Material[] _materials, Color _colour)
             {
                 this.m_timestamp = _timestamp;
                 this.m_mesh = _mesh;
-                this.m_material = _material;
+                this.m_materials = _materials;
                 this.m_color = _colour;
             }
+
+//            public string GetString(string _format)
+//            {
+//#if UNITY_EDITOR
+//                return this.m_timestamp.ToString(_format) + "~" + 
+//                    AssetDatabase.GetAssetPath(this.m_mesh) + "~" +
+//                    AssetDatabase.GetAssetPath(this.m_material) + "~" +
+//                    this.m_color.ToString(_format);
+//#else
+//                return null;
+//#endif
+//            }
 
             public string GetString(string _format)
             {
 #if UNITY_EDITOR
-                return this.m_timestamp.ToString(_format) + "~" + 
+                return this.m_timestamp.ToString(_format) + "~" +
                     AssetDatabase.GetAssetPath(this.m_mesh) + "~" +
-                    AssetDatabase.GetAssetPath(this.m_material) + "~" +
-                    this.m_color.ToString(_format);
+                    this.m_color.ToString(_format) + "~" +
+                    GetMaterialArrayStr();
 #else
                 return null;
 #endif
             }
 
+            private string GetMaterialArrayStr()
+            {
+                StringBuilder str = new StringBuilder();
+
+                // Add the materials up to the last one with the ~ at the end
+                for (int i = 0; i < m_materials.Length - 1; i++)
+                    str.Append(AssetDatabase.GetAssetPath(this.m_materials[i]) + "~");
+
+                // Add the final material without the ~ at the end
+                str.Append(AssetDatabase.GetAssetPath(this.m_materials[m_materials.Length - 1]));
+
+                return str.ToString();
+            }
+
             public float m_timestamp;
             public Mesh m_mesh;
-            public Material m_material;
+            public Material[] m_materials;
             public Color m_color;
         }
 
@@ -53,7 +79,7 @@ namespace Thesis.RecTrack
         //--- Private Variables ---//
         private List<Data_Renderables> m_dataPoints;
         private Mesh m_currentMesh;
-        private Material m_currentMaterial;
+        private Material[] m_currentMaterials;
         private Color m_currentColour;
 
 
@@ -70,7 +96,7 @@ namespace Thesis.RecTrack
             // NOTE: The meshes need to be marked as read and write in the import settings!
             m_dataPoints = new List<Data_Renderables>();
             m_currentMesh = m_targetFilter.sharedMesh;
-            m_currentMaterial = m_targetRenderer.sharedMaterial;
+            m_currentMaterials = m_targetRenderer.sharedMaterials;
             m_currentColour = m_targetRenderer.sharedMaterial.color;
 
             // Record the first data point
@@ -87,12 +113,12 @@ namespace Thesis.RecTrack
         {
             // If any of the renderables have changed, update the values and record the change
             if (m_currentMesh != m_targetFilter.sharedMesh ||
-                m_currentMaterial != m_targetRenderer.sharedMaterial ||
+                m_currentMaterials != m_targetRenderer.sharedMaterials ||
                 m_currentColour != m_targetRenderer.sharedMaterial.color)
             {
                 // Update the values
                 m_currentMesh = m_targetFilter.sharedMesh;
-                m_currentMaterial = m_targetRenderer.sharedMaterial;
+                m_currentMaterials = m_targetRenderer.sharedMaterials;
                 m_currentColour = m_targetRenderer.sharedMaterial.color;
 
                 // Record the changes to the values
@@ -106,7 +132,7 @@ namespace Thesis.RecTrack
             Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
 
             // Add a new data point to the list
-            m_dataPoints.Add(new Data_Renderables(_currentTime, m_currentMesh, m_currentMaterial, m_currentColour));
+            m_dataPoints.Add(new Data_Renderables(_currentTime, m_currentMesh, m_currentMaterials, m_currentColour));
         }
 
         public string GetData()
