@@ -78,7 +78,7 @@ namespace Thesis.RecTrack
         {
             // If any of the renderables have changed, update the values and record the change
             if (m_currentFov != m_targetCam.fieldOfView ||
-                m_currentClipClose != m_targetCam.fieldOfView ||
+                m_currentClipClose != m_targetCam.nearClipPlane ||
                 m_currentClipFar != m_targetCam.farClipPlane)
             {
                 // Update the values
