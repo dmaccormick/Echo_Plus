@@ -113,8 +113,8 @@ namespace Thesis.RecTrack
         {
             // If any of the renderables have changed, update the values and record the change
             if (m_currentMesh != m_targetFilter.sharedMesh ||
-                m_currentMaterials != m_targetRenderer.sharedMaterials ||
-                m_currentColour != m_targetRenderer.sharedMaterial.color)
+                m_currentColour != m_targetRenderer.sharedMaterial.color ||
+                !CheckIfMaterialsMatch(m_currentMaterials, m_targetRenderer.sharedMaterials))
             {
                 // Update the values
                 m_currentMesh = m_targetFilter.sharedMesh;
@@ -165,6 +165,23 @@ namespace Thesis.RecTrack
             // If either one failed, try to grab from the children instead
             m_targetFilter = (m_targetFilter == null) ? GetComponentInChildren<MeshFilter>() : m_targetFilter;
             m_targetRenderer = (m_targetRenderer == null) ? GetComponentInChildren<MeshRenderer>() : m_targetRenderer;
+        }
+
+
+
+        //--- Utility Functions ---//
+        private bool CheckIfMaterialsMatch(Material[] _currentMaterials, Material[] _sharedMaterials)
+        {
+            if (_currentMaterials.Length != _sharedMaterials.Length)
+                return false;
+
+            for(int i = 0; i < _currentMaterials.Length; i++)
+            {
+                if (_currentMaterials[i] != _sharedMaterials[i])
+                    return false;
+            }
+
+            return true;
         }
     }
 }
