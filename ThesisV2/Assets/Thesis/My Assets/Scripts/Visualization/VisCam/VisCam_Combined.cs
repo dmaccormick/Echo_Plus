@@ -20,6 +20,8 @@ namespace Thesis.Visualization.VisCam
         [Header("FPS Cam Controls")]
         public float m_fpsMoveSpeed;
         public float m_fpsRotSpeed;
+        public bool m_fpsInvertPitch;
+        public bool m_fpsInvertYaw;
 
         [Header("Pan Controls")]
         public float m_panningSpeed;
@@ -28,8 +30,8 @@ namespace Thesis.Visualization.VisCam
         [Header("Rotation Controls")]
         public Transform m_pivotObj;
         public float m_rotationSpeed;
-        public bool m_invertYaw;
-        public bool m_invertPitch;
+        public bool m_orbitInvertYaw;
+        public bool m_orbitInvertPitch;
 
         [Header("Zoom Controls")]
         public float m_zoomSpeed;
@@ -301,8 +303,8 @@ namespace Thesis.Visualization.VisCam
             float yaw = _mouseX * finalSpeed * Time.deltaTime;
 
             // Invert if need be
-            pitch = (m_invertPitch) ? pitch * -1.0f : pitch;
-            yaw = (m_invertYaw) ? yaw * -1.0f : yaw;
+            pitch = (m_orbitInvertPitch) ? pitch * -1.0f : pitch;
+            yaw = (m_orbitInvertYaw) ? yaw * -1.0f : yaw;
 
             // Rotate the pivot point around according to the pitch and yaw
             // Always use the global up vector but use the local right vector
@@ -393,10 +395,10 @@ namespace Thesis.Visualization.VisCam
             float zMovement = vAxis * finalMoveSpeed * Time.deltaTime;
             float yMovement = 0.0f;
 
-            // Y movement comes from space and LCTRL
-            if (Input.GetKey(KeyCode.Space))
+            // Y movement comes from Q and E
+            if (Input.GetKey(KeyCode.E))
                 yMovement = finalMoveSpeed * Time.deltaTime;
-            else if (Input.GetKey(KeyCode.LeftControl))
+            else if (Input.GetKey(KeyCode.Q))
                 yMovement = -finalMoveSpeed * Time.deltaTime;
 
             // Move along all of the axes, relative to the camera
@@ -415,6 +417,10 @@ namespace Thesis.Visualization.VisCam
                 // Need to invert the pitch to fix actual inversion
                 float yawMovement = mouseX * m_fpsRotSpeed;
                 float pitchMovement = -mouseY * m_fpsRotSpeed;
+
+                // Invert the yaw and pitch if needed
+                yawMovement *= (m_fpsInvertYaw) ? -1.0f : 1.0f;
+                pitchMovement *= (m_fpsInvertPitch) ? -1.0f : 1.0f;
 
                 // Perform the rotations
                 Vector3 eulerRotations = new Vector3(pitchMovement, yawMovement, 0.0f);
