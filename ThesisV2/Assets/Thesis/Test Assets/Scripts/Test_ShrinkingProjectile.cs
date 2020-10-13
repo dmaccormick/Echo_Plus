@@ -6,11 +6,13 @@ public class Test_ShrinkingProjectile : MonoBehaviour
 {
     //--- Public Variables ---//
     public float m_lifetime;
+    public Color m_endColour;
 
 
 
     //--- Private Variables ---//
     private Vector3 m_startScale;
+    private Color m_startColour;
     private float m_lifeSoFar;
 
 
@@ -20,6 +22,7 @@ public class Test_ShrinkingProjectile : MonoBehaviour
     {
         // Init the private variables
         m_startScale = transform.localScale;
+        m_startColour = GetComponentInChildren<Renderer>().material.color;
         m_lifeSoFar = 0.0f;
     }
 
@@ -33,6 +36,9 @@ public class Test_ShrinkingProjectile : MonoBehaviour
 
         // Slowly shrink to 0 on all axes
         this.transform.localScale = Vector3.Lerp(m_startScale, Vector3.zero, lerpT);
+
+        // Slowly change colour
+        GetComponentInChildren<Renderer>().material.color = Color.Lerp(m_startColour, m_endColour, lerpT);
 
         // If the time has passed, destroy this object
         if (m_lifeSoFar >= m_lifetime)

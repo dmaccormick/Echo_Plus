@@ -158,8 +158,6 @@ namespace Thesis.VisTrack
 
             if (TryGetComponent<Thesis.External.QuickOutline>(out var outline))
             {
-                //[HideInInspector] public Material outlineMaskMaterial;
-                //[HideInInspector] public Material outlineFillMaterial;
                 List<Material> combinedMaterials = new List<Material>();
                 combinedMaterials.AddRange(dataPoint.m_materials);
                 combinedMaterials.Add(outline.outlineMaskMaterial);
@@ -171,7 +169,7 @@ namespace Thesis.VisTrack
                 m_targetRenderer.sharedMaterials = dataPoint.m_materials.ToArray();
             }
             
-            m_targetRenderer.sharedMaterial.color = dataPoint.m_color;
+            m_targetRenderer.material.color = dataPoint.m_color;
         }
 
         public int FindDataPointForTime(float _time)
