@@ -155,7 +155,22 @@ namespace Thesis.VisTrack
 
             // Apply the data point to the visualization
             m_targetFilter.sharedMesh = dataPoint.m_mesh;
-            m_targetRenderer.sharedMaterials = dataPoint.m_materials.ToArray();
+
+            if (TryGetComponent<Thesis.External.QuickOutline>(out var outline))
+            {
+                //[HideInInspector] public Material outlineMaskMaterial;
+                //[HideInInspector] public Material outlineFillMaterial;
+                List<Material> combinedMaterials = new List<Material>();
+                combinedMaterials.AddRange(dataPoint.m_materials);
+                combinedMaterials.Add(outline.outlineMaskMaterial);
+                combinedMaterials.Add(outline.outlineFillMaterial);
+                m_targetRenderer.sharedMaterials = combinedMaterials.ToArray();
+            }
+            else
+            {
+                m_targetRenderer.sharedMaterials = dataPoint.m_materials.ToArray();
+            }
+            
             m_targetRenderer.sharedMaterial.color = dataPoint.m_color;
         }
 
