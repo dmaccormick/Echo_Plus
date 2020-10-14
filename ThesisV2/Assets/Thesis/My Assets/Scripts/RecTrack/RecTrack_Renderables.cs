@@ -23,28 +23,45 @@ namespace Thesis.RecTrack
                 this.m_color = _colour;
             }
 
-//            public string GetString(string _format)
-//            {
-//#if UNITY_EDITOR
-//                return this.m_timestamp.ToString(_format) + "~" + 
-//                    AssetDatabase.GetAssetPath(this.m_mesh) + "~" +
-//                    AssetDatabase.GetAssetPath(this.m_material) + "~" +
-//                    this.m_color.ToString(_format);
-//#else
-//                return null;
-//#endif
-//            }
-
             public string GetString(string _format)
             {
 #if UNITY_EDITOR
+                int meshSubIndex = GetMeshSubAssetIndex();
+
                 return this.m_timestamp.ToString(_format) + "~" +
-                    AssetDatabase.GetAssetPath(this.m_mesh) + "~" +
+                    AssetDatabase.GetAssetPath(this.m_mesh) + "," + meshSubIndex.ToString() + "~" +
                     this.m_color.ToString(_format) + "~" +
                     GetMaterialArrayStr();
 #else
                 return null;
 #endif
+            }
+
+            private int GetMeshSubAssetIndex()
+            {
+                string meshPath = AssetDatabase.GetAssetPath(this.m_mesh);
+                var listOfObjects = AssetDatabase.LoadAllAssetsAtPath(meshPath);
+
+                int meshCount = 0;
+                int thisMeshIndex = -1;
+
+                // Find how many meshes there are in the list and grab the index of this mesh specificially as well
+                for (int i = 0; i < listOfObjects.Length; i++)
+                {
+                    var meshConversionAttempt = listOfObjects[i] as Mesh;
+
+                    if (meshConversionAttempt != null)
+                    {
+                        meshCount++;
+
+                        if (meshConversionAttempt == this.m_mesh)
+                            thisMeshIndex = i;
+                    }
+                }
+
+                // If this is the only mesh, just return -1
+                // Otherwise, return this mesh's index
+                return (meshCount > 1) ? thisMeshIndex : -1;
             }
 
             private string GetMaterialArrayStr()

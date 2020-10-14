@@ -26,23 +26,46 @@ namespace Thesis.VisTrack
                 m_timestamp = float.Parse(tokens[0]);
 
 #if UNITY_EDITOR
-                // The second token is the path to the mesh so we need to get the mesh itself from the asset database
-                m_mesh = AssetDatabase.LoadAssetAtPath(tokens[1], typeof(Mesh)) as Mesh;
+                // The second token is the path to the mesh and its submesh ID (-1 if not a submesh)
+                var meshTokens = tokens[1].Split(',');
+                string meshPath = meshTokens[0];
+                int subMeshIndex = int.Parse(meshTokens[1]);
 
-                // The *third* token is the colour which is a vector3 so parse that
+                // If not a submesh, just load the mesh directly
+                // If it is a submesh, we need to load all of the assets at the path and grab the one from the right index
+                if (subMeshIndex == -1)
+                {
+                    m_mesh = AssetDatabase.LoadAssetAtPath(meshPath, typeof(Mesh)) as Mesh;
+                }
+                else
+                {
+                    var subAssets = AssetDatabase.LoadAllAssetsAtPath(meshPath);
+                    m_mesh = subAssets[subMeshIndex] as Mesh;
+                }
+
+                // The third token is the colour which is a vector3 so parse that
                 m_color = Utility_Functions.ParseColor(tokens[2]);
-
-                //// The third token is the path to the material so load that too
-                //m_material = AssetDatabase.LoadAssetAtPath(tokens[2], typeof(Material)) as Material;
 
                 // Remaining tokens are the materials so load them too
                 m_materials = new List<Material>();
                 for (int i = 3; i < tokens.Length; i++)
                     m_materials.Add(AssetDatabase.LoadAssetAtPath(tokens[i], typeof(Material)) as Material);
+
 #else
-                // Convert the mesh file paths to be resources based instead and then load it in
-                string meshResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[1]);
-                m_mesh = Resources.Load(meshResourcePath, typeof(Mesh)) as Mesh;
+                // Convert the mesh path to a resources based path instead of an asset path
+                string meshResourcePath = Utility_Functions.ConvertAssetToResourcePath(meshPath);
+
+                // If not a submesh, just load the mesh directly
+                // If it is a submesh, we need to load all of the assets at the path and grab the one from the right index
+                if (subMeshIndex == -1)
+                {
+                    m_mesh = Resources.Load(meshResourcePath, typeof(Mesh)) as Mesh;
+                }
+                else
+                {
+                    var subAssets = Resources.LoadAll(meshPath);
+                    m_mesh = subAssets[subMeshIndex] as Mesh;
+                }
                 
                 // Convert all of the materials and load them in as well
                 for (int i = 3; i < tokens.Length; i++)
@@ -50,18 +73,7 @@ namespace Thesis.VisTrack
                     string matResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[i]);
                     m_materials.Add(Resources.Load(matResourcePath, typeof(Material)) as Material);
                 }
-
-                //// Convert the mesh and mat file paths to be resources based paths instead
-                //string meshResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[1]);
-                //string matResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[2]);
-
-                //// Load the mesh and material from the resource folders
-                //m_mesh = Resources.Load(meshResourcePath, typeof(Mesh)) as Mesh;
-                //m_material = Resources.Load(matResourcePath, typeof(Material)) as Material;
 #endif
-
-                //// The fourth token is the colour which is a vector3 so parse that
-                //m_color = Utility_Functions.ParseColor(tokens[3]);
             }
 
             public static List<Data_Renderables> ParseDataList(string _data)
@@ -156,6 +168,7 @@ namespace Thesis.VisTrack
             // Apply the data point to the visualization
             m_targetFilter.sharedMesh = dataPoint.m_mesh;
 
+            // Need to merge the list of materials with the outline materials to prevent overriding and losing the outlines
             if (TryGetComponent<Thesis.External.QuickOutline>(out var outline))
             {
                 List<Material> combinedMaterials = new List<Material>();
