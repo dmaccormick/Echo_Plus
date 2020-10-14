@@ -13,6 +13,9 @@ namespace Thesis.Editor
         //[SerializeField] private static SceneAsset m_visScene;
         private readonly string m_scriptablePath = "Assets/Thesis/My Assets/Scripts/SO/SO_HelperWindowData.asset";
         private SO_HelperWindow m_scriptable;
+        private SerializedObject m_serializedObj;
+        private SerializedProperty m_recSceneProp;
+        private SerializedProperty m_visSceneProp;
 
 
 
@@ -27,7 +30,7 @@ namespace Thesis.Editor
 
         private void OnGUI()
         {
-            // Find the scriptable object if needed
+            // Find or create the scriptable object if needed
             if (m_scriptable == null)
             {
                 m_scriptable = AssetDatabase.LoadAssetAtPath(m_scriptablePath, typeof(SO_HelperWindow)) as SO_HelperWindow;
@@ -37,8 +40,6 @@ namespace Thesis.Editor
                     m_scriptable = ScriptableObject.CreateInstance(typeof(SO_HelperWindow)) as SO_HelperWindow;
                     AssetDatabase.CreateAsset(m_scriptable, m_scriptablePath);
                 }
-
-                Debug.Log(m_scriptable);
             }
 
             // Create the fields so the user can assign the scene objects
@@ -72,6 +73,10 @@ namespace Thesis.Editor
                 EditorSceneManager.OpenScene(visScenePath, OpenSceneMode.Single);
             }
             EditorGUI.EndDisabledGroup();
+
+            // Tell Unity that the ScriptableObject asset needs to be saved when closing / opening Unity
+            if (GUI.changed)
+                EditorUtility.SetDirty(m_scriptable);
         }
     }
 }
