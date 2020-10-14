@@ -1276,6 +1276,10 @@ GameObject:
   m_Component:
   - component: {fileID: 570137714}
   - component: {fileID: 570137713}
+  - component: {fileID: 570137718}
+  - component: {fileID: 570137717}
+  - component: {fileID: 570137716}
+  - component: {fileID: 570137715}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1355,9 +1359,81 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1529577093}
-  m_RootOrder: 0
+  m_Father: {fileID: 786367287}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &570137715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570137712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78645d8c041387d40b10aae0813f5f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_targetLight: {fileID: 570137713}
+  m_dataFormat: F3
+--- !u!114 &570137716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570137712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
+  m_target: {fileID: 570137714}
+--- !u!114 &570137717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570137712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
+  m_target: {fileID: 570137714}
+--- !u!114 &570137718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570137712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc28b55405aff468ca545170f76787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_trackComponents:
+  - {fileID: 570137717}
+  - {fileID: 570137716}
+  - {fileID: 570137715}
+  m_isStatic: 1
+  m_isKeyFocusObj: 0
 --- !u!1 &589501024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,6 +2293,7 @@ Transform:
   - {fileID: 1111303233}
   - {fileID: 589501025}
   - {fileID: 1520296993}
+  - {fileID: 570137714}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2949,7 +3026,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1529577093}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1136167679
 MonoBehaviour:
@@ -3430,7 +3507,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1520296993}
   - component: {fileID: 1520297000}
-  - component: {fileID: 1520296999}
   - component: {fileID: 1520296998}
   - component: {fileID: 1520296997}
   - component: {fileID: 1520296996}
@@ -3550,14 +3626,6 @@ MonoBehaviour:
   - {fileID: 1520296994}
   m_isStatic: 1
   m_isKeyFocusObj: 0
---- !u!81 &1520296999
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520296992}
-  m_Enabled: 1
 --- !u!20 &1520297000
 Camera:
   m_ObjectHideFlags: 0
@@ -3628,7 +3696,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 570137714}
   - {fileID: 1136167678}
   m_Father: {fileID: 0}
   m_RootOrder: 0

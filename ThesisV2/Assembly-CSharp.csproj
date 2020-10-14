@@ -69,6 +69,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\Interface\Interface_IVisualizable.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Camera.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Lifetime.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Light.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Position.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Renderables.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\RecTrack\RecTrack_Rotation.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\Utility\Utility_Functions.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Camera.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Lifetime.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Light.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Position.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Renderables.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Rotation.cs" />
