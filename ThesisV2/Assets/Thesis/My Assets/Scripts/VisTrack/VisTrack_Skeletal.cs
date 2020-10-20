@@ -150,6 +150,7 @@ namespace Thesis.VisTrack
         //--- Private Variables ---//
         private Animator m_targetAnimator;
         private List<Data_Skeletal_Anim> m_animDataPoints;
+        private List<Transform> m_boneObjs;
 
 
 
@@ -296,16 +297,38 @@ namespace Thesis.VisTrack
 
 
 
-        //--- Methods ---//
+        //--- Utility Methods ---//
         private void InitializeSkeleton(Animator _animator, string _skeletalInfo)
         {
             // Split the skeletal info into its major components
             string[] skeletalInfoTokens = _skeletalInfo.Split('~');
 
-            // The first token is the path for the animator controller so we can use it to load that in and pass it to the animator
+            // The first major token is information for the animator controller
+            HandleAnimatorController(_animator, skeletalInfoTokens[0]);
+
+            // The second major token is the rig information 
+            HandleRigCreation(skeletalInfoTokens[1]);
+
+            // The third major token is the skinned mesh information
+            HandleSkinnedMeshCreation(skeletalInfoTokens[2]);
+        }
+
+        private void HandleAnimatorController(Animator _animator, string _animatorString)
+        {
+            // Load the animator controller in from the assets and pass it to the animator
             // TODO: Make this work with resources as well!
-            RuntimeAnimatorController animatorController = AssetDatabase.LoadAssetAtPath(skeletalInfoTokens[0], typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
+            RuntimeAnimatorController animatorController = AssetDatabase.LoadAssetAtPath(_animatorString, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
             _animator.runtimeAnimatorController = animatorController;
+        }
+
+        private void HandleRigCreation(string _rigString)
+        {
+
+        }
+
+        private void HandleSkinnedMeshCreation(string _skinnedString)
+        {
+
         }
     }
 }
