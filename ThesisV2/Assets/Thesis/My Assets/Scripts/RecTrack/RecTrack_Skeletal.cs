@@ -26,9 +26,9 @@ namespace Thesis.RecTrack
 
             public string GetString()
             {
-                return AssetDatabase.GetAssetPath(this.m_animatorController) + "~"
-                    + GetFullRigString() + "~"
-                    + GetFullSkinString();
+                return GetFullRigString() + "~"
+                    + GetFullSkinString() + "~"
+                    + AssetDatabase.GetAssetPath(this.m_animatorController);
             }
 
             public string GetFullRigString()

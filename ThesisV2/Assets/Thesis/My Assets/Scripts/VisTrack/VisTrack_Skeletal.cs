@@ -303,14 +303,15 @@ namespace Thesis.VisTrack
             // Split the skeletal info into its major components
             string[] skeletalInfoTokens = _skeletalInfo.Split('~');
 
-            // The first major token is information for the animator controller
-            HandleAnimatorController(_animator, skeletalInfoTokens[0]);
+            // The first major token is the rig information 
+            HandleRigCreation(skeletalInfoTokens[0]);
 
-            // The second major token is the rig information 
-            HandleRigCreation(skeletalInfoTokens[1]);
+            // The second major token is the skinned mesh information
+            HandleSkinnedMeshCreation(skeletalInfoTokens[1]);
 
-            // The third major token is the skinned mesh information
-            HandleSkinnedMeshCreation(skeletalInfoTokens[2]);
+            // The third major token is information for the animator controller
+            // NOTE: This is last so that the rig and skinned meshes can be created first - otherwise, the connection isn't there and the animations don't work
+            HandleAnimatorController(_animator, skeletalInfoTokens[2]);
         }
 
         private void HandleAnimatorController(Animator _animator, string _animatorString)
