@@ -46,7 +46,7 @@ namespace Thesis.RecTrack
         public void StartRecording(float _startTime)
         {
             // Ensure the target is set
-            Assert.IsNotNull(m_target, "m_target needs to be set for the track on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_target, "Track Assert Failed [" + GetTrackName() + "] - " + "m_target needs to be set for the track on object [" + this.gameObject.name + "]");
 
             // Init the private variables
             m_dataPoints = new List<Data_Scale>();
@@ -106,7 +106,7 @@ namespace Thesis.RecTrack
         public void RecordData(float _currentTime)
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_dataPoints, "Track Assert Failed [" + GetTrackName() + "] - " + "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
 
             // Get the data point from the target
             Vector3 currentScl = m_target.lossyScale;
@@ -121,7 +121,7 @@ namespace Thesis.RecTrack
         public string GetData()
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling GetData() on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_dataPoints, "Track Assert Failed [" + GetTrackName() + "] - " + "m_dataPoints must be init before calling GetData() on object [" + this.gameObject.name + "]");
 
             // Use a string builder to compile the data string efficiently
             StringBuilder stringBuilder = new StringBuilder();

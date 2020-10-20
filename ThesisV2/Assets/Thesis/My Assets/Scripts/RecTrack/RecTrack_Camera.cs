@@ -56,7 +56,7 @@ namespace Thesis.RecTrack
         public void StartRecording(float _startTime)
         {
             // Ensure the targets are not null
-            Assert.IsNotNull(m_targetCam, "m_targetCam needs to be set for the track on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_targetCam, "Track Assert Failed [" + GetTrackName() + "] - " + "m_targetCam needs to be set for the track on object [" + this.gameObject.name + "]");
 
             // Init the private variables 
             m_dataPoints = new List<Data_Camera>();
@@ -94,7 +94,7 @@ namespace Thesis.RecTrack
         public void RecordData(float _currentTime)
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_dataPoints, "Track Assert Failed [" + GetTrackName() + "] - " + "m_dataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
 
             // Add a new data point to the list
             m_dataPoints.Add(new Data_Camera(_currentTime, m_currentFov, m_currentClipClose, m_currentClipFar));
@@ -103,7 +103,7 @@ namespace Thesis.RecTrack
         public string GetData()
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_dataPoints, "m_dataPoints must be init before calling GetData() on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_dataPoints, "Track Assert Failed [" + GetTrackName() + "] - " + "m_dataPoints must be init before calling GetData() on object [" + this.gameObject.name + "]");
 
             // Use a string builder to compile the data string efficiently
             StringBuilder stringBuilder = new StringBuilder();

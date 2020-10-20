@@ -94,6 +94,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Renderables.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Rotation.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Scale.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\VisTrack\VisTrack_Skeletal.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_CameraControls.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_Combined.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_FPSCam.cs" />

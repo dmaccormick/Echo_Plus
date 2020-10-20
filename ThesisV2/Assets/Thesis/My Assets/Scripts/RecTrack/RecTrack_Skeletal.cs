@@ -126,7 +126,7 @@ namespace Thesis.RecTrack
 
             public string GetString(string _format)
             {
-                return this.m_timestamp.ToString(_format) + "~" + this.m_animName + "~" + this.m_animTime;
+                return this.m_timestamp.ToString(_format) + "~" + this.m_animName + "~" + this.m_animTime.ToString(_format);
             }
 
             public float m_timestamp;
@@ -159,9 +159,9 @@ namespace Thesis.RecTrack
         public void StartRecording(float _startTime)
         {
             // Ensure the targets are set
-            Assert.IsNotNull(m_targetAnimator, "m_targetAnimator needs to be set for the track on object [" + this.gameObject.name + "]");
-            Assert.IsNotNull(m_targetRigRoot, "m_targetRigRoot needs to be set for the track on object [" + this.gameObject.name + "]");
-            Assert.IsNotNull(m_targetSkins, "m_targetSkins needs to be set for the track on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_targetAnimator, "Track Assert Failed [" + GetTrackName() + "] - " + "m_targetAnimator needs to be set for the track on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_targetRigRoot, "Track Assert Failed [" + GetTrackName() + "] - " + "m_targetRigRoot needs to be set for the track on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_targetSkins, "Track Assert Failed [" + GetTrackName() + "] - " + "m_targetSkins needs to be set for the track on object [" + this.gameObject.name + "]");
 
             // Init the private variables
             m_animDataPoints = new List<Data_Skeletal_Anim>();
@@ -219,7 +219,7 @@ namespace Thesis.RecTrack
         public void RecordData(float _currentTime)
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_animDataPoints, "m_animDataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_animDataPoints, "Track Assert Failed [" + GetTrackName() + "] - " + "m_animDataPoints must be init before calling RecordData() on object [" + this.gameObject.name + "]");
 
             // Get the data from the animator
             AnimatorStateInfo stateInfo = m_targetAnimator.GetCurrentAnimatorStateInfo(0);
@@ -235,7 +235,7 @@ namespace Thesis.RecTrack
         public string GetData()
         {
             // Ensure the datapoints are setup
-            Assert.IsNotNull(m_animDataPoints, "m_animDataPoints must be init before calling GetData() on object [" + this.gameObject.name + "]");
+            Assert.IsNotNull(m_animDataPoints, "Track Assert Failed [" + GetTrackName() + "] - " + "m_animDataPoints must be init before calling GetData() on object [" + this.gameObject.name + "]");
 
             // Use a string builder to compile the data string efficiently
             StringBuilder stringBuilder = new StringBuilder();
