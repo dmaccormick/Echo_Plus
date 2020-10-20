@@ -72,11 +72,14 @@ namespace Thesis.RecTrack
                 {
                     // Add the mesh information first
                     int meshSubIndex = GetMeshSubAssetIndex(skinnedMesh.sharedMesh);
-                    stringBuilder.Append(AssetDatabase.GetAssetPath(skinnedMesh.sharedMesh) + "`" + meshSubIndex.ToString() + ",");
+                    stringBuilder.Append(AssetDatabase.GetAssetPath(skinnedMesh.sharedMesh) + "`" + meshSubIndex.ToString() + ";");
 
                     // Add the various materials afterwards
                     foreach (var mat in skinnedMesh.sharedMaterials)
                         stringBuilder.Append(AssetDatabase.GetAssetPath(mat) + "`");
+
+                    // Add a final separator to split between the skinned meshes
+                    stringBuilder.Append(',');
                 }
 
                 // Return the final string

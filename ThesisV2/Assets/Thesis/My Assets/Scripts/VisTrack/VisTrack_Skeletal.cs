@@ -378,7 +378,83 @@ namespace Thesis.VisTrack
 
         private void HandleSkinnedMeshCreation(string _skinnedString)
         {
+            // Split the skinned string to get information for each of the individiual skinned mesh renderers
+            string[] rendererStrs = _skinnedString.Split(',');
 
+            // Setup each of the invidual skinned mesh renderers
+            foreach(string rendererStr in rendererStrs)
+            {
+                // Skip empty string
+                if (rendererStr == "" || rendererStr == " ")
+                    continue;
+
+                // Split the string again to separate the meshes and material information
+                string[] splitRendererStrs = rendererStr.Split(';');
+
+                // Create a new skinned mesh renderer object as a child of this object
+                GameObject skinnedMeshObj = new GameObject("Skinned Mesh");
+                skinnedMeshObj.transform.parent = this.transform;
+                SkinnedMeshRenderer skinnedMeshComp = skinnedMeshObj.AddComponent<SkinnedMeshRenderer>();
+
+                // The first major token deals with the mesh object
+                HandleSkinnedMesh_MeshLoading(skinnedMeshComp, splitRendererStrs[0]);
+
+                // The second major token deals with the materials
+                HandleSkinnedMesh_MatLoading(skinnedMeshComp, splitRendererStrs[1]);
+            }
+        }
+
+        private void HandleSkinnedMesh_MeshLoading(SkinnedMeshRenderer _meshComp, string _meshString)
+        {
+            // Split the mesh string into the tokens
+            string[] meshTokens = _meshString.Split('`');
+
+            // The first token is the path to the mesh asset
+            string meshPath = meshTokens[0];
+
+            // The second token is the mesh index, if the mesh is a subasset
+            int subMeshIndex = int.Parse(meshTokens[1]);
+
+            // If not a submesh, just load the mesh directly and give it to the skinned renderer
+            // If it is a submesh, we need to load all of the assets at the path and grab the one from the right index
+            if (subMeshIndex == -1)
+            {
+                _meshComp.sharedMesh = AssetDatabase.LoadAssetAtPath(meshPath, typeof(Mesh)) as Mesh;
+            }
+            else
+            {
+                var subAssets = AssetDatabase.LoadAllAssetsAtPath(meshPath);
+                _meshComp.sharedMesh = subAssets[subMeshIndex] as Mesh;
+            }
+        }
+
+        private void HandleSkinnedMesh_MatLoading(SkinnedMeshRenderer _meshComp, string _matString)
+        {
+            // Split the material string into the tokens
+            string[] matTokens = _matString.Split('`');
+
+            // Prepare to hold all of the loaded materials
+            List<Material> loadedMats = new List<Material>();
+
+            // Load all of the materials
+            foreach(var matPath in matTokens)
+            {
+                // Skip empty ones
+                if (matPath == "" || matPath == " ")
+                    continue;
+
+                // Load the material
+                // TODO: Support using resources as well!
+                // TODO: Support loading materials as subassets from FBX's
+                Material mat = AssetDatabase.LoadAssetAtPath(matPath, typeof(Material)) as Material;
+
+                // If the material exists, add it to the list
+                if (mat != null)
+                    loadedMats.Add(mat);
+            }
+
+            // Pass the materials to the mesh renderer
+            _meshComp.sharedMaterials = loadedMats.ToArray();
         }
     }
 }
