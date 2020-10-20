@@ -20,6 +20,7 @@ public class Test_AnimatorRecorder : MonoBehaviour
     public SkinnedMeshRenderer[] m_skinnedMeshes;
     public Animator m_animator;
 
+    private Animator m_copiedAnimator;
     private bool m_isRecording;
     private List<Test_AnimatorRecorderData> m_data;
     private int m_currentPlaybackIdx;
@@ -40,21 +41,21 @@ public class Test_AnimatorRecorder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            m_isRecording = !m_isRecording;
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    m_isRecording = !m_isRecording;
 
-            if (m_isRecording)
-            {
-                m_data.Clear();
-                m_animator.speed = 1.0f;
-            }
-            else
-            {
-                m_currentPlaybackIdx = 0;
-                m_animator.speed = 0.0f;
-            }
-        }
+        //    if (m_isRecording)
+        //    {
+        //        m_data.Clear();
+        //        m_animator.speed = 1.0f;
+        //    }
+        //    else
+        //    {
+        //        m_currentPlaybackIdx = 0;
+        //        m_animator.speed = 0.0f;
+        //    }
+        //}
 
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -62,8 +63,8 @@ public class Test_AnimatorRecorder : MonoBehaviour
 
             DuplicateRig(newObject.transform);
 
-            var newAnimator = newObject.AddComponent<Animator>();
-            newAnimator.runtimeAnimatorController = m_animator.runtimeAnimatorController;
+            m_copiedAnimator = newObject.AddComponent<Animator>();
+            m_copiedAnimator.runtimeAnimatorController = m_animator.runtimeAnimatorController;
 
             foreach(var skinnedMesh in m_skinnedMeshes)
             {
@@ -73,6 +74,7 @@ public class Test_AnimatorRecorder : MonoBehaviour
                 var newSkinnedMesh = newSkinnedMeshObj.AddComponent<SkinnedMeshRenderer>();
                 newSkinnedMesh.sharedMesh = skinnedMesh.sharedMesh;
                 newSkinnedMesh.localBounds = skinnedMesh.localBounds;
+                newSkinnedMesh.sharedMaterials = skinnedMesh.sharedMaterials;
 
                 // Use the new rig's matching root bone 
                 int rootBoneIndex = allOriginalBones.IndexOf(skinnedMesh.rootBone);
@@ -81,6 +83,9 @@ public class Test_AnimatorRecorder : MonoBehaviour
                 // Set the actual bones to match as well
                 SetMatchingBones(skinnedMesh, newSkinnedMesh);
             }
+
+            m_isRecording = false;
+            m_animator.speed = 0.0f;
         }
 
         if (m_isRecording)
@@ -96,7 +101,8 @@ public class Test_AnimatorRecorder : MonoBehaviour
                 m_currentPlaybackIdx = 0;
 
             var dataPoint = m_data[m_currentPlaybackIdx];
-            m_animator.Play(dataPoint.m_animName, 0, dataPoint.m_animTime);
+            //m_animator.Play(dataPoint.m_animName, 0, dataPoint.m_animTime);
+            m_copiedAnimator.Play(dataPoint.m_animName, 0, dataPoint.m_animTime);
 
             m_currentPlaybackIdx++;
         }
