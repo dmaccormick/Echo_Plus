@@ -401,6 +401,9 @@ namespace Thesis.VisTrack
 
                 // The second major token deals with the materials
                 HandleSkinnedMesh_MatLoading(skinnedMeshComp, splitRendererStrs[1]);
+
+                // The third major token deals with the joints
+                HandleSkinnedMesh_JointLoading(skinnedMeshComp, splitRendererStrs[2]);
             }
         }
 
@@ -455,6 +458,35 @@ namespace Thesis.VisTrack
 
             // Pass the materials to the mesh renderer
             _meshComp.sharedMaterials = loadedMats.ToArray();
+        }
+
+        private void HandleSkinnedMesh_JointLoading(SkinnedMeshRenderer _meshComp, string _jointString)
+        {
+            // Split the string to get the individual joint indices as strings
+            string[] jointTokens = _jointString.Split('`');
+
+            // Create a list to hold all of the joints for this skinned mesh
+            List<Transform> jointList = new List<Transform>();
+
+            // Go through all of the parsed indices and find the matching joint
+            foreach(var jointToken in jointTokens)
+            {
+                // Skip empty ones
+                if (jointToken == "" || jointToken == " ")
+                    continue;
+
+                // Parse the index
+                int jointIndex = int.Parse(jointToken);
+
+                // Find the bone that matches this index
+                Transform matchingBone = m_boneObjs[jointIndex];
+
+                // Add the bone to the list
+                jointList.Add(matchingBone);
+            }
+
+            // Pass the list of joints to the skinned mesh renderer so it knows what to draw on
+            _meshComp.bones = jointList.ToArray();
         }
     }
 }

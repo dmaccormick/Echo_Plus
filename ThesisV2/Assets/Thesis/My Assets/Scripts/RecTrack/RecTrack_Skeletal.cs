@@ -26,7 +26,9 @@ namespace Thesis.RecTrack
 
             public string GetString()
             {
-                return AssetDatabase.GetAssetPath(this.m_animatorController) + "~" + GetFullRigString() + "~" + GetFullSkinString();
+                return AssetDatabase.GetAssetPath(this.m_animatorController) + "~"
+                    + GetFullRigString() + "~"
+                    + GetFullSkinString();
             }
 
             public string GetFullRigString()
@@ -77,6 +79,21 @@ namespace Thesis.RecTrack
                     // Add the various materials afterwards
                     foreach (var mat in skinnedMesh.sharedMaterials)
                         stringBuilder.Append(AssetDatabase.GetAssetPath(mat) + "`");
+
+                    // Add a separator before listing the joints
+                    stringBuilder.Append(';');
+
+                    // Add the indices for the joints as well
+                    var fullRig = new List<Transform>(m_targetRigRoot.GetComponentsInChildren<Transform>());
+                    var thisRendererJoints = skinnedMesh.bones;
+                    foreach(var joint in thisRendererJoints)
+                    {
+                        // Determine the index of the joint in the main rig list
+                        int jointIndex = fullRig.IndexOf(joint);
+
+                        // Add the index to the string
+                        stringBuilder.Append(jointIndex.ToString() + "`");
+                    }
 
                     // Add a final separator to split between the skinned meshes
                     stringBuilder.Append(',');
