@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEditor;
 using Thesis.Interface;
-using Thesis.Utility;
 using Thesis.Visualization;
 
 namespace Thesis.VisTrack
@@ -158,12 +158,14 @@ namespace Thesis.VisTrack
         {
             try
             {
-                // The first line is always the skeleton information
+                // The first line is always the skeleton information so we should use it create the skeleton and then remove it from the list
                 string[] dataLines = _data.Split('\n');
                 string skeletalInfo = dataLines[0];
+                dataLines = dataLines.Skip(1).ToArray();
 
-                // Initialize the skeleton
-                InitializeSkeleton(skeletalInfo);
+                // Initialize the skeleton and animator together
+                m_targetAnimator = GetComponent<Animator>();
+                InitializeSkeleton(m_targetAnimator, skeletalInfo);
 
                 // Create a list of animation data points by parsing the rest of string
                 m_animDataPoints = Data_Skeletal_Anim.ParseDataList(dataLines);
@@ -181,9 +183,6 @@ namespace Thesis.VisTrack
 
         public void StartVisualization(float _startTime)
         {
-            // Init the targets
-            m_targetAnimator = GetComponent<Animator>();
-
             // Stop the animator from moving through its animations naturally
             m_targetAnimator.speed = 0.0f;
 
@@ -298,9 +297,15 @@ namespace Thesis.VisTrack
 
 
         //--- Methods ---//
-        private void InitializeSkeleton(string _skeletalInfo)
+        private void InitializeSkeleton(Animator _animator, string _skeletalInfo)
         {
+            // Split the skeletal info into its major components
+            string[] skeletalInfoTokens = _skeletalInfo.Split('~');
 
+            // The first token is the path for the animator controller so we can use it to load that in and pass it to the animator
+            // TODO: Make this work with resources as well!
+            RuntimeAnimatorController animatorController = AssetDatabase.LoadAssetAtPath(skeletalInfoTokens[0], typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
+            _animator.runtimeAnimatorController = animatorController;
         }
     }
 }

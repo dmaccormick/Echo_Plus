@@ -17,15 +17,16 @@ namespace Thesis.RecTrack
         [System.Serializable]
         public struct Data_Skeletal_Setup
         {
-            public Data_Skeletal_Setup(Transform _targetRigRoot, SkinnedMeshRenderer[] _targetSkins)
+            public Data_Skeletal_Setup(RuntimeAnimatorController _animatorController, Transform _targetRigRoot, SkinnedMeshRenderer[] _targetSkins)
             {
+                this.m_animatorController = _animatorController;
                 this.m_targetRigRoot = _targetRigRoot;
                 this.m_targetSkins = _targetSkins;
             }
 
             public string GetString()
             {
-                return GetFullRigString() + "~" + GetFullSkinString();
+                return AssetDatabase.GetAssetPath(this.m_animatorController) + "~" + GetFullRigString() + "~" + GetFullSkinString();
             }
 
             public string GetFullRigString()
@@ -109,6 +110,7 @@ namespace Thesis.RecTrack
                 return (meshCount > 1) ? thisMeshIndex : -1;
             }
 
+            public RuntimeAnimatorController m_animatorController;
             public Transform m_targetRigRoot;
             public SkinnedMeshRenderer[] m_targetSkins;
         }
@@ -167,7 +169,7 @@ namespace Thesis.RecTrack
             m_animDataPoints = new List<Data_Skeletal_Anim>();
 
             // Record the information about the skeleton
-            m_skeletalSetupData = new Data_Skeletal_Setup(m_targetRigRoot, m_targetSkins);
+            m_skeletalSetupData = new Data_Skeletal_Setup(m_targetAnimator.runtimeAnimatorController, m_targetRigRoot, m_targetSkins);
 
             // Record the first animation data point
             RecordData(_startTime);
