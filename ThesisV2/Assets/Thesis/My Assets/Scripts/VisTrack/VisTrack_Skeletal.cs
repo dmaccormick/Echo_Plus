@@ -323,7 +323,57 @@ namespace Thesis.VisTrack
 
         private void HandleRigCreation(string _rigString)
         {
+            // Create lists to store the names and parent indices for each bone
+            List<string> boneNames = new List<string>();
+            List<int> boneParentIndices = new List<int>();
 
+            // Split the string to get all of the individual bone tokens
+            string[] boneTokenStrs = _rigString.Split(',');
+
+            // Loop through and extract all of the names and parent indices for the bones
+            foreach(var boneToken in boneTokenStrs)
+            {
+                // If the token is empty, just skip it (happens at the end of the list)
+                if (boneToken == "" || boneToken == " ")
+                    continue;
+
+                // The bone token can be split further
+                string[] boneInfoTokens = boneToken.Split('`');
+
+                // The first result is the name of the bone so add it to the list
+                boneNames.Add(boneInfoTokens[0]);
+
+                // The second is the index of the parent so parse it and then add it to the list
+                boneParentIndices.Add(int.Parse(boneInfoTokens[1]));
+            }
+
+            // Ensure both the names and indices arrays match in length
+            Assert.IsTrue(boneNames.Count == boneParentIndices.Count, "Track Assert Failed [" + GetTrackName() + "] - " + "The number of parsed rig bone names and rig parent indices needs to be equal");
+
+            // Now that we have all the bone names, we can go ahead and create all of the actual bone objects in the scene
+            m_boneObjs = new List<Transform>();
+            foreach (var boneName in boneNames)
+            {
+                // Instantiate a new object with the correct name
+                GameObject newBoneObj = new GameObject(boneName);
+
+                // Store the bone in the list
+                m_boneObjs.Add(newBoneObj.transform);
+            }
+
+            // Ensure the correct number of bones have been created
+            Assert.IsTrue(m_boneObjs.Count == boneNames.Count, "Track Assert Failed [" + GetTrackName() + "] - " + "The number of generated bone objects and the number of parsed bone names needs to be equal");
+
+            // Now that the bones are made, we can link them up to create the proper hierarchy
+            for (int i = 0; i < m_boneObjs.Count; i++)
+            {
+                // Get this bone's parent index
+                int parentIndex = boneParentIndices[i];
+
+                // If the index is -1, it is the root bone and so can just be a child of the main object
+                // Otherwise, the index refers to another bone in the rig and so we can link it to that one
+                m_boneObjs[i].parent = (parentIndex == -1) ? this.transform : m_boneObjs[parentIndex];
+            }
         }
 
         private void HandleSkinnedMeshCreation(string _skinnedString)
