@@ -78,7 +78,7 @@ public class Test_AnimatorRecorder : MonoBehaviour
 
                 // Use the new rig's matching root bone 
                 int rootBoneIndex = allOriginalBones.IndexOf(skinnedMesh.rootBone);
-                newSkinnedMesh.rootBone = copiedBones[rootBoneIndex];
+                //newSkinnedMesh.rootBone = copiedBones[rootBoneIndex];
 
                 // Set the actual bones to match as well
                 SetMatchingBones(skinnedMesh, newSkinnedMesh);
@@ -159,9 +159,10 @@ public class Test_AnimatorRecorder : MonoBehaviour
             var originalBone = allOriginalBones[i];
             var copiedBone = copiedBones[i];
 
-            copiedBone.localPosition = originalBone.localPosition;
-            copiedBone.localRotation = originalBone.localRotation;
-            copiedBone.localScale = originalBone.localScale;
+            Debug.Log("Ignoring default local transforms!");
+            //copiedBone.localPosition = originalBone.localPosition;
+            //copiedBone.localRotation = originalBone.localRotation;
+            //copiedBone.localScale = originalBone.localScale;
         }
     }
 
