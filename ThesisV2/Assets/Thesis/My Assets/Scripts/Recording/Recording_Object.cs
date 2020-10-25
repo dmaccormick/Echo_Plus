@@ -25,18 +25,13 @@ namespace Thesis.Recording
         //--- Unity Methods ---//
         private void Awake()
         {
-            // Find the recording manager
-            m_recManager = GameObject.FindObjectOfType<Recording_Manager>();
-
-            // If there is no recording manager, display a warning message and deactivate this component
-            if (m_recManager == null)
-            {
-                Debug.LogWarning("Warning: Cannot find a recording manager!");
-                this.enabled = false;
-                return; 
-            }
-
             // Message the recording manager and tell it that this object now exists
+            RegisterObject();
+        }
+
+        private void OnEnable()
+        {
+            // Message the recording manager and tell it that this object has activated
             RegisterObject();
         }
 
@@ -55,6 +50,17 @@ namespace Thesis.Recording
         //--- Messages TO The Recording Manager ---//
         public void RegisterObject()
         {
+            // Find the recording manager
+            m_recManager = GameObject.FindObjectOfType<Recording_Manager>();
+
+            // If there is no recording manager, display a warning message and deactivate this component
+            if (m_recManager == null)
+            {
+                Debug.LogWarning("Warning: Cannot find a recording manager!");
+                this.enabled = false;
+                return;
+            }
+
             // Contact the recording manager and tell it this object now exists
             m_recManager.RegisterObject(this);
 

@@ -672,6 +672,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Two_Sided_Cube
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e73712c628f61b14cb0eda2c53f2af84,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e73712c628f61b14cb0eda2c53f2af84, type: 3}
 --- !u!1 &166346508 stripped
@@ -707,13 +712,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 166346508}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b537bd0ce940b924ca9b878304ce8a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dataFormat: F3
+--- !u!114 &166346513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166346508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3ba4e00a60e8934994f530763a4eb15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_targetRenderer: {fileID: 166346509}
   m_targetFilter: {fileID: 166346510}
   m_dataFormat: F3
---- !u!114 &166346513
+--- !u!114 &166346514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -733,26 +751,6 @@ MonoBehaviour:
     m_sampleTime: 0.25
     m_nextSampleTime: 0
   m_target: {fileID: 166346511}
---- !u!114 &166346514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 166346508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_recordingSettings:
-    m_recordingMethod: 0
-    m_dataFormat: F3
-    m_changeMinThreshold: 0.1
-    m_changeJumpThreshold: 1
-    m_sampleTime: 0.25
-    m_nextSampleTime: 0
-  m_target: {fileID: 166346511}
 --- !u!114 &166346515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,7 +760,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 166346508}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
+  m_Script: {fileID: 11500000, guid: 2392fb45448c16143a78a3d4a61285d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_recordingSettings:
@@ -786,12 +784,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_trackComponents:
+  - {fileID: 166346517}
   - {fileID: 166346515}
   - {fileID: 166346514}
   - {fileID: 166346513}
   - {fileID: 166346512}
-  m_isStatic: 1
+  m_isStatic: 0
   m_isKeyFocusObj: 0
+--- !u!114 &166346517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166346508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b763404db3a864fbbfa13d18f09728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_recordingSettings:
+    m_recordingMethod: 0
+    m_dataFormat: F3
+    m_changeMinThreshold: 0.1
+    m_changeJumpThreshold: 1
+    m_sampleTime: 0.25
+    m_nextSampleTime: 0
+  m_target: {fileID: 166346511}
 --- !u!1001 &185925455
 PrefabInstance:
   m_ObjectHideFlags: 0

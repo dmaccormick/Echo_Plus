@@ -93,7 +93,11 @@ namespace Thesis.Recording
             // Ensure the object has not already been registered
             string objID = _newObject.GetUniqueID();
             if (objID != null)
-                Assert.IsFalse(m_dynamicObjects.ContainsKey(objID) || m_staticObjects.ContainsKey(objID), "The object [" + _newObject.gameObject.name + "] is already registered");
+            {
+                // If the object has been registered already, just back out
+                if (m_dynamicObjects.ContainsKey(objID) || m_staticObjects.ContainsKey(objID))
+                    return;
+            }
 
             // Give the object the next unique ID as a string like "_#ID#"
             _newObject.SetUniqueID(GetNextUniqueID());
