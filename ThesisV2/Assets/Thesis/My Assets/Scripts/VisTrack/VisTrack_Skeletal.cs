@@ -116,7 +116,7 @@ namespace Thesis.VisTrack
                 this.m_timestamp = float.Parse(tokens[0]);
 
                 // The second token is the animation name
-                this.m_animName = tokens[1];
+                this.m_animHash = int.Parse(tokens[1]);
 
                 // The final token is the normalized animation time so just parse the float
                 this.m_animTime = float.Parse(tokens[2]);
@@ -143,7 +143,7 @@ namespace Thesis.VisTrack
             }
 
             public float m_timestamp;
-            public string m_animName;
+            public int m_animHash;
             public float m_animTime;
         }
 
@@ -230,7 +230,7 @@ namespace Thesis.VisTrack
 
                 // If the two data points represent different animations, then do nothing and stay defaulted to the first one
                 // Otherwise, lerp the animation between them
-                if (prevDataPoint.m_animName == nextDataPoint.m_animName)
+                if (prevDataPoint.m_animHash == nextDataPoint.m_animHash)
                 {
                     // Calculate the lerp T param between the before and after points
                     float lerpT = Mathf.InverseLerp(prevDataPoint.m_timestamp, nextDataPoint.m_timestamp, _time);
@@ -242,7 +242,7 @@ namespace Thesis.VisTrack
 
             // Apply the data point to the visualization
             // TODO: Support multiple animation layers
-            m_targetAnimator.Play(finalDataPoint.m_animName, 0, finalDataPoint.m_animTime);
+            m_targetAnimator.Play(finalDataPoint.m_animHash, 0, finalDataPoint.m_animTime);
     }
 
         public int FindDataPointForTime(float _time)

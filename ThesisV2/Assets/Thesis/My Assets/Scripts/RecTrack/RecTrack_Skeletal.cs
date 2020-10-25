@@ -176,20 +176,20 @@ namespace Thesis.RecTrack
         [System.Serializable]
         public struct Data_Skeletal_Anim
         {
-            public Data_Skeletal_Anim(float _timestamp, string _animName, float _animTime)
+            public Data_Skeletal_Anim(float _timestamp, int _animHash, float _animTime)
             {
                 this.m_timestamp = _timestamp;
-                this.m_animName = _animName;
+                this.m_animHash = _animHash;
                 this.m_animTime = _animTime;
             }
 
             public string GetString(string _format)
             {
-                return this.m_timestamp.ToString(_format) + "~" + this.m_animName + "~" + this.m_animTime.ToString(_format);
+                return this.m_timestamp.ToString(_format) + "~" + this.m_animHash.ToString() + "~" + this.m_animTime.ToString(_format);
             }
 
             public float m_timestamp;
-            public string m_animName;
+            public int m_animHash;
             public float m_animTime;
         }
 
@@ -246,10 +246,9 @@ namespace Thesis.RecTrack
                 // Get the previously recorded datapoint and the current data point
                 Data_Skeletal_Anim lastDataPoint = m_animDataPoints[m_animDataPoints.Count - 1];
                 AnimatorStateInfo currentStateInfo = m_targetAnimator.GetCurrentAnimatorStateInfo(0);
-                AnimatorClipInfo clipInfo = m_targetAnimator.GetCurrentAnimatorClipInfo(0)[0];
 
                 // If in a completely new animation, we should definitely record
-                if (clipInfo.clip.name != lastDataPoint.m_animName)
+                if (currentStateInfo.shortNameHash != lastDataPoint.m_animHash)
                     RecordData(_currentTime);
 
                 // Otherwise, we should compare the time difference
@@ -282,10 +281,9 @@ namespace Thesis.RecTrack
 
             // Get the data from the animator
             AnimatorStateInfo stateInfo = m_targetAnimator.GetCurrentAnimatorStateInfo(0);
-            AnimatorClipInfo clipInfo = m_targetAnimator.GetCurrentAnimatorClipInfo(0)[0];
 
             // Add the animation datapoint to the list
-            m_animDataPoints.Add(new Data_Skeletal_Anim(_currentTime, clipInfo.clip.name, stateInfo.normalizedTime));
+            m_animDataPoints.Add(new Data_Skeletal_Anim(_currentTime, stateInfo.shortNameHash, stateInfo.normalizedTime));
 
             // Recalculate the next sample time
             m_recordingSettings.m_nextSampleTime = _currentTime + m_recordingSettings.m_sampleTime;
