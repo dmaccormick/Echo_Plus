@@ -78,7 +78,44 @@ namespace Thesis.RecTrack
 
                     // Add the various materials afterwards
                     foreach (var mat in skinnedMesh.sharedMaterials)
-                        stringBuilder.Append(AssetDatabase.GetAssetPath(mat) + "`");
+                    {
+                        string matPath = AssetDatabase.GetAssetPath(mat);
+
+                        if (matPath == "" || matPath == null || matPath == " ")
+                        {
+                            // Output a warning message to indicate that we couldn't find a matching material
+                            string matName = mat.name;
+
+                            // If the material is an instance, we can search for the original
+                            if (matName.Contains("(Instance)"))
+                            {
+                                // Grab all the GUIDs for every material in the database
+                                string[] allMatGUIDs = AssetDatabase.FindAssets("t:Material");
+
+                                // Look for the start of the (Instance) indicator from the material name
+                                int instanceStartIdx = matName.IndexOf('(');
+                                matName = matName.Substring(0, instanceStartIdx - 1);
+
+                                // Search all of the materials in the database to determine if one of them has the same name. If it is, it should be the base version of the material we found
+                                foreach (var matGUID in allMatGUIDs)
+                                {
+                                    string matObjPath = AssetDatabase.GUIDToAssetPath(matGUID);
+
+                                    if (matObjPath.Contains(matName))
+                                    {
+                                        matPath = matObjPath;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        // If we couldn't find a matching material even while searching the database, output a message
+                        if (matPath == "" || matPath == null || matPath == " ")
+                            Debug.LogWarning("Warning in RecTrack_Skeletal: the mat path could not be found for mat object: " + mat.name);
+
+                        stringBuilder.Append(matPath + "`");
+                    }
 
                     // Add a separator before listing the joints
                     stringBuilder.Append(';');
