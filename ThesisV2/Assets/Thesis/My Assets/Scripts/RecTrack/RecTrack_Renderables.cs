@@ -69,12 +69,47 @@ namespace Thesis.RecTrack
                 StringBuilder str = new StringBuilder();
 
                 // Add the materials up to the last one with the ~ at the end
-                for (int i = 0; i < m_materials.Length - 1; i++)
-                    str.Append(AssetDatabase.GetAssetPath(this.m_materials[i]) + "~");
+                for (int i = 0; i < m_materials.Length; i++)
+                {
+                    // Grab the material object and find its related path
+                    var matObj = m_materials[i];
+                    string matPath = AssetDatabase.GetAssetPath(matObj);
+                    
+                    // If the path doesn't work, it's likely that the material is an instance and we need to find the base version
+                    if (matPath == null || matPath == "" || matPath == " ")
+                    {
+                        // If the material is an instance, we can search for the original
+                        if (matPath.Contains("(Instance)"))
+                        {
+                            // Grab all the GUIDs for every material in the database
+                            string[] allMatGUIDs = AssetDatabase.FindAssets("t:Material");
 
-                // Add the final material without the ~ at the end
-                str.Append(AssetDatabase.GetAssetPath(this.m_materials[m_materials.Length - 1]));
+                            // Look for the start of the (Instance) indicator from the material name
+                            string matName = matObj.name;
+                            int instanceStartIdx = matName.IndexOf('(');
+                            matName = matName.Substring(0, instanceStartIdx - 1);
 
+                            // Search all of the materials in the database to determine if one of them has the same name. If it is, it should be the base version of the material we found
+                            foreach (var matGUID in allMatGUIDs)
+                            {
+                                string matObjPath = AssetDatabase.GUIDToAssetPath(matGUID);
+
+                                if (matObjPath.Contains(matName))
+                                {
+                                    matPath = matObjPath;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    // Append the path and optionally append the divider
+                    str.Append(matPath);
+                    if (i < m_materials.Length - 1)
+                        str.Append("~");
+                }
+
+                // Finally, return the string result
                 return str.ToString();
             }
 
