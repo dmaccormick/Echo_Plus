@@ -320,6 +320,9 @@ namespace Thesis.VisTrack
             // TODO: Make this work with resources as well!
             RuntimeAnimatorController animatorController = AssetDatabase.LoadAssetAtPath(_animatorString, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
             _animator.runtimeAnimatorController = animatorController;
+
+            // Apply root motion to allow the system to move the animator manually
+            _animator.applyRootMotion = true;
         }
 
         private void HandleRigCreation(string _rigString)
