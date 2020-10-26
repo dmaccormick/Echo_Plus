@@ -17,8 +17,10 @@ namespace Thesis.RecTrack
         [System.Serializable]
         public struct Data_Skeletal_Setup
         {
-            public Data_Skeletal_Setup(RuntimeAnimatorController _animatorController, Transform _targetRigRoot, SkinnedMeshRenderer[] _targetSkins)
+            public Data_Skeletal_Setup(bool _useDefaultJointTransforms, bool _applyRootMotion, RuntimeAnimatorController _animatorController, Transform _targetRigRoot, SkinnedMeshRenderer[] _targetSkins)
             {
+                this.m_useDefaultJointTransforms = _useDefaultJointTransforms;
+                this.m_applyRootMotion = _applyRootMotion;
                 this.m_animatorController = _animatorController;
                 this.m_targetRigRoot = _targetRigRoot;
                 this.m_targetSkins = _targetSkins;
@@ -26,7 +28,9 @@ namespace Thesis.RecTrack
 
             public string GetString()
             {
-                return GetFullRigString() + "~"
+                return m_useDefaultJointTransforms.ToString() + "~"
+                    + m_applyRootMotion.ToString() + "~"
+                    + GetFullRigString() + "~"
                     + GetFullSkinString() + "~"
                     + AssetDatabase.GetAssetPath(this.m_animatorController);
             }
@@ -43,7 +47,7 @@ namespace Thesis.RecTrack
 
                 // Extract the indices for the parents of all of the bones. This can be used later to reconstruct the hierarchy
                 List<int> rigBoneParentIndices = new List<int>();
-                foreach(var bone in rigBones)
+                foreach (var bone in rigBones)
                 {
                     // If the bone's parent is not in the list (ie: it is the root), just use an index of -1
                     if (rigBones.Contains(bone.parent))
@@ -56,9 +60,18 @@ namespace Thesis.RecTrack
                 Assert.IsTrue(rigBoneNames.Count == rigBoneParentIndices.Count, "The number of rig bones and rig parent indices needs to be equal in RecTrack_Skeletal");
 
                 // Combine the list of bone names and parent indices into a single string
+                // Also add the local positions, rotations, and scales to help setup the initial skeleton (use locals since the skeleton is entirely built around parenting and lossy values can get messed up during linking)
                 StringBuilder stringBuilder = new StringBuilder();
                 for (int i = 0; i < rigBoneNames.Count && i < rigBoneParentIndices.Count; i++)
-                    stringBuilder.Append(rigBoneNames[i] + "`" + rigBoneParentIndices[i].ToString() + ",");
+                {
+                    //stringBuilder.Append(rigBoneNames[i] + "`" + rigBoneParentIndices[i].ToString() + ",");
+                    stringBuilder.Append(rigBoneNames[i] + "`");
+                    stringBuilder.Append(rigBoneParentIndices[i].ToString() + "`");
+                    stringBuilder.Append(rigBones[i].position.ToString("F10") + "`");
+                    stringBuilder.Append(rigBones[i].rotation.ToString("F10") + "`");
+                    stringBuilder.Append(rigBones[i].lossyScale.ToString("F10"));
+                    stringBuilder.Append("$");
+                }
 
                 // Return the final string value
                 return stringBuilder.ToString();
@@ -167,6 +180,8 @@ namespace Thesis.RecTrack
                 return (meshCount > 1) ? thisMeshIndex : -1;
             }
 
+            public bool m_useDefaultJointTransforms;
+            public bool m_applyRootMotion;
             public RuntimeAnimatorController m_animatorController;
             public Transform m_targetRigRoot;
             public SkinnedMeshRenderer[] m_targetSkins;
@@ -202,9 +217,11 @@ namespace Thesis.RecTrack
         [Header("Skeletal Rig")]
         public Transform m_targetRigRoot;
         public SkinnedMeshRenderer[] m_targetSkins;
+        public bool m_useDefaultJointTransforms;
 
         [Header("Animation")]
         public Animator m_targetAnimator;
+        public bool m_applyRootMotionInVis;
 
 
 
@@ -226,7 +243,7 @@ namespace Thesis.RecTrack
             m_animDataPoints = new List<Data_Skeletal_Anim>();
 
             // Record the information about the skeleton
-            m_skeletalSetupData = new Data_Skeletal_Setup(m_targetAnimator.runtimeAnimatorController, m_targetRigRoot, m_targetSkins);
+            m_skeletalSetupData = new Data_Skeletal_Setup(m_useDefaultJointTransforms, m_applyRootMotionInVis, m_targetAnimator.runtimeAnimatorController, m_targetRigRoot, m_targetSkins);
 
             // Record the first animation data point
             RecordData(_startTime);

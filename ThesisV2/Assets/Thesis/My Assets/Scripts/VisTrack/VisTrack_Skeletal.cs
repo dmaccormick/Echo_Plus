@@ -6,6 +6,7 @@ using UnityEngine.Assertions;
 using UnityEditor;
 using Thesis.Interface;
 using Thesis.Visualization;
+using Thesis.Utility;
 
 namespace Thesis.VisTrack
 {
@@ -303,18 +304,24 @@ namespace Thesis.VisTrack
             // Split the skeletal info into its major components
             string[] skeletalInfoTokens = _skeletalInfo.Split('~');
 
-            // The first major token is the rig information 
-            HandleRigCreation(skeletalInfoTokens[0]);
+            // The first major token is whether or not the rig should be setup using default transforms for the joints
+            bool useDefaultTransforms = bool.Parse(skeletalInfoTokens[0]);
 
-            // The second major token is the skinned mesh information
-            HandleSkinnedMeshCreation(skeletalInfoTokens[1]);
+            // The second is whether or not the animator should apply root motion
+            bool applyRootMotion = bool.Parse(skeletalInfoTokens[1]);
 
-            // The third major token is information for the animator controller
+            // The third major token is the rig information 
+            HandleRigCreation(useDefaultTransforms, skeletalInfoTokens[2]);
+
+            // The fourth major token is the skinned mesh information
+            HandleSkinnedMeshCreation(skeletalInfoTokens[3]);
+
+            // The fifth major token is information for the animator controller
             // NOTE: This is last so that the rig and skinned meshes can be created first - otherwise, the connection isn't there and the animations don't work
-            HandleAnimatorController(_animator, skeletalInfoTokens[2]);
+            HandleAnimatorController(_animator, applyRootMotion, skeletalInfoTokens[4]);
         }
 
-        private void HandleAnimatorController(Animator _animator, string _animatorString)
+        private void HandleAnimatorController(Animator _animator, bool _applyRootMotion, string _animatorString)
         {
             // Load the animator controller in from the assets and pass it to the animator
             // TODO: Make this work with resources as well!
@@ -322,20 +329,25 @@ namespace Thesis.VisTrack
             _animator.runtimeAnimatorController = animatorController;
 
             // Apply root motion to allow the system to move the animator manually
-            _animator.applyRootMotion = true;
+            _animator.applyRootMotion = _applyRootMotion;
         }
 
-        private void HandleRigCreation(string _rigString)
+        private void HandleRigCreation(bool _useDefaultTransforms, string _rigString)
         {
             // Create lists to store the names and parent indices for each bone
             List<string> boneNames = new List<string>();
             List<int> boneParentIndices = new List<int>();
 
+            // Also create lists to store the base transform information for the bones
+            List<Vector3> bonePositions = new List<Vector3>();
+            List<Quaternion> boneRotations = new List<Quaternion>();
+            List<Vector3> boneScales = new List<Vector3>();
+
             // Split the string to get all of the individual bone tokens
-            string[] boneTokenStrs = _rigString.Split(',');
+            string[] boneTokenStrs = _rigString.Split('$');
 
             // Loop through and extract all of the names and parent indices for the bones
-            foreach(var boneToken in boneTokenStrs)
+            foreach (var boneToken in boneTokenStrs)
             {
                 // If the token is empty, just skip it (happens at the end of the list)
                 if (boneToken == "" || boneToken == " ")
@@ -349,6 +361,15 @@ namespace Thesis.VisTrack
 
                 // The second is the index of the parent so parse it and then add it to the list
                 boneParentIndices.Add(int.Parse(boneInfoTokens[1]));
+
+                // The third is the initial position of the bone
+                bonePositions.Add(Utility_Functions.ParseVector3(boneInfoTokens[2]));
+
+                // The fourth is the initial rotation of the bone
+                boneRotations.Add(Utility_Functions.ParseQuaternion(boneInfoTokens[3]));
+
+                // The fifth is the initial scale of the bone
+                boneScales.Add(Utility_Functions.ParseVector3(boneInfoTokens[4]));
             }
 
             // Ensure both the names and indices arrays match in length
@@ -356,11 +377,22 @@ namespace Thesis.VisTrack
 
             // Now that we have all the bone names, we can go ahead and create all of the actual bone objects in the scene
             m_boneObjs = new List<Transform>();
-            foreach (var boneName in boneNames)
+            for (int i = 0; i < boneNames.Count; i++)
             {
+                // Grab the bone name
+                var boneName = boneNames[i];
+
                 // Instantiate a new object with the correct name
                 GameObject newBoneObj = new GameObject(boneName);
 
+                // Apply the initial values to the bone if expected to do so
+                if (_useDefaultTransforms)
+                {
+                    newBoneObj.transform.localPosition = bonePositions[i];
+                    newBoneObj.transform.localRotation = boneRotations[i];
+                    newBoneObj.transform.localScale = boneScales[i];
+                }
+                
                 // Store the bone in the list
                 m_boneObjs.Add(newBoneObj.transform);
             }

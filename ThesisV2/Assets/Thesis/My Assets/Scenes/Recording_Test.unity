@@ -505,7 +505,9 @@ MonoBehaviour:
   - {fileID: 129004982}
   - {fileID: 129004981}
   - {fileID: 129004980}
+  m_useDefaultJointTransforms: 0
   m_targetAnimator: {fileID: 129004991}
+  m_applyRootMotionInVis: 1
 --- !u!114 &129004987
 MonoBehaviour:
   m_ObjectHideFlags: 0
