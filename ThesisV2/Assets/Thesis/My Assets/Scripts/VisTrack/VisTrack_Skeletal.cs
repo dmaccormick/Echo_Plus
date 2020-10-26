@@ -13,99 +13,7 @@ namespace Thesis.VisTrack
     [RequireComponent(typeof(Animator))]
     public class VisTrack_Skeletal : MonoBehaviour, IVisualizable
     {
-        //--- Data Struct ---//
-        /*public struct Data_Renderables
-        {
-            public Data_Renderables(string _dataStr)
-            {
-                // Split the data string
-                string[] tokens = _dataStr.Split('~');
-
-                // The first token is the timestamp so just parse the float
-                m_timestamp = float.Parse(tokens[0]);
-
-#if UNITY_EDITOR
-                // The second token is the path to the mesh and its submesh ID (-1 if not a submesh)
-                var meshTokens = tokens[1].Split(',');
-                string meshPath = meshTokens[0];
-                int subMeshIndex = int.Parse(meshTokens[1]);
-
-                // If not a submesh, just load the mesh directly
-                // If it is a submesh, we need to load all of the assets at the path and grab the one from the right index
-                if (subMeshIndex == -1)
-                {
-                    m_mesh = AssetDatabase.LoadAssetAtPath(meshPath, typeof(Mesh)) as Mesh;
-                }
-                else
-                {
-                    var subAssets = AssetDatabase.LoadAllAssetsAtPath(meshPath);
-                    m_mesh = subAssets[subMeshIndex] as Mesh;
-                }
-
-                // The third token is the colour which is a vector3 so parse that
-                m_color = Utility_Functions.ParseColor(tokens[2]);
-
-                // Remaining tokens are the materials so load them too
-                m_materials = new List<Material>();
-                for (int i = 3; i < tokens.Length; i++)
-                    m_materials.Add(AssetDatabase.LoadAssetAtPath(tokens[i], typeof(Material)) as Material);
-
-#else
-                // Convert the mesh path to a resources based path instead of an asset path
-                string meshResourcePath = Utility_Functions.ConvertAssetToResourcePath(meshPath);
-
-                // If not a submesh, just load the mesh directly
-                // If it is a submesh, we need to load all of the assets at the path and grab the one from the right index
-                if (subMeshIndex == -1)
-                {
-                    m_mesh = Resources.Load(meshResourcePath, typeof(Mesh)) as Mesh;
-                }
-                else
-                {
-                    var subAssets = Resources.LoadAll(meshPath);
-                    m_mesh = subAssets[subMeshIndex] as Mesh;
-                }
-                
-                // Convert all of the materials and load them in as well
-                for (int i = 3; i < tokens.Length; i++)
-                {
-                    string matResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[i]);
-                    m_materials.Add(Resources.Load(matResourcePath, typeof(Material)) as Material);
-                }
-#endif
-            }
-
-            public static List<Data_Renderables> ParseDataList(string _data)
-            {
-                // Create a list to hold the parsed data
-                List<Data_Renderables> dataPoints = new List<Data_Renderables>();
-
-                // Split the string into individual lines which each are one data point
-                string[] lines = _data.Split('\n');
-
-                // Create new data points from each of the lines
-                foreach (string line in lines)
-                {
-                    // If the line is empty, do nothing
-                    if (line == null || line == "")
-                        continue;
-
-                    // Otherwise, create a new data point
-                    dataPoints.Add(new Data_Renderables(line));
-                }
-
-                // Return the list of data points
-                return dataPoints;
-            }
-
-            public float m_timestamp;
-            public Mesh m_mesh;
-            //public Material m_material;
-            public List<Material> m_materials;
-            public Color m_color;
-        }
-        */
-
+        //--- Data Structs ---//
         public struct Data_Skeletal_Anim
         {
             public Data_Skeletal_Anim(string _dataStr)
@@ -324,9 +232,13 @@ namespace Thesis.VisTrack
         private void HandleAnimatorController(Animator _animator, bool _applyRootMotion, string _animatorString)
         {
             // Load the animator controller in from the assets and pass it to the animator
-            // TODO: Make this work with resources as well!
+#if UNITY_EDITOR
             RuntimeAnimatorController animatorController = AssetDatabase.LoadAssetAtPath(_animatorString, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
             _animator.runtimeAnimatorController = animatorController;
+#else
+            RuntimeAnimatorController animatorController = Resources.Load(_animatorString) as RuntimeAnimatorController;
+            _animator.runtimeAnimatorController = animatorController;
+#endif
 
             // Apply root motion to allow the system to move the animator manually
             _animator.applyRootMotion = _applyRootMotion;
@@ -458,12 +370,21 @@ namespace Thesis.VisTrack
             // If it is a submesh, we need to load all of the assets at the path and grab the one from the right index
             if (subMeshIndex == -1)
             {
+#if UNITY_EDITOR
                 _meshComp.sharedMesh = AssetDatabase.LoadAssetAtPath(meshPath, typeof(Mesh)) as Mesh;
+#else
+                _meshComp.sharedMesh = Resources.Load(meshPath) as Mesh;
+#endif
             }
             else
             {
+#if UNITY_EDITOR
                 var subAssets = AssetDatabase.LoadAllAssetsAtPath(meshPath);
                 _meshComp.sharedMesh = subAssets[subMeshIndex] as Mesh;
+#else
+                var subAssets = Resources.LoadAll(meshPath);
+                _meshComp.sharedMesh = subAssets[subMeshIndex] as Mesh;
+#endif
             }
         }
 
@@ -483,10 +404,13 @@ namespace Thesis.VisTrack
                     continue;
 
                 // Load the material
-                // TODO: Support using resources as well!
                 // TODO: Support loading materials as subassets from FBX's
-                Material mat = AssetDatabase.LoadAssetAtPath(matPath, typeof(Material)) as Material;
-
+                Material mat;
+#if UNITY_EDITOR
+                mat = AssetDatabase.LoadAssetAtPath(matPath, typeof(Material)) as Material;
+#else   
+                mat = Resources.Load(matPath) as Material;
+#endif
                 // If the material exists, add it to the list
                 if (mat != null)
                     loadedMats.Add(mat);
