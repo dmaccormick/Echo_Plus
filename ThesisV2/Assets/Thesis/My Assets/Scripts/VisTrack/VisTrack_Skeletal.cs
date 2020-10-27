@@ -56,10 +56,13 @@ namespace Thesis.VisTrack
             public float m_animTime;
         }
 
+
+
         //--- Private Variables ---//
         private Animator m_targetAnimator;
         private List<Data_Skeletal_Anim> m_animDataPoints;
         private List<Transform> m_boneObjs;
+        private List<SkinnedMeshRenderer> m_skinnedMeshes;
 
 
 
@@ -99,22 +102,22 @@ namespace Thesis.VisTrack
             // Apply the initial visualization
             UpdateVisualization(_startTime);
 
-            // Only configure the mesh collider if this object is a key object
+            // Only configure the mesh colliders if this object is a key object
             if (GetComponent<Visualization_Object>().IsKeyObj)
             {
-                // TODO: Add mesh colliders for the skinned meshes!
-                // ...
+                foreach(var skinned in m_skinnedMeshes)
+                {
+                    // Setup the mesh collider so it is ready for mouse picking and uses the correct mesh
+                    // Use all of the cooking options
+                    MeshCollider meshCollider = this.gameObject.AddComponent<MeshCollider>();
+                    meshCollider.cookingOptions = MeshColliderCookingOptions.CookForFasterSimulation | MeshColliderCookingOptions.EnableMeshCleaning | MeshColliderCookingOptions.UseFastMidphase | MeshColliderCookingOptions.WeldColocatedVertices;
+                    meshCollider.sharedMesh = skinned.sharedMesh;
+                    meshCollider.convex = false;
 
-                //// Setup the mesh collider so it is ready for mouse picking and uses the correct mesh
-                //// Use all of the cooking options
-                //MeshCollider meshCollider = this.GetComponent<MeshCollider>();
-                //meshCollider.cookingOptions = MeshColliderCookingOptions.CookForFasterSimulation | MeshColliderCookingOptions.EnableMeshCleaning | MeshColliderCookingOptions.UseFastMidphase | MeshColliderCookingOptions.WeldColocatedVertices;
-                //meshCollider.sharedMesh = m_targetFilter.sharedMesh;
-                //meshCollider.convex = false;
-
-                //// We need to set the object to be on the focus picking layer so that we can focus it with the camera controls
-                //// NOTE: This feature REQUIRES that this layer is added and is exactly this
-                //this.gameObject.layer = LayerMask.NameToLayer("FocusTargetPicking");
+                    // We need to set the object to be on the focus picking layer so that we can focus it with the camera controls
+                    // NOTE: This feature REQUIRES that this layer is added and is exactly this
+                    this.gameObject.layer = LayerMask.NameToLayer("FocusTargetPicking");
+                }
             }
         }
 
@@ -335,6 +338,9 @@ namespace Thesis.VisTrack
             // Split the skinned string to get information for each of the individiual skinned mesh renderers
             string[] rendererStrs = _skinnedString.Split(',');
 
+            // Init the list of skinned renderers
+            m_skinnedMeshes = new List<SkinnedMeshRenderer>();
+
             // Setup each of the invidual skinned mesh renderers
             foreach (string rendererStr in rendererStrs)
             {
@@ -349,6 +355,9 @@ namespace Thesis.VisTrack
                 GameObject skinnedMeshObj = new GameObject("Skinned Mesh");
                 skinnedMeshObj.transform.parent = this.transform;
                 SkinnedMeshRenderer skinnedMeshComp = skinnedMeshObj.AddComponent<SkinnedMeshRenderer>();
+
+                // Store the skinned renderer in the list
+                m_skinnedMeshes.Add(skinnedMeshComp);
 
                 // The first major token deals with the mesh object
                 HandleSkinnedMesh_MeshLoading(skinnedMeshComp, splitRendererStrs[0]);

@@ -103,6 +103,10 @@ namespace Thesis.Utility
             // Find the last '_' in the name, since that is where the ID starts
             int underscoreIdx = _name.LastIndexOf('_');
 
+            // If the name doesn't have an underscore, just return it since it isn't an ID string
+            if (underscoreIdx == -1)
+                return _name;
+
             // Shorten the string to cut off anything at the underscore and beyond
             string nameWithoutID = _name.Substring(0, underscoreIdx);
 

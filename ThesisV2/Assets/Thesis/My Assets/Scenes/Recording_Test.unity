@@ -587,7 +587,7 @@ MonoBehaviour:
   - {fileID: 129004986}
   - {fileID: 129004985}
   m_isStatic: 0
-  m_isKeyFocusObj: 0
+  m_isKeyFocusObj: 1
 --- !u!95 &129004991
 Animator:
   serializedVersion: 3
