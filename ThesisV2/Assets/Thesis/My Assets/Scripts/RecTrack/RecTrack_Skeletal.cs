@@ -17,11 +17,12 @@ namespace Thesis.RecTrack
         [System.Serializable]
         public struct Data_Skeletal_Setup
         {
-            public Data_Skeletal_Setup(bool _useDefaultJointTransforms, bool _applyRootMotion, RuntimeAnimatorController _animatorController, Transform _targetRigRoot, SkinnedMeshRenderer[] _targetSkins)
+            public Data_Skeletal_Setup(bool _useDefaultJointTransforms, bool _applyRootMotion, RuntimeAnimatorController _animatorController, Avatar _avatar, Transform _targetRigRoot, SkinnedMeshRenderer[] _targetSkins)
             {
                 this.m_useDefaultJointTransforms = _useDefaultJointTransforms;
                 this.m_applyRootMotion = _applyRootMotion;
                 this.m_animatorController = _animatorController;
+                this.m_animationAvatar = _avatar;
                 this.m_targetRigRoot = _targetRigRoot;
                 this.m_targetSkins = _targetSkins;
             }
@@ -32,7 +33,8 @@ namespace Thesis.RecTrack
                     + m_applyRootMotion.ToString() + "~"
                     + GetFullRigString() + "~"
                     + GetFullSkinString() + "~"
-                    + AssetDatabase.GetAssetPath(this.m_animatorController);
+                    + AssetDatabase.GetAssetPath(this.m_animatorController) + "~"
+                    + AssetDatabase.GetAssetPath(this.m_animationAvatar);
             }
 
             public string GetFullRigString()
@@ -83,7 +85,7 @@ namespace Thesis.RecTrack
                 StringBuilder stringBuilder = new StringBuilder();
 
                 // Combine the mesh and material information for each of the renderers
-                foreach(var skinnedMesh in m_targetSkins)
+                foreach (var skinnedMesh in m_targetSkins)
                 {
                     // Add the mesh information first
                     int meshSubIndex = GetMeshSubAssetIndex(skinnedMesh.sharedMesh);
@@ -136,7 +138,7 @@ namespace Thesis.RecTrack
                     // Add the indices for the joints as well
                     var fullRig = new List<Transform>(m_targetRigRoot.GetComponentsInChildren<Transform>());
                     var thisRendererJoints = skinnedMesh.bones;
-                    foreach(var joint in thisRendererJoints)
+                    foreach (var joint in thisRendererJoints)
                     {
                         // Determine the index of the joint in the main rig list
                         int jointIndex = fullRig.IndexOf(joint);
@@ -183,6 +185,7 @@ namespace Thesis.RecTrack
             public bool m_useDefaultJointTransforms;
             public bool m_applyRootMotion;
             public RuntimeAnimatorController m_animatorController;
+            public Avatar m_animationAvatar;
             public Transform m_targetRigRoot;
             public SkinnedMeshRenderer[] m_targetSkins;
         }
@@ -243,7 +246,7 @@ namespace Thesis.RecTrack
             m_animDataPoints = new List<Data_Skeletal_Anim>();
 
             // Record the information about the skeleton
-            m_skeletalSetupData = new Data_Skeletal_Setup(m_useDefaultJointTransforms, m_applyRootMotionInVis, m_targetAnimator.runtimeAnimatorController, m_targetRigRoot, m_targetSkins);
+            m_skeletalSetupData = new Data_Skeletal_Setup(m_useDefaultJointTransforms, m_applyRootMotionInVis, m_targetAnimator.runtimeAnimatorController, m_targetAnimator.avatar, m_targetRigRoot, m_targetSkins);
 
             // Record the first animation data point
             RecordData(_startTime);
@@ -259,7 +262,7 @@ namespace Thesis.RecTrack
         {
             // Handle the different styles of recording
             if (m_recordingSettings.m_recordingMethod == Recording_Method.On_Change)
-            { 
+            {
                 // Get the previously recorded datapoint and the current data point
                 Data_Skeletal_Anim lastDataPoint = m_animDataPoints[m_animDataPoints.Count - 1];
                 AnimatorStateInfo currentStateInfo = m_targetAnimator.GetCurrentAnimatorStateInfo(0);

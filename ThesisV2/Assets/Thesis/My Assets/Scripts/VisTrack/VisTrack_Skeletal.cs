@@ -152,7 +152,7 @@ namespace Thesis.VisTrack
             // Apply the data point to the visualization
             // TODO: Support multiple animation layers
             m_targetAnimator.Play(finalDataPoint.m_animHash, 0, finalDataPoint.m_animTime);
-    }
+        }
 
         public int FindDataPointForTime(float _time)
         {
@@ -226,18 +226,24 @@ namespace Thesis.VisTrack
 
             // The fifth major token is information for the animator controller
             // NOTE: This is last so that the rig and skinned meshes can be created first - otherwise, the connection isn't there and the animations don't work
-            HandleAnimatorController(_animator, applyRootMotion, skeletalInfoTokens[4]);
+            HandleAnimatorController(_animator, applyRootMotion, skeletalInfoTokens[4], skeletalInfoTokens[5]);
         }
 
-        private void HandleAnimatorController(Animator _animator, bool _applyRootMotion, string _animatorString)
+        private void HandleAnimatorController(Animator _animator, bool _applyRootMotion, string _animatorString, string _avatarString)
         {
             // Load the animator controller in from the assets and pass it to the animator
 #if UNITY_EDITOR
             RuntimeAnimatorController animatorController = AssetDatabase.LoadAssetAtPath(_animatorString, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
             _animator.runtimeAnimatorController = animatorController;
+
+            Avatar animatorAvatar = AssetDatabase.LoadAssetAtPath(_avatarString, typeof(Avatar)) as Avatar;
+            _animator.avatar = animatorAvatar;
 #else
             RuntimeAnimatorController animatorController = Resources.Load(_animatorString) as RuntimeAnimatorController;
             _animator.runtimeAnimatorController = animatorController;
+
+            Avatar animatorAvatar = Resources.Load(_avatarString) as Avatar;
+            _animator.avatar = animatorAvatar;
 #endif
 
             // Apply root motion to allow the system to move the animator manually
@@ -304,7 +310,7 @@ namespace Thesis.VisTrack
                     newBoneObj.transform.localRotation = boneRotations[i];
                     newBoneObj.transform.localScale = boneScales[i];
                 }
-                
+
                 // Store the bone in the list
                 m_boneObjs.Add(newBoneObj.transform);
             }
@@ -330,7 +336,7 @@ namespace Thesis.VisTrack
             string[] rendererStrs = _skinnedString.Split(',');
 
             // Setup each of the invidual skinned mesh renderers
-            foreach(string rendererStr in rendererStrs)
+            foreach (string rendererStr in rendererStrs)
             {
                 // Skip empty string
                 if (rendererStr == "" || rendererStr == " ")
@@ -397,7 +403,7 @@ namespace Thesis.VisTrack
             List<Material> loadedMats = new List<Material>();
 
             // Load all of the materials
-            foreach(var matPath in matTokens)
+            foreach (var matPath in matTokens)
             {
                 // Skip empty ones
                 if (matPath == "" || matPath == " ")
@@ -429,7 +435,7 @@ namespace Thesis.VisTrack
             List<Transform> jointList = new List<Transform>();
 
             // Go through all of the parsed indices and find the matching joint
-            foreach(var jointToken in jointTokens)
+            foreach (var jointToken in jointTokens)
             {
                 // Skip empty ones
                 if (jointToken == "" || jointToken == " ")
