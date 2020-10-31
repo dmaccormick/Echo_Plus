@@ -102,8 +102,6 @@ namespace Thesis.VisTrack
             // Apply the initial visualization
             UpdateVisualization(_startTime);
 
-            //// Only configure the mesh collider if this object is a key object
-            //if (GetComponent<Visualization_Object>().IsKeyObj)
             // Only configure the mesh collider if this object is dynamic
             if (GetComponent<Visualization_Object>().IsDynamic)
             {
