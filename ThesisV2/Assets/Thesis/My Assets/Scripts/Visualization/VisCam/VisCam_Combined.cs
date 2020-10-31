@@ -198,9 +198,18 @@ namespace Thesis.Visualization.VisCam
             // If there is a focus target, move the indicator to it and billboard to the camera
             if (m_focusTarget != null)
             {
-                m_pickIndicator.transform.position = m_focusTarget.position;
-                m_pickIndicator.SetActive(m_canShowPickIndicator);
-                m_pickIndicator.transform.forward = m_cam.transform.position - m_pickIndicator.transform.position;
+                // If the focus target is not active, we should consider it void
+                if (m_focusTarget.gameObject.activeInHierarchy)
+                {
+                    m_pickIndicator.transform.position = m_focusTarget.position;
+                    m_pickIndicator.SetActive(m_canShowPickIndicator);
+                    m_pickIndicator.transform.forward = m_cam.transform.position - m_pickIndicator.transform.position;
+                }
+                else
+                {
+                    m_focusTarget = null;
+                    m_pickIndicator.SetActive(false);
+                }
             }
             else
                 m_pickIndicator.SetActive(false);

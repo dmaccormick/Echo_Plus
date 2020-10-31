@@ -9,7 +9,7 @@ namespace Thesis.Visualization
     public class Visualization_ObjGenerator : MonoBehaviour
     {
         //--- Methods ---//
-        public static Visualization_ObjectSet GenerateObjectSet(List<Visualization_ObjParse> _parsedObjects, string _nameInfo)
+        public static Visualization_ObjectSet GenerateObjectSet(List<Visualization_ObjParse> _parsedObjects, string _nameInfo, bool _isDynamic)
         {
             // Create a list to hold all of the generated objects
             List<Visualization_Object> generatedObjects = new List<Visualization_Object>();
@@ -30,7 +30,7 @@ namespace Thesis.Visualization
 
                 // Give the object the visualization script
                 Visualization_Object visObjComp = visObj.AddComponent<Visualization_Object>();
-                visObjComp.Setup(objParse.m_isKeyObj);
+                visObjComp.Setup(objParse.m_isKeyObj, _isDynamic);
 
                 // Attach the related tracks to the object and connect them to the visualization script
                 foreach (KeyValuePair<string, string> trackInfo in objParse.m_trackData)
@@ -59,7 +59,7 @@ namespace Thesis.Visualization
             }
 
             // Now that the objects are created, we should finalize the set manager so we can return it
-            objectSetComp.Setup(_nameInfo, generatedObjects);
+            objectSetComp.Setup(_nameInfo, generatedObjects, _isDynamic);
 
             // If the set was generated correctly, return it
             return objectSetComp;

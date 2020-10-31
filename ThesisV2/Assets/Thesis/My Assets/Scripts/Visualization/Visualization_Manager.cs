@@ -157,7 +157,7 @@ namespace Thesis.Visualization
                 m_staticObjectSet.DestroyAllObjects();
 
             // Generate the actual objects contained in the set from the list of parsed objects
-            m_staticObjectSet = Visualization_ObjGenerator.GenerateObjectSet(parsedStaticObjects, "Static Objects (" + fileName + ")");
+            m_staticObjectSet = Visualization_ObjGenerator.GenerateObjectSet(parsedStaticObjects, "Static Objects (" + fileName + ")", false);
 
             // If the object generation failed, return false
             if (m_staticObjectSet == null)
@@ -206,7 +206,7 @@ namespace Thesis.Visualization
                 return false;
 
             // Generate an actual object set from the list and hold onto it for now
-            Visualization_ObjectSet newObjectSet = Visualization_ObjGenerator.GenerateObjectSet(parsedDynamicObjects, "Dynamic Objects (" + fileName + ")");
+            Visualization_ObjectSet newObjectSet = Visualization_ObjGenerator.GenerateObjectSet(parsedDynamicObjects, "Dynamic Objects (" + fileName + ")", true);
 
             // Return false if the object generation failed
             if (newObjectSet == null)

@@ -28,18 +28,20 @@ namespace Thesis.Visualization
         private string m_objectSetName;
         private bool m_isVisible;
         private bool m_hasOutline;
+        private bool m_isDynamic;
         private Color m_outlineColour;
 
 
 
         //--- Methods ---//
-        public void Setup(string _name, List<Visualization_Object> _objects)
+        public void Setup(string _name, List<Visualization_Object> _objects, bool _isDynamic)
         {
             this.m_objects = _objects;
             this.m_objectSetName = _name;
             this.m_isVisible = true;
             this.m_hasOutline = false;
             this.m_outlineColour = Color.black;
+            this.m_isDynamic = _isDynamic;
 
             // Init the event
             m_onOutlineColourChanged = new OutlineColourChangeEvent();

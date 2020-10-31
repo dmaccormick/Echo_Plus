@@ -11,6 +11,7 @@ namespace Thesis.Visualization
         //--- Private Variables ---//
         private List<IVisualizable> m_tracks;
         private bool m_isKeyObj;
+        private bool m_isDynamic;
 
 
 
@@ -33,11 +34,12 @@ namespace Thesis.Visualization
 
 
         //--- Methods ---//
-        public void Setup(bool _isKeyObj)
+        public void Setup(bool _isKeyObj, bool _isDynamic)
         {
             // Init the private variables
             m_tracks = new List<IVisualizable>();
             m_isKeyObj = _isKeyObj;
+            m_isDynamic = _isDynamic;
         }
 
         public void AddTrack(IVisualizable _newTrack)
@@ -107,6 +109,11 @@ namespace Thesis.Visualization
         public bool IsKeyObj
         {
             get => m_isKeyObj;
+        }
+
+        public bool IsDynamic
+        {
+            get => m_isDynamic;
         }
     }
 }
