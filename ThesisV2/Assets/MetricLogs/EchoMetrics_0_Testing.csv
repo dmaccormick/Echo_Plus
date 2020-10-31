@@ -1,0 +1,2 @@
+ParticipantID,Genre,NumCamChanges,TimeInControlCam(s),TimeInOtherCams,DistMovedInControlCam(m),NumOutlineChanges,NumSetsSolod,NumSetsMadeHidden,NumSetsMadeVisible,NumTimesKeyTargetChanged,NumTimesNonKeyTargetChanged,NumTimesFocusVisibilityToggled,NumTimesSpeedTo0.1x,NumTimesSpeedTo0.5x,NumTimesSpeedTo1.0x,NumTimesSpeedTo2.0x,NumTimesSpeedTo5.0x,NumTimesSpeedChanged,TimeSpentScrubbing(s),NumTimesCamListToggled,NumTimesKeyObjListToggled,NumTimesCamControlsToggled,NumTimesSetsListToggled,
+0,Testing,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
