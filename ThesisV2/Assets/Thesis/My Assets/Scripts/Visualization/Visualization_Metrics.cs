@@ -34,8 +34,15 @@ namespace Thesis.Visualization
         private int m_numTimesSetVisible = 0; // The number of times sets were made visible using the side panel (when previously hidden)
 
         [Header("Focus Targeting")]
-        private int m_keyObjectTargetChanges = 0; // The number of times the user focused onto a key target (either using the side panel or clicking in the scene)
+        private int m_keyObjectChangesUsingPicking = 0; // The number of times the user targeted a key object by using the mouse picking feature
+        private int m_keyObjectChangesUsingMenu = 0; // The number of times the user targeted a key object using the side panel
+        private int m_totalKeyObjectTargetChanges = 0; // The total number of times the user focused onto a key target (sum of the two above values)
         private int m_nonKeyObjectTargetChanges = 0; // The number of times the user focused on a dynamic but NOT key target (can only happen by clicking in the scene)
+        private int m_totalNumObjectsPicked = 0; // The total number of times an object was picked (sum of key objects via picking and non key object changes)
+        private int m_numTimesUserClearedTarget = 0; // The number of the times the user cleared the focus target completely by pressing the correct key
+        private int m_numTimesTargetClearedDueToHiding = 0; // The number of the times the target was cleared because the object was hidden 
+        private int m_totalNumTimesTargetChanged = 0; // The total number of times the focus target was changed
+        private float m_totalTimeSpentTargeted = 0.0f; // The total amount of time (in seconds) that the user was focus targeting on something
         private int m_numTimesFocusTargetVisibilityToggled = 0; // The number of times the user toggled the visibility of the focus target using the button in the key object panel header
 
         [Header("Timescale Controls")] 
@@ -116,7 +123,7 @@ namespace Thesis.Visualization
             strBuild.Append("NumTimesChangedToOtherCam,");
             strBuild.Append("TotalNumCameraChanges,");
             strBuild.Append("TimeInControlCam(s),");
-            strBuild.Append("TimeInOtherCams,");
+            strBuild.Append("TimeInOtherCams(s),");
             strBuild.Append("DistMovedInControlCam(m),");
 
             // Object set information
@@ -126,8 +133,15 @@ namespace Thesis.Visualization
             strBuild.Append("NumSetsMadeVisible,");
 
             // Focus targeting information
-            strBuild.Append("NumTimesKeyTargetChanged,");
-            strBuild.Append("NumTimesNonKeyTargetChanged,");
+            strBuild.Append("NumTimesPickingUsedForKeyObject,");
+            strBuild.Append("NumTimesMenuUsedForKeyObject,");
+            strBuild.Append("NumTimesChangedToKeyTarget,");
+            strBuild.Append("NumTimesChangedToNonKeyTarget,");
+            strBuild.Append("NumTotalObjectsPicked,");
+            strBuild.Append("NumTimesUserClearedTarget,");
+            strBuild.Append("NumTimesTargetClearedAutomatically,");
+            strBuild.Append("TotalNumTargetChanges,");
+            strBuild.Append("TimeSpentFocused(s),");
             strBuild.Append("NumTimesFocusVisibilityToggled,");
 
             // Timescale information
@@ -173,8 +187,15 @@ namespace Thesis.Visualization
             strBuild.Append(m_numTimesSetVisible.ToString() + ",");
 
             // Focus targeting information
-            strBuild.Append(m_keyObjectTargetChanges.ToString() + ",");
+            strBuild.Append(m_keyObjectChangesUsingPicking.ToString() + ",");
+            strBuild.Append(m_keyObjectChangesUsingMenu.ToString() + ",");
+            strBuild.Append(m_totalKeyObjectTargetChanges.ToString() + ",");
             strBuild.Append(m_nonKeyObjectTargetChanges.ToString() + ",");
+            strBuild.Append(m_totalNumObjectsPicked.ToString() + ",");
+            strBuild.Append(m_numTimesUserClearedTarget.ToString() + ",");
+            strBuild.Append(m_numTimesTargetClearedDueToHiding.ToString() + ",");
+            strBuild.Append(m_totalNumTimesTargetChanged.ToString() + ",");
+            strBuild.Append(m_totalTimeSpentTargeted.ToString() + ",");
             strBuild.Append(m_numTimesFocusTargetVisibilityToggled.ToString() + ",");
 
             // Timescale information
@@ -273,6 +294,81 @@ namespace Thesis.Visualization
             if (m_shouldBeTracking)
             {
                 m_numTimesSetVisible++;
+            }
+        }
+
+
+
+        //--- Focus Target Methods ---//
+        public void IncreaseTimesPickingUsedForNewKeyTarget()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_keyObjectChangesUsingPicking++;
+                m_totalNumObjectsPicked++;
+                IncreaseTotalKeyTargetChangeCount();
+            }
+        }
+
+        public void IncreaseTimesMenuUsedForNewKeyTarget()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_keyObjectChangesUsingMenu++;
+                IncreaseTotalKeyTargetChangeCount();
+            }
+        }
+
+        public void IncreaseTotalKeyTargetChangeCount()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_totalKeyObjectTargetChanges++;
+                m_totalNumTimesTargetChanged++;
+            }
+        }
+
+        public void IncreaseNonKeyTargetChangeCount()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_totalNumObjectsPicked++;
+                m_nonKeyObjectTargetChanges++;
+                m_totalNumTimesTargetChanged++;
+            }
+        }
+
+        public void IncreaseTimesUserClearedTarget()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesUserClearedTarget++;
+                m_totalNumTimesTargetChanged++;
+            }
+        }
+
+        public void IncreaseTimesTargetAutoCleared()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesTargetClearedDueToHiding++;
+                m_totalNumTimesTargetChanged++;
+            }
+        }
+
+        public void IncreaseTimeSpentTargeted(float _deltaTime)
+        {
+            if (m_shouldBeTracking)
+            {
+                m_totalTimeSpentTargeted += Time.deltaTime;
+            }
+        }
+
+        public void IncreaseTimesTargetVisibilityToggled()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesFocusTargetVisibilityToggled++;
             }
         }
     }

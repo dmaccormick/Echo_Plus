@@ -24,6 +24,7 @@ namespace Thesis.UI
         //--- Private Variables ---//
         private GameObject m_refObj;
         private Visualization_ObjectSet m_parentSet;
+        private Visualization_Metrics m_metrics;
 
 
 
@@ -33,6 +34,7 @@ namespace Thesis.UI
             // Store the data internally
             this.m_refObj = _refObj;
             m_parentSet = m_refObj.GetComponentInParent<Visualization_ObjectSet>();
+            m_metrics = FindObjectOfType<Visualization_Metrics>();
 
             // Indicate the object's name and set name as well
             m_txtObjName.text = Utility_Functions.RemoveIDString(m_refObj.name);
@@ -65,6 +67,9 @@ namespace Thesis.UI
         {
             // Toggle the focus in the quick select
             FindObjectOfType<VisCam_QuickFocus>().ToggleFocusTarget(m_refObj);
+
+            // Update the metrics
+            m_metrics.IncreaseTimesMenuUsedForNewKeyTarget();
         }
 
         public void OnFocusTargetChanged(Transform _newTarget)

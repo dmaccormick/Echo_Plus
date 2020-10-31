@@ -128,6 +128,9 @@ namespace Thesis.Visualization.VisCam
 
                     // Update the quick selection ui
                     m_quickFocus.RemoveTempTarget();
+
+                    // Update the metrics
+                    m_metrics.IncreaseTimesUserClearedTarget();
                 }
 
                 // Follow the focus target if it has moved
@@ -135,6 +138,9 @@ namespace Thesis.Visualization.VisCam
                 {
                     // Move the pivot point so it stays with the focus target
                     m_pivotObj.position = m_focusTarget.position;
+
+                    // Update the metrics
+                    m_metrics.IncreaseTimeSpentTargeted(Time.deltaTime);
                 }
             }
 
@@ -213,6 +219,9 @@ namespace Thesis.Visualization.VisCam
                 {
                     m_focusTarget = null;
                     m_pickIndicator.SetActive(false);
+
+                    // Increase the metrics
+                    m_metrics.IncreaseTimesTargetAutoCleared();
                 }
             }
             else
@@ -258,6 +267,16 @@ namespace Thesis.Visualization.VisCam
                     // If we hit an object, set is as the new focus target
                     SetNewFocusTarget(raycastHit.transform);
 
+                    // Update the metrics
+                    var visObject = raycastHit.transform.GetComponentInChildren<Visualization_Object>();
+                    if (visObject)
+                    {
+                        if (visObject.IsKeyObj)
+                            m_metrics.IncreaseTimesPickingUsedForNewKeyTarget();
+                        else
+                            m_metrics.IncreaseNonKeyTargetChangeCount();
+                    }
+
                     // Tell the selection UI about the new pick target
                     m_quickFocus.AddTempTarget(m_focusTarget);
                 }
@@ -287,7 +306,10 @@ namespace Thesis.Visualization.VisCam
             // If it is the same target, turn it off
             // Otherwise, set it as the new focus target
             if (m_focusTarget == _target)
+            {
                 SetNewFocusTarget(null);
+                m_metrics.IncreaseTimesUserClearedTarget();
+            }
             else
                 SetNewFocusTarget(_target);
 
@@ -298,6 +320,9 @@ namespace Thesis.Visualization.VisCam
         public void ToggleFocusTargetVisibility(bool _isVisible)
         {
             m_canShowPickIndicator = _isVisible;
+
+            // Update the metrics
+            m_metrics.IncreaseTimesTargetVisibilityToggled();
         }
 
         public void Pan(float _mouseX, float _mouseY, float _speedMultiplier)
