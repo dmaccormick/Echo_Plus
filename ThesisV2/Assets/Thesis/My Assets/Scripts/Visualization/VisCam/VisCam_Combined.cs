@@ -57,12 +57,14 @@ namespace Thesis.Visualization.VisCam
 
 
         //--- Private Variables ---//
+        private Visualization_Metrics m_metrics;
         private UI_VIsMenuMouseDetector m_mouseDetector;
         private Transform m_focusTarget;
         private Texture2D m_currentCursor;
         private Transform m_pivotParent;
         private bool m_canPick;
         private bool m_canShowPickIndicator;
+        private Vector3 m_prevCamPos;
 
 
 
@@ -73,10 +75,12 @@ namespace Thesis.Visualization.VisCam
             m_onFocusTargetChanged = new TargetChangeEvent();
 
             // Init the private variables
+            m_metrics = FindObjectOfType<Visualization_Metrics>();
             m_mouseDetector = FindObjectOfType<UI_VIsMenuMouseDetector>();
             FocusTarget = null;
             m_canPick = true;
             m_canShowPickIndicator = true;
+            m_prevCamPos = m_cam.transform.position;
         }
 
 
@@ -217,6 +221,15 @@ namespace Thesis.Visualization.VisCam
             // Set the final selected cursor based on what action is being performed
             Vector2 cursorOffset = (m_currentCursor == null) ? Vector2.zero : new Vector2(m_currentCursor.width / 2.0f, m_currentCursor.height / 2.0f);
             Cursor.SetCursor(m_currentCursor, cursorOffset, CursorMode.Auto);
+
+            // Update the metrics with how much the camera has moved
+            if (m_cam.enabled)
+            {
+                Vector3 currentCamPos = m_cam.transform.position;
+                float distanceMoved = Vector3.Distance(m_prevCamPos, currentCamPos);
+                m_metrics.IncreaseMovementAmountInControllableCam(distanceMoved);
+                m_prevCamPos = currentCamPos;
+            }
         }
 
 

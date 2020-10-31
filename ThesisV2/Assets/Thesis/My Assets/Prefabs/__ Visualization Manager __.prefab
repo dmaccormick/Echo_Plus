@@ -5963,7 +5963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_baseFileName: EchoMetrics_
-  m_playerID: 0
+  m_playerID: P0
   m_genreName: Testing
 --- !u!1 &882342866355626633
 GameObject:
@@ -15506,6 +15506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_visManager: {fileID: 126580873298820602}
   m_camControls: {fileID: 8343070499235489496}
+  m_metrics: {fileID: 4884695649069849988}
   m_pnlInfoParent: {fileID: 6712007595137773865}
   m_pnlInfoOrbitCam: {fileID: 9014945470855973752}
   m_pnlInfoFPSCam: {fileID: 3653502788090211277}

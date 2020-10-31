@@ -14,6 +14,7 @@ namespace Thesis.UI
         [Header("Controls")]
         public Visualization_Manager m_visManager;
         public VisCam_CameraControls m_camControls;
+        public Visualization_Metrics m_metrics;
 
         [Header("Information Panel")]
         public GameObject m_pnlInfoParent;
@@ -249,6 +250,9 @@ namespace Thesis.UI
                     CreateObjectListUI();
                     CreateCameraListUI();
 
+                    // Start the metric tracking if it hasn't begun yet
+                    m_metrics.StartTracking();
+
 #if UNITY_EDITOR
                     // Show a message that the file loaded correctly
                     EditorUtility.DisplayDialog("Static File Load Successful", "The static log file data loaded correctly!", "Continue");
@@ -296,6 +300,9 @@ namespace Thesis.UI
                 // Update the UI elements for the list of loaded object sets and the cameras
                 CreateObjectListUI();
                 CreateCameraListUI();
+
+                // Start the metric tracking if it hasn't begun yet
+                m_metrics.StartTracking();
 
                 // Show a message that the file loaded correctly
                 EditorUtility.DisplayDialog("Dynamic File Load Successful", "The dynamic log file data loaded correctly!", "Continue");
@@ -503,6 +510,9 @@ namespace Thesis.UI
                 m_camControls.SetMenuOpen(true); // using this as a way of disabling the camera controls for now
                 FindObjectOfType<VisCam_Combined>().SetIndicatorVisible(false);
 
+                // Update the metric counter
+                m_metrics.IncreaseNumChangesToOtherCams();
+
                 // Hide the quick selection UI
                // m_pnlQuickSelect.SetActive(false);
             }
@@ -510,6 +520,9 @@ namespace Thesis.UI
             {
                 m_camControls.SetMenuOpen(false); // using this as a way of enabling the camera controls
                 FindObjectOfType<VisCam_Combined>().SetIndicatorVisible(true);
+
+                // Update the metric counter
+                m_metrics.IncreaseNumChangesToControllableCam();
 
                 // Show the quick selection UI
                 //m_pnlQuickSelect.SetActive(true);

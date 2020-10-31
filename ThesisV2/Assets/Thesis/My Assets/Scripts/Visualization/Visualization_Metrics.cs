@@ -16,8 +16,13 @@ namespace Thesis.Visualization
 
 
         //--- Private Variables ---//
+        [Header("Controls")]
+        private bool m_shouldBeTracking = false;
+
         [Header("Cameras")]
-        private int m_numCameraChanges = 0; // Count for how many times the user selected a new camera from the side menu
+        private int m_numTimesSwitchedToControllableCam = 0; // Count for how many times the user selected a new camera from the side panel that WAS the controllable one
+        private int m_numTimesSwitchedToOtherCam = 0; // Count for how many times the user selected a new camera from the side panel that was NOT the controllable one
+        private int m_numTotalCameraChanges = 0; // The total count for how many times the user changed cameras, a sum of the above two values
         private float m_timeSpentInControllableCam = 0.0f; // The amount of time (in seconds) that the user spent in the controllable camera
         private float m_timeSpentInOtherCams = 0; // The amount of time (in seconds) that the user spent in any other camera (static OR dynamic)
         private float m_totalDistanceMovedInControllableCam = 0; // The distance (in unity units (m)) that the user flew around while in the controllable camera
@@ -55,6 +60,14 @@ namespace Thesis.Visualization
         {
             if (Input.GetKeyDown(KeyCode.Backslash))
                 WriteFile();
+        }
+
+
+
+        //--- Control Methods ---//
+        public void StartTracking()
+        {
+            m_shouldBeTracking = true;
         }
 
 
@@ -99,7 +112,9 @@ namespace Thesis.Visualization
             strBuild.Append("Genre,");
 
             // Camera information
-            strBuild.Append("NumCamChanges,");
+            strBuild.Append("NumTimesChangedToControlCam,");
+            strBuild.Append("NumTimesChangedToOtherCam,");
+            strBuild.Append("TotalNumCameraChanges,");
             strBuild.Append("TimeInControlCam(s),");
             strBuild.Append("TimeInOtherCams,");
             strBuild.Append("DistMovedInControlCam(m),");
@@ -144,7 +159,9 @@ namespace Thesis.Visualization
             strBuild.Append(m_genreName.ToString() + ",");
 
             // Camera information
-            strBuild.Append(m_numCameraChanges.ToString() + ",");
+            strBuild.Append(m_numTimesSwitchedToControllableCam.ToString() + ",");
+            strBuild.Append(m_numTimesSwitchedToOtherCam.ToString() + ",");
+            strBuild.Append(m_numTotalCameraChanges.ToString() + ",");
             strBuild.Append(m_timeSpentInControllableCam.ToString() + ",");
             strBuild.Append(m_timeSpentInOtherCams.ToString() + ",");
             strBuild.Append(m_totalDistanceMovedInControllableCam.ToString() + ",");
@@ -177,6 +194,51 @@ namespace Thesis.Visualization
 
             // Write the entire line to the file
             _file.WriteLine(strBuild.ToString());
+        }
+
+
+
+        //--- Camera Methods ---//
+        public void IncreaseNumChangesToControllableCam()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesSwitchedToControllableCam++;
+                m_numTotalCameraChanges++;
+            }
+        }
+
+        public void IncreaseNumChangesToOtherCams()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesSwitchedToOtherCam++;
+                m_numTotalCameraChanges++;
+            }
+        }
+
+        public void IncreaseTimeSpentInControllableCam(float _deltaTime)
+        {
+            if (m_shouldBeTracking)
+            {
+                m_timeSpentInControllableCam += _deltaTime;
+            }
+        }
+
+        public void IncreaseTimeSpentInOtherCams(float _deltaTime)
+        {
+            if (m_shouldBeTracking)
+            {
+                m_timeSpentInOtherCams += _deltaTime;
+            }
+        }
+
+        public void IncreaseMovementAmountInControllableCam(float _deltaDist)
+        {
+            if (m_shouldBeTracking)
+            {
+                m_totalDistanceMovedInControllableCam += _deltaDist;
+            }
         }
     }
 }
