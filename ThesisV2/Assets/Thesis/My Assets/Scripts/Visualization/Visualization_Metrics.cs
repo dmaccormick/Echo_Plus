@@ -45,7 +45,7 @@ namespace Thesis.Visualization
         private float m_totalTimeSpentTargeted = 0.0f; // The total amount of time (in seconds) that the user was focus targeting on something
         private int m_numTimesFocusTargetVisibilityToggled = 0; // The number of times the user toggled the visibility of the focus target using the button in the key object panel header
 
-        [Header("Timescale Controls")] 
+        [Header("Timeline Controls")] 
         private int m_numTimesSpeedSetTo0_1x = 0; // The number of times the user pressed the 0.1x speed button
         private int m_numTimesSpeedSetTo0_5x = 0; // The number of times the user pressed the 0.5x speed button
         private int m_numTimesSpeedSetTo1x = 0; // The number of times the user pressed the 1x speed button
@@ -53,6 +53,9 @@ namespace Thesis.Visualization
         private int m_numTimesSpeedSetTo5x = 0; // The number of times the user pressed the 5x speed button
         private int m_numTimesSpeedButtonPressed = 0; // The total number of times a speed button was pressed (sum of the above numbers)
         private float m_timeSpentScrubbing = 0.0f; // The total amount of time (in seconds) that the user was scrubbing along the timeline
+        private int m_numTimesPlayedReverse = 0; // The number of times the user pressed the reverse playback button
+        private int m_numTimesPaused = 0; // The number of times the user pressed the pause button
+        private int m_numTimesPlayedForward = 0; // The number of times the user pressed the play forward button
 
         [Header("UI Panels")]
         private int m_numTimesCamListPanelToggled = 0; // The number of times the user toggled the side camera panel
@@ -153,6 +156,9 @@ namespace Thesis.Visualization
             strBuild.Append("NumTimesSpeedTo5.0x,");
             strBuild.Append("NumTimesSpeedChanged,");
             strBuild.Append("TimeSpentScrubbing(s),");
+            strBuild.Append("NumTimesPlayedReverse,");
+            strBuild.Append("NumTimesPaused,");
+            strBuild.Append("NumTimesPlayedForward,");
 
             // UI Panel Information
             strBuild.Append("NumTimesCamListToggled,");
@@ -208,6 +214,9 @@ namespace Thesis.Visualization
             strBuild.Append(m_numTimesSpeedSetTo5x.ToString() + ",");
             strBuild.Append(m_numTimesSpeedButtonPressed.ToString() + ",");
             strBuild.Append(m_timeSpentScrubbing.ToString() + ",");
+            strBuild.Append(m_numTimesPlayedReverse.ToString() + ",");
+            strBuild.Append(m_numTimesPaused.ToString() + ",");
+            strBuild.Append(m_numTimesPlayedForward.ToString() + ",");
 
             // UI Panel Information
             strBuild.Append(m_numTimesCamListPanelToggled.ToString() + ",");
@@ -414,6 +423,28 @@ namespace Thesis.Visualization
             if (m_shouldBeTracking)
             {
                 m_timeSpentScrubbing += _deltaTime;
+            }
+        }
+
+        public void IncreasePlaybackButtonCount(int _buttonIndex)
+        {
+            if (m_shouldBeTracking)
+            {
+                switch (_buttonIndex)
+                {
+                    case 0:
+                        m_numTimesPlayedReverse++;
+                        break;
+
+                    case 1:
+                        m_numTimesPaused++;
+                        break;
+
+                    case 2:
+                    default:
+                        m_numTimesPlayedForward++;
+                        break;
+                }
             }
         }
 
