@@ -450,6 +450,41 @@ namespace Thesis.Visualization
 
 
 
+        //--- UI Panel Functions ---//
+        public void IncreaseCamListToggleCount()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesCamListPanelToggled++;
+            }
+        }
+
+        public void IncreaseKeyObjectListToggleCount()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesKeyObjectsPanelToggled++;
+            }
+        }
+
+        public void IncreaseCamControlsToggleCount()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesCamControlsPanelToggled++;
+            }
+        }
+
+        public void IncreaseObjectSetListToggleCount()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesSetsPanelToggled++;
+            }
+        }
+
+
+
         //--- Utility Functions ---//
         public char DetermineParticipantOrder()
         {
