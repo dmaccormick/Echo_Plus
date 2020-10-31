@@ -70,6 +70,8 @@ namespace Thesis.UI
         public GameObject m_pnlKeyObjectList;
         public Transform m_keyObjectListParent;
         public GameObject m_keyObjectListElementPrefab;
+        public Toggle m_keyObjectTglFocusTarget;
+        public GameObject m_keyObjectTglFocusTargetIndicator;
 
         [Header("Colour Selector UI Elements")]
         public GameObject m_pnlColourSelector;
@@ -549,6 +551,15 @@ namespace Thesis.UI
             // Grab the list element UI component and set it up
             UI_KeyObjListElement uiComp = listElement.GetComponent<UI_KeyObjListElement>();
             uiComp.InitWithObject(_keyObj);
+        }
+
+        public void ToggleFocusTargetVisibility(bool _isVisible)
+        {
+            // Tell the vis camera to update the visibility
+            m_camControls.ToggleFocusTargetVisibility(_isVisible);
+
+            // Toggle the visibility of the disabled indicator
+            m_keyObjectTglFocusTargetIndicator.SetActive(!_isVisible);
         }
 
 

@@ -133,6 +133,12 @@ namespace Thesis.Visualization.VisCam
             return m_activeCam;
         }
 
+        public void ToggleFocusTargetVisibility(bool _isVisible)
+        {
+            if (m_combinedCam != null)
+                m_combinedCam.ToggleFocusTargetVisibility(_isVisible);
+        }
+
 
 
         //--- Setters ---//

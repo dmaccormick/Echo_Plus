@@ -62,6 +62,7 @@ namespace Thesis.Visualization.VisCam
         private Texture2D m_currentCursor;
         private Transform m_pivotParent;
         private bool m_canPick;
+        private bool m_canShowPickIndicator;
 
 
 
@@ -75,6 +76,7 @@ namespace Thesis.Visualization.VisCam
             m_mouseDetector = FindObjectOfType<UI_VIsMenuMouseDetector>();
             FocusTarget = null;
             m_canPick = true;
+            m_canShowPickIndicator = true;
         }
 
 
@@ -197,7 +199,7 @@ namespace Thesis.Visualization.VisCam
             if (m_focusTarget != null)
             {
                 m_pickIndicator.transform.position = m_focusTarget.position;
-                m_pickIndicator.SetActive(true);
+                m_pickIndicator.SetActive(m_canShowPickIndicator);
                 m_pickIndicator.transform.forward = m_cam.transform.position - m_pickIndicator.transform.position;
             }
             else
@@ -269,6 +271,11 @@ namespace Thesis.Visualization.VisCam
 
             // Return the focus target
             return m_focusTarget;
+        }
+
+        public void ToggleFocusTargetVisibility(bool _isVisible)
+        {
+            m_canShowPickIndicator = _isVisible;
         }
 
         public void Pan(float _mouseX, float _mouseY, float _speedMultiplier)
