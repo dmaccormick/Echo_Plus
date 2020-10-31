@@ -585,6 +585,9 @@ namespace Thesis.UI
 
             // Update it so it references the right object and set
             m_scriptColourSelector.OpenForObject(_callingUIElement, _setToChange);
+
+            // Update the metrics
+            m_metrics.IncreaseOutlineChangeCount();
         }
 
 

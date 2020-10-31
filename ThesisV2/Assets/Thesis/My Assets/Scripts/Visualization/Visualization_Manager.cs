@@ -346,8 +346,6 @@ namespace Thesis.Visualization
         //--- Solo Functions ---//
         public void SetSoloSet(Visualization_ObjectSet _newSoloSet)
         {
-            // TODO: Actually hide the other objects
-
             // Find all of the visualization elements and tell them the new solo set
             var uiElements = FindObjectsOfType<UI_ObjectSetListElement>();
             foreach (var uiElement in uiElements)

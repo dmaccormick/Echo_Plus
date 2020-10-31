@@ -44,6 +44,7 @@ namespace Thesis.UI
 
         //--- Private Variables ---//
         private Visualization_ObjectSet m_refObjectSet;
+        private Visualization_Metrics m_metrics;
         private bool m_isSoloed;
         private bool m_canSolo;
 
@@ -55,6 +56,7 @@ namespace Thesis.UI
             // Init the private variables
             m_isSoloed = false;
             m_canSolo = false;
+            m_metrics = FindObjectOfType<Visualization_Metrics>();
 
             // Store a reference to the object set so we can update its values
             m_refObjectSet = _refObjectSet;
@@ -102,6 +104,12 @@ namespace Thesis.UI
 
             // Update the visibility of the actual set itself
             m_refObjectSet.ToggleAllObjectsActive(_isVisible);
+
+            // Update the metrics
+            if (_isVisible)
+                m_metrics.IncreaseNumTimesSetVisible();
+            else
+                m_metrics.IncreaseNumTimesSetHidden();
         }
 
 
@@ -146,7 +154,10 @@ namespace Thesis.UI
 
                 // Tell the visualization manager that this set was told to solo
                 if (m_isSoloed)
+                {
                     FindObjectOfType<Visualization_Manager>().SetSoloSet(this.m_refObjectSet);
+                    m_metrics.IncreaseNumTimesSetSolod();
+                }
                 else
                     FindObjectOfType<Visualization_Manager>().SetSoloSet(null);
             }

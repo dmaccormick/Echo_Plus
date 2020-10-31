@@ -240,5 +240,40 @@ namespace Thesis.Visualization
                 m_totalDistanceMovedInControllableCam += _deltaDist;
             }
         }
+
+
+
+        //--- Object Set Methods ---//
+        public void IncreaseOutlineChangeCount()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesOutlinesChanged++;
+            }
+        }
+
+        public void IncreaseNumTimesSetSolod()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesSetSolod++;
+            }
+        }
+
+        public void IncreaseNumTimesSetHidden()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesSetHidden++;
+            }
+        }
+
+        public void IncreaseNumTimesSetVisible()
+        {
+            if (m_shouldBeTracking)
+            {
+                m_numTimesSetVisible++;
+            }
+        }
     }
 }
