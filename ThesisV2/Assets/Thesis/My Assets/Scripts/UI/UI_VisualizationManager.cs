@@ -4,7 +4,6 @@ using UnityEditor;
 using Thesis.Visualization;
 using Thesis.Visualization.VisCam;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Thesis.UI
 {
@@ -182,8 +181,6 @@ namespace Thesis.UI
 
             // Update the text above the slider handle
             m_txtCurrentTime.text = _newValue.ToString("F2");
-
-            m_metrics.IncreaseTimeSpentScrubbing(Time.deltaTime);
         }
 
         public void OnReversePlayback()

@@ -412,6 +412,7 @@ namespace Thesis.Visualization
             if (m_shouldBeTracking)
             {
                 Debug.Log("Scrubbing");
+                
                 m_timeSpentScrubbing += _deltaTime;
             }
         }
