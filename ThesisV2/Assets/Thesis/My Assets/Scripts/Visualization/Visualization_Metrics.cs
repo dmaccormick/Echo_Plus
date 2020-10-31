@@ -10,7 +10,7 @@ namespace Thesis.Visualization
         //--- Public Variables ---//
         [Header("File Information")]
         public string m_baseFileName;
-        public string m_playerID;
+        public int m_playerID;
         public string m_genreName;
 
 
@@ -84,7 +84,7 @@ namespace Thesis.Visualization
         {
             // Create the full file path
             string folderPath = Application.dataPath + "/MetricLogs/";
-            string fileName = m_baseFileName + m_playerID + "_" + m_genreName;
+            string fileName = m_baseFileName + "P" + m_playerID.ToString("D2") + "_" + m_genreName;
             string fileExtension = ".csv";
             string fullFilePath = folderPath + fileName + fileExtension;
 
@@ -116,6 +116,7 @@ namespace Thesis.Visualization
 
             // Participant information
             strBuild.Append("ParticipantID,");
+            strBuild.Append("ParticipantOrder,");
             strBuild.Append("Genre,");
 
             // Camera information
@@ -170,6 +171,7 @@ namespace Thesis.Visualization
 
             // Participant information
             strBuild.Append(m_playerID.ToString() + ",");
+            strBuild.Append(DetermineParticipantOrder().ToString() + ",");
             strBuild.Append(m_genreName.ToString() + ",");
 
             // Camera information
@@ -411,9 +413,30 @@ namespace Thesis.Visualization
         {
             if (m_shouldBeTracking)
             {
-                Debug.Log("Scrubbing");
-                
                 m_timeSpentScrubbing += _deltaTime;
+            }
+        }
+
+
+
+        //--- Utility Functions ---//
+        public char DetermineParticipantOrder()
+        {
+            // The first player order type is A and the ID's start at 1 instead of 0, hence subtracting the 1 
+            switch ((m_playerID - 1) % 4)
+            {
+                case 0:
+                    return 'A';
+
+                case 1:
+                    return 'B';
+
+                case 2:
+                    return 'C';
+
+                case 3:
+                default:
+                    return 'D';
             }
         }
     }

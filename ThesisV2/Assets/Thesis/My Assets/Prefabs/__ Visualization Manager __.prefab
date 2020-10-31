@@ -6031,7 +6031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_baseFileName: EchoMetrics_
-  m_playerID: P0
+  m_playerID: 1
   m_genreName: Testing
 --- !u!1 &882342866355626633
 GameObject:
