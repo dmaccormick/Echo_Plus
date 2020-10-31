@@ -102,6 +102,18 @@ namespace Thesis.UI
             m_visManager.m_onKeyObjectListUpdated.RemoveListener(this.OnKeyObjectListUpdated);
         }
 
+        private void Update()
+        {
+            // Use spacebar to toggle pausing
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (m_btnPausePlayback.interactable)
+                    m_btnPausePlayback.onClick.Invoke();
+                else
+                    m_btnForwardPlayback.onClick.Invoke();
+            }
+        }
+
 
 
         //--- Toolbar Top Left Callbacks ---//
@@ -170,6 +182,8 @@ namespace Thesis.UI
 
             // Update the text above the slider handle
             m_txtCurrentTime.text = _newValue.ToString("F2");
+
+            m_metrics.IncreaseTimeSpentScrubbing(Time.deltaTime);
         }
 
         public void OnReversePlayback()

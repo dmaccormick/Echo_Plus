@@ -371,5 +371,49 @@ namespace Thesis.Visualization
                 m_numTimesFocusTargetVisibilityToggled++;
             }
         }
+
+
+
+        //--- Timescale Functions ---//
+        public void IncreaseTimeScaleCount(int _timeScaleIndex)
+        {
+            if (m_shouldBeTracking)
+            {
+                switch (_timeScaleIndex)
+                {
+                    case 0:
+                        m_numTimesSpeedSetTo0_1x++;
+                        break;
+
+                    case 1:
+                        m_numTimesSpeedSetTo0_5x++;
+                        break;
+
+                    case 2:
+                        m_numTimesSpeedSetTo1x++;
+                        break;
+
+                    case 3:
+                        m_numTimesSpeedSetTo2x++;
+                        break;
+
+                    case 4:
+                    default:
+                        m_numTimesSpeedSetTo5x++;
+                        break;
+                }
+
+                m_numTimesSpeedButtonPressed++;
+            }
+        }
+
+        public void IncreaseTimeSpentScrubbing(float _deltaTime)
+        {
+            if (m_shouldBeTracking)
+            {
+                Debug.Log("Scrubbing");
+                m_timeSpentScrubbing += _deltaTime;
+            }
+        }
     }
 }
