@@ -15,6 +15,7 @@ public class Study_AssetPaths : MonoBehaviour
         InitDictionary();
     }
 
+#if UNITY_EDITOR
     [ContextMenu("Find Paths")]
     public void FindAllPaths()
     {
@@ -48,10 +49,9 @@ public class Study_AssetPaths : MonoBehaviour
         Debug.Log(m_paths.Count + "\t" + m_scriptable.m_keys.Count + "\t" + m_scriptable.m_values.Count);
         Assert.IsTrue(m_scriptable.m_keys.Count == m_scriptable.m_values.Count, "The number of keys and values in the scriptable MUST match!");
 
-#if UNITY_EDITOR
         EditorUtility.SetDirty(m_scriptable);
-#endif
     }
+#endif
 
     public void InitDictionary()
     {

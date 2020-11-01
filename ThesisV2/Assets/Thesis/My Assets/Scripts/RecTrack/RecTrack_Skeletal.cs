@@ -25,6 +25,11 @@ namespace Thesis.RecTrack
                 this.m_animationAvatar = _avatar;
                 this.m_targetRigRoot = _targetRigRoot;
                 this.m_targetSkins = _targetSkins;
+
+#if !UNITY_EDITOR
+                this.m_studyObj = FindObjectOfType<Study_AssetPaths>();
+                Debug.Log(this.m_studyObj);
+#endif
             }
 
             public string GetString()
@@ -37,6 +42,8 @@ namespace Thesis.RecTrack
                     + AssetDatabase.GetAssetPath(this.m_animatorController) + "~"
                     + AssetDatabase.GetAssetPath(this.m_animationAvatar);
 #else
+                    + m_studyObj.GetPathForObject(this.m_animatorController) + "~"
+                    + m_studyObj.GetPathForObject(this.m_animationAvatar);
 #endif
             }
 
@@ -92,11 +99,18 @@ namespace Thesis.RecTrack
                 {
                     // Add the mesh information first
                     int meshSubIndex = GetMeshSubAssetIndex(skinnedMesh.sharedMesh);
-                    stringBuilder.Append(AssetDatabase.GetAssetPath(skinnedMesh.sharedMesh) + "`" + meshSubIndex.ToString() + ";");
 
+#if UNITY_EDITOR
+                    stringBuilder.Append(AssetDatabase.GetAssetPath(skinnedMesh.sharedMesh) + "`" + meshSubIndex.ToString() + ";");
+#else
+                    stringBuilder.Append(m_studyObj.GetPathForObject(skinnedMesh.sharedMesh) + "`" + meshSubIndex.ToString() + ";");
+#endif
                     // Add the various materials afterwards
                     foreach (var mat in skinnedMesh.sharedMaterials)
                     {
+#if !UNITY_EDITOR
+                        string matPath = m_studyObj.GetPathForObject(mat);
+#else
                         string matPath = AssetDatabase.GetAssetPath(mat);
 
                         if (matPath == "" || matPath == null || matPath == " ")
@@ -127,7 +141,7 @@ namespace Thesis.RecTrack
                                 }
                             }
                         }
-
+#endif
                         // If we couldn't find a matching material even while searching the database, output a message
                         if (matPath == "" || matPath == null || matPath == " ")
                             Debug.LogWarning("Warning in RecTrack_Skeletal: the mat path could not be found for mat object: " + mat.name);
@@ -160,8 +174,13 @@ namespace Thesis.RecTrack
 
             private int GetMeshSubAssetIndex(Mesh _mesh)
             {
+#if UNITY_EDITOR
                 string meshPath = AssetDatabase.GetAssetPath(_mesh);
                 var listOfObjects = AssetDatabase.LoadAllAssetsAtPath(meshPath);
+#else
+                string meshPath = m_studyObj.GetPathForObject(_mesh);
+                var listOfObjects = Resources.LoadAll(meshPath);
+#endif
 
                 int meshCount = 0;
                 int thisMeshIndex = -1;
@@ -191,6 +210,10 @@ namespace Thesis.RecTrack
             public Avatar m_animationAvatar;
             public Transform m_targetRigRoot;
             public SkinnedMeshRenderer[] m_targetSkins;
+
+#if !UNITY_EDITOR
+            private Study_AssetPaths m_studyObj;
+#endif
         }
 
 

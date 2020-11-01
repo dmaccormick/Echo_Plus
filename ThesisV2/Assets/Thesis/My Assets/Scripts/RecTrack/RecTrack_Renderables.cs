@@ -29,28 +29,8 @@ namespace Thesis.RecTrack
 
             public string GetString(string _format)
             {
-#if UNITY_EDITOR
-                //try
-                //{
-                //    int meshSubIndex = GetMeshSubAssetIndex();
-
-                //    if (this.m_studyObj == null)
-                //        this.m_studyObj = FindObjectOfType<Study_AssetPaths>();
-
-                //    string temp = this.m_timestamp.ToString(_format) + "~";
-                //    temp += m_studyObj.GetPathForObject(this.m_mesh) + ",";
-                //    temp += meshSubIndex.ToString() + "~";
-                //    temp += this.m_color.ToString(_format) + "~";
-                //    temp += GetMaterialArrayStr();
-                //    return temp;
-                //}
-                //catch(System.Exception e)
-                //{
-                //    Debug.LogError(e.Message);
-                //    return "";
-                //}
-
                 int meshSubIndex = GetMeshSubAssetIndex();
+#if UNITY_EDITOR
 
                 return this.m_timestamp.ToString(_format) + "~" +
                     AssetDatabase.GetAssetPath(this.m_mesh) + "," + meshSubIndex.ToString() + "~" +
@@ -66,8 +46,13 @@ namespace Thesis.RecTrack
 
             private int GetMeshSubAssetIndex()
             {
+#if UNITY_EDITOR
                 string meshPath = AssetDatabase.GetAssetPath(this.m_mesh);
                 var listOfObjects = AssetDatabase.LoadAllAssetsAtPath(meshPath);
+#else
+                string meshPath = m_studyObj.GetPathForObject(this.m_mesh);
+                var listOfObjects = Resources.LoadAll(meshPath);
+#endif
 
                 int meshCount = 0;
                 int thisMeshIndex = -1;
@@ -101,11 +86,10 @@ namespace Thesis.RecTrack
                     // Grab the material object and find its related path
                     var matObj = m_materials[i];
 
-#if UNITY_EDITOR
-                    string matPath = AssetDatabase.GetAssetPath(matObj);
-#else
+#if !UNITY_EDITOR
                     string matPath = m_studyObj.GetPathForObject(matObj);
-#endif
+#else
+                    string matPath = AssetDatabase.GetAssetPath(matObj);
                     
                     // If the path doesn't work, it's likely that the material is an instance and we need to find the base version
                     if (matPath == null || matPath == "" || matPath == " ")
@@ -134,6 +118,7 @@ namespace Thesis.RecTrack
                             }
                         }
                     }
+#endif
 
                     // Append the path and optionally append the divider
                     str.Append(matPath);
