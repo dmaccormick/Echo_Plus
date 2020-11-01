@@ -177,10 +177,6 @@ namespace Thesis.RecTrack
 #if UNITY_EDITOR
                 string meshPath = AssetDatabase.GetAssetPath(_mesh);
                 var listOfObjects = AssetDatabase.LoadAllAssetsAtPath(meshPath);
-#else
-                string meshPath = m_studyObj.GetPathForObject(_mesh);
-                var listOfObjects = Resources.LoadAll(meshPath);
-#endif
 
                 int meshCount = 0;
                 int thisMeshIndex = -1;
@@ -202,6 +198,11 @@ namespace Thesis.RecTrack
                 // If this is the only mesh, just return -1
                 // Otherwise, return this mesh's index
                 return (meshCount > 1) ? thisMeshIndex : -1;
+#else
+                //string meshPath = m_studyObj.GetPathForObject(_mesh);
+                //var listOfObjects = Resources.LoadAll(meshPath);
+                return m_studyObj.GetIndexForObject(_mesh);
+#endif
             }
 
             public bool m_useDefaultJointTransforms;

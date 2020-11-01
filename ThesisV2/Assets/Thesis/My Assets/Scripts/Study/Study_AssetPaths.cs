@@ -7,7 +7,7 @@ using Thesis.SO;
 public class Study_AssetPaths : MonoBehaviour
 {
     public SO_AssetPaths m_scriptable;
-    private Dictionary<string, string> m_paths;
+    private Dictionary<string, AssetPathData> m_paths;
 
     // Use this for initialization
     void Awake()
@@ -20,9 +20,9 @@ public class Study_AssetPaths : MonoBehaviour
     public void FindAllPaths()
     {
         //m_scriptable.m_paths = new Dictionary<string, string>();
-        m_paths = new Dictionary<string, string>();
+        m_paths = new Dictionary<string, AssetPathData>();
         m_scriptable.m_keys = new List<string>();
-        m_scriptable.m_values = new List<string>();
+        m_scriptable.m_values = new List<AssetPathData>();
         string[] allAssetGUIDs = AssetDatabase.FindAssets("t:Material t:Mesh t:Texture2D t:Animation t:AnimatorController t:AvatarMask");
         
         foreach(var assetGUID in allAssetGUIDs)
@@ -35,13 +35,15 @@ public class Study_AssetPaths : MonoBehaviour
             //var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
             var subObjs = AssetDatabase.LoadAllAssetsAtPath(assetPath);
 
-            foreach(var obj in subObjs)
+            for(int i = 0; i < subObjs.Length; i++)
             {
-                if (!m_paths.ContainsKey(obj.name))
+                var obj = subObjs[i];
+
+                if (!m_paths.ContainsKey(obj.ToString()))
                 {
-                    m_paths.Add(obj.name, assetPath);
-                    m_scriptable.m_keys.Add(obj.name);
-                    m_scriptable.m_values.Add(assetPath);
+                    m_paths.Add(obj.ToString(), new AssetPathData(assetPath, i));
+                    m_scriptable.m_keys.Add(obj.ToString());
+                    m_scriptable.m_values.Add(new AssetPathData(assetPath, i));
                 }
             }
         }
@@ -55,7 +57,7 @@ public class Study_AssetPaths : MonoBehaviour
 
     public void InitDictionary()
     {
-        m_paths = new Dictionary<string, string>();
+        m_paths = new Dictionary<string, AssetPathData>();
         for (int i = 0; i < m_scriptable.m_keys.Count; i++)
         {
             m_paths.Add(m_scriptable.m_keys[i], m_scriptable.m_values[i]);
@@ -64,9 +66,12 @@ public class Study_AssetPaths : MonoBehaviour
 
     public string GetPathForObject(Object _obj)
     {
-        string objName = _obj.name;
+        if (_obj == null)
+            return "";
 
-        if (_obj.name.Contains("(Instance)"))
+        string objName = _obj.ToString();
+
+        if (_obj.ToString().Contains("(Instance)"))
         {
             int instanceStartIdx = objName.IndexOf('(');
             objName = objName.Substring(0, instanceStartIdx - 1);
@@ -78,6 +83,28 @@ public class Study_AssetPaths : MonoBehaviour
             return "";
         }
 
-        return m_paths[objName];
+        return m_paths[objName].m_path;
+    }
+
+    public int GetIndexForObject(Object _obj)
+    {
+        if (_obj == null)
+            return -1;
+
+        string objName = _obj.ToString();
+
+        if (_obj.ToString().Contains("(Instance)"))
+        {
+            int instanceStartIdx = objName.IndexOf('(');
+            objName = objName.Substring(0, instanceStartIdx - 1);
+        }
+
+        if (!m_paths.ContainsKey(objName))
+        {
+            Debug.Log("No matching key for object: " + objName);
+            return -1;
+        }
+
+        return m_paths[objName].m_index;
     }
 }

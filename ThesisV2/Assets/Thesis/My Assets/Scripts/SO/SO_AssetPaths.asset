@@ -13,158 +13,457 @@ MonoBehaviour:
   m_Name: SO_AssetPaths
   m_EditorClassIdentifier: 
   m_keys:
-  - Blue_Bright_Matte
-  - Gray_Dark_Matte
-  - Gray_Grid_Matte
-  - Gray_Light_Matte
-  - Green_Bright_Matte
-  - Purple_Bright_Matte
-  - Red_Bright_Matte
-  - Yellow_Bright_Matte
-  - Cube_Custom
-  - Cylinder_Custom
-  - Plane_Custom
-  - Plane_Custom_Plane
-  - Sphere_Custom
-  - Torus_Custom
-  - BlurUI
-  - BlurUI_Darker
-  - Sprite_DrawOnTop
-  - external_icon_cursor_eye
-  - external_icon_cursor_grab
-  - external_icon_cursor_grab_disabled
-  - external_icon_cursor_move
-  - temp_icon_cam_disabled
-  - temp_icon_cam_disabled_alt
-  - temp_icon_cam_fps
-  - temp_icon_cam_general
-  - temp_icon_cam_orbit
-  - temp_icon_cam_orbit_target
-  - temp_icon_delete
-  - temp_icon_eye_hidden
-  - temp_icon_eye_visible
-  - temp_icon_gear
-  - temp_icon_objects
-  - temp_icon_pause
-  - temp_icon_play
-  - temp_icon_recording_start
-  - temp_icon_recording_stop
-  - temp_icon_recording_stop_alt
-  - temp_icon_save
-  - temp_icon_solo
-  - temp_icon_thinX
-  - temp_icon_whiteSquare
-  - OutlineFill
-  - OutlineMask
-  - Plane
-  - Base Layer
-  - Turret
-  - ActivatedHurt
-  - AttackIn
-  - AttackOut
-  - Idle
-  - PassiveHurt
-  - AttackLoop
-  - 
-  - Turret_Root_C_Jnt
-  - TurretBottom
-  - TurretCenter
-  - TurretTop
-  - Mat_Body
-  - Mat_Glass
-  - Mat_Light
-  - Turret_FKRoot_C_Jnt
-  - Turret_Pole_C_Jnt
-  - Turret_Pivot_C_Jnt
-  - Handle_R_Jnt
-  - Turret_Head_C_Jnt
-  - IrisBlade_C_Jnt
-  - Turret@ActivatedHurt
-  - __preview__Take 001
-  - Turret@AttackIn
-  - Turret@AttackLoop
-  - Turret@AttackOut
-  - Turret@Idle
-  - Turret@PassiveHurt
-  - Two_Sided_Left
-  - Two_Sided_Right
-  - Two_Sided_Cube
-  - Cube
+  - Blue_Bright_Matte (UnityEngine.Material)
+  - Gray_Dark_Matte (UnityEngine.Material)
+  - Gray_Grid_Matte (UnityEngine.Material)
+  - Gray_Light_Matte (UnityEngine.Material)
+  - Green_Bright_Matte (UnityEngine.Material)
+  - Purple_Bright_Matte (UnityEngine.Material)
+  - Red_Bright_Matte (UnityEngine.Material)
+  - Yellow_Bright_Matte (UnityEngine.Material)
+  - Cube_Custom (UnityEngine.GameObject)
+  - Cube_Custom (UnityEngine.Mesh)
+  - Cube_Custom (UnityEngine.Transform)
+  - Cube_Custom (UnityEngine.MeshFilter)
+  - Cube_Custom (UnityEngine.MeshRenderer)
+  - Cylinder_Custom (UnityEngine.GameObject)
+  - Cylinder_Custom (UnityEngine.Mesh)
+  - Cylinder_Custom (UnityEngine.Transform)
+  - Cylinder_Custom (UnityEngine.MeshFilter)
+  - Cylinder_Custom (UnityEngine.MeshRenderer)
+  - Plane_Custom (UnityEngine.GameObject)
+  - Plane_Custom_Plane (UnityEngine.GameObject)
+  - Plane_Custom_Plane (UnityEngine.Mesh)
+  - Plane_Custom (UnityEngine.Transform)
+  - Plane_Custom_Plane (UnityEngine.Transform)
+  - Plane_Custom_Plane (UnityEngine.MeshFilter)
+  - Plane_Custom_Plane (UnityEngine.MeshRenderer)
+  - Sphere_Custom (UnityEngine.GameObject)
+  - Sphere_Custom (UnityEngine.Mesh)
+  - Sphere_Custom (UnityEngine.Transform)
+  - Sphere_Custom (UnityEngine.MeshFilter)
+  - Sphere_Custom (UnityEngine.MeshRenderer)
+  - Torus_Custom (UnityEngine.GameObject)
+  - Torus_Custom (UnityEngine.Mesh)
+  - Torus_Custom (UnityEngine.Transform)
+  - Torus_Custom (UnityEngine.MeshFilter)
+  - Torus_Custom (UnityEngine.MeshRenderer)
+  - BlurUI (UnityEngine.Material)
+  - BlurUI_Darker (UnityEngine.Material)
+  - Sprite_DrawOnTop (UnityEngine.Material)
+  - external_icon_cursor_eye (UnityEngine.Texture2D)
+  - external_icon_cursor_grab (UnityEngine.Texture2D)
+  - external_icon_cursor_grab_disabled (UnityEngine.Texture2D)
+  - external_icon_cursor_move (UnityEngine.Texture2D)
+  - temp_icon_cam_disabled (UnityEngine.Texture2D)
+  - temp_icon_cam_disabled (UnityEngine.Sprite)
+  - temp_icon_cam_disabled_alt (UnityEngine.Sprite)
+  - temp_icon_cam_disabled_alt (UnityEngine.Texture2D)
+  - temp_icon_cam_fps (UnityEngine.Sprite)
+  - temp_icon_cam_fps (UnityEngine.Texture2D)
+  - temp_icon_cam_general (UnityEngine.Sprite)
+  - temp_icon_cam_general (UnityEngine.Texture2D)
+  - temp_icon_cam_orbit (UnityEngine.Sprite)
+  - temp_icon_cam_orbit (UnityEngine.Texture2D)
+  - temp_icon_cam_orbit_target (UnityEngine.Sprite)
+  - temp_icon_cam_orbit_target (UnityEngine.Texture2D)
+  - temp_icon_delete (UnityEngine.Sprite)
+  - temp_icon_delete (UnityEngine.Texture2D)
+  - temp_icon_eye_hidden (UnityEngine.Sprite)
+  - temp_icon_eye_hidden (UnityEngine.Texture2D)
+  - temp_icon_eye_visible (UnityEngine.Sprite)
+  - temp_icon_eye_visible (UnityEngine.Texture2D)
+  - temp_icon_gear (UnityEngine.Sprite)
+  - temp_icon_gear (UnityEngine.Texture2D)
+  - temp_icon_objects (UnityEngine.Sprite)
+  - temp_icon_objects (UnityEngine.Texture2D)
+  - temp_icon_pause (UnityEngine.Sprite)
+  - temp_icon_pause (UnityEngine.Texture2D)
+  - temp_icon_play (UnityEngine.Sprite)
+  - temp_icon_play (UnityEngine.Texture2D)
+  - temp_icon_recording_start (UnityEngine.Texture2D)
+  - temp_icon_recording_start (UnityEngine.Sprite)
+  - temp_icon_recording_stop (UnityEngine.Texture2D)
+  - temp_icon_recording_stop (UnityEngine.Sprite)
+  - temp_icon_recording_stop_alt (UnityEngine.Texture2D)
+  - temp_icon_recording_stop_alt (UnityEngine.Sprite)
+  - temp_icon_save (UnityEngine.Texture2D)
+  - temp_icon_save (UnityEngine.Sprite)
+  - temp_icon_solo (UnityEngine.Sprite)
+  - temp_icon_solo (UnityEngine.Texture2D)
+  - temp_icon_thinX (UnityEngine.Sprite)
+  - temp_icon_thinX (UnityEngine.Texture2D)
+  - temp_icon_whiteSquare (UnityEngine.Sprite)
+  - temp_icon_whiteSquare (UnityEngine.Texture2D)
+  - OutlineFill (UnityEngine.Material)
+  - OutlineMask (UnityEngine.Material)
+  - Plane (UnityEngine.Material)
+  - Turret (UnityEngine.GameObject)
+  - Turret_Root_C_Jnt (UnityEngine.GameObject)
+  - TurretBottom (UnityEngine.GameObject)
+  - TurretCenter (UnityEngine.GameObject)
+  - TurretTop (UnityEngine.GameObject)
+  - Mat_Body (UnityEngine.Material)
+  - Mat_Glass (UnityEngine.Material)
+  - Mat_Light (UnityEngine.Material)
+  - TurretBottom (UnityEngine.Mesh)
+  - TurretCenter (UnityEngine.Mesh)
+  - TurretTop (UnityEngine.Mesh)
+  - TurretCenter (UnityEngine.SkinnedMeshRenderer)
+  - Turret (UnityEngine.Transform)
+  - TurretBottom (UnityEngine.SkinnedMeshRenderer)
+  - TurretTop (UnityEngine.SkinnedMeshRenderer)
+  - Turret_Root_C_Jnt (UnityEngine.Transform)
+  - Turret_FKRoot_C_Jnt (UnityEngine.Transform)
+  - TurretBottom (UnityEngine.Transform)
+  - TurretCenter (UnityEngine.Transform)
+  - TurretTop (UnityEngine.Transform)
+  - Turret_FKRoot_C_Jnt (UnityEngine.GameObject)
+  - Turret_Pole_C_Jnt (UnityEngine.Transform)
+  - Turret_Pole_C_Jnt (UnityEngine.GameObject)
+  - Turret_Pivot_C_Jnt (UnityEngine.Transform)
+  - Turret_Pivot_C_Jnt (UnityEngine.GameObject)
+  - Handle_R_Jnt (UnityEngine.Transform)
+  - Turret_Head_C_Jnt (UnityEngine.Transform)
+  - Turret_Head_C_Jnt (UnityEngine.GameObject)
+  - IrisBlade_C_Jnt (UnityEngine.Transform)
+  - Handle_R_Jnt (UnityEngine.GameObject)
+  - IrisBlade_C_Jnt (UnityEngine.GameObject)
+  - ActivatedHurt (UnityEngine.AnimationClip)
+  - Turret@ActivatedHurt (UnityEngine.GameObject)
+  - Turret@ActivatedHurt (UnityEngine.Transform)
+  - __preview__Take 001 (UnityEngine.PreviewAnimationClip)
+  - AttackIn (UnityEngine.AnimationClip)
+  - Turret@AttackIn (UnityEngine.GameObject)
+  - Turret@AttackIn (UnityEngine.Transform)
+  - AttackLoop (UnityEngine.AnimationClip)
+  - Turret@AttackLoop (UnityEngine.GameObject)
+  - Turret@AttackLoop (UnityEngine.Transform)
+  - AttackOut (UnityEngine.AnimationClip)
+  - Turret@AttackOut (UnityEngine.GameObject)
+  - Turret@AttackOut (UnityEngine.Transform)
+  - Idle (UnityEngine.AnimationClip)
+  - Turret@Idle (UnityEngine.GameObject)
+  - Turret@Idle (UnityEngine.Transform)
+  - PassiveHurt (UnityEngine.AnimationClip)
+  - Turret@PassiveHurt (UnityEngine.GameObject)
+  - Turret@PassiveHurt (UnityEngine.Transform)
+  - Base Layer (UnityEngine.AnimatorStateMachine)
+  - TurretController (UnityEngine.AnimatorController)
+  - ActivatedHurt (UnityEngine.AnimatorState)
+  - AttackIn (UnityEngine.AnimatorState)
+  - AttackOut (UnityEngine.AnimatorState)
+  - Idle (UnityEngine.AnimatorState)
+  - PassiveHurt (UnityEngine.AnimatorState)
+  - AttackLoop (UnityEngine.AnimatorState)
+  - ' (UnityEngine.AnimatorStateTransition)'
+  - Two_Sided_Left (UnityEngine.Material)
+  - Two_Sided_Right (UnityEngine.Material)
+  - Two_Sided_Cube (UnityEngine.GameObject)
+  - Cube (UnityEngine.Mesh)
+  - Two_Sided_Cube (UnityEngine.Transform)
+  - Two_Sided_Cube (UnityEngine.MeshRenderer)
+  - Two_Sided_Cube (UnityEngine.MeshFilter)
   m_values:
-  - Assets/Resources/Thesis/Test Assets/Materials/Blue_Bright_Matte.mat
-  - Assets/Resources/Thesis/Test Assets/Materials/Gray_Dark_Matte.mat
-  - Assets/Resources/Thesis/Test Assets/Materials/Gray_Grid_Matte.mat
-  - Assets/Resources/Thesis/Test Assets/Materials/Gray_Light_Matte.mat
-  - Assets/Resources/Thesis/Test Assets/Materials/Green_Bright_Matte.mat
-  - Assets/Resources/Thesis/Test Assets/Materials/Purple_Bright_Matte.mat
-  - Assets/Resources/Thesis/Test Assets/Materials/Red_Bright_Matte.mat
-  - Assets/Resources/Thesis/Test Assets/Materials/Yellow_Bright_Matte.mat
-  - Assets/Resources/Thesis/Test Assets/Meshes/Cube_Custom.obj
-  - Assets/Resources/Thesis/Test Assets/Meshes/Cylinder_Custom.obj
-  - Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
-  - Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
-  - Assets/Resources/Thesis/Test Assets/Meshes/Sphere_Custom.obj
-  - Assets/Resources/Thesis/Test Assets/Meshes/Torus_Custom.obj
-  - Assets/Thesis/My Assets/Shaders/BlurUI.mat
-  - Assets/Thesis/My Assets/Shaders/BlurUI_Darker.mat
-  - Assets/Thesis/My Assets/Shaders/Sprite_DrawOnTop.mat
-  - Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_eye.png
-  - Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_grab.png
-  - Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_grab_disabled.png
-  - Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_move.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_disabled.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_disabled_alt.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_fps.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_general.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_orbit.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_orbit_target.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_delete.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_eye_hidden.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_eye_visible.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_gear.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_objects.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_pause.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_play.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_start.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_stop.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_stop_alt.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_save.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_solo.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_thinX.png
-  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_whiteSquare.png
-  - Assets/Thesis/QuickOutline/Resources/Materials/OutlineFill.mat
-  - Assets/Thesis/QuickOutline/Resources/Materials/OutlineMask.mat
-  - Assets/Thesis/QuickOutline/Samples/Materials/Plane.mat
-  - Assets/Thesis/Test Assets/Animations/Turret.controller
-  - Assets/Thesis/Test Assets/Animations/Turret.controller
-  - Assets/Thesis/Test Assets/Animations/Turret.controller
-  - Assets/Thesis/Test Assets/Animations/Turret.controller
-  - Assets/Thesis/Test Assets/Animations/Turret.controller
-  - Assets/Thesis/Test Assets/Animations/Turret.controller
-  - Assets/Thesis/Test Assets/Animations/Turret.controller
-  - Assets/Thesis/Test Assets/Animations/Turret.controller
-  - Assets/Thesis/Test Assets/Animations/Turret.controller
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret@ActivatedHurt.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret@ActivatedHurt.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret@AttackIn.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret@AttackLoop.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret@AttackOut.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret@Idle.fbx
-  - Assets/Thesis/Test Assets/Animations/Turret@PassiveHurt.fbx
-  - Assets/Thesis/Test Assets/Materials/Two_Sided_Left.mat
-  - Assets/Thesis/Test Assets/Materials/Two_Sided_Right.mat
-  - Assets/Thesis/Test Assets/Meshes/Two_Sided_Cube.fbx
-  - Assets/Thesis/Test Assets/Meshes/Two_Sided_Cube.fbx
+  - m_path: Assets/Resources/Thesis/Test Assets/Materials/Blue_Bright_Matte.mat
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Materials/Gray_Dark_Matte.mat
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Materials/Gray_Grid_Matte.mat
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Materials/Gray_Light_Matte.mat
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Materials/Green_Bright_Matte.mat
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Materials/Purple_Bright_Matte.mat
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Materials/Red_Bright_Matte.mat
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Materials/Yellow_Bright_Matte.mat
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cube_Custom.obj
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cube_Custom.obj
+    m_index: 2
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cube_Custom.obj
+    m_index: 3
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cube_Custom.obj
+    m_index: 5
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cube_Custom.obj
+    m_index: 6
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cylinder_Custom.obj
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cylinder_Custom.obj
+    m_index: 2
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cylinder_Custom.obj
+    m_index: 3
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cylinder_Custom.obj
+    m_index: 5
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Cylinder_Custom.obj
+    m_index: 6
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
+    m_index: 1
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
+    m_index: 2
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
+    m_index: 3
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
+    m_index: 4
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
+    m_index: 5
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
+    m_index: 6
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Sphere_Custom.obj
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Sphere_Custom.obj
+    m_index: 2
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Sphere_Custom.obj
+    m_index: 3
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Sphere_Custom.obj
+    m_index: 5
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Sphere_Custom.obj
+    m_index: 6
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Torus_Custom.obj
+    m_index: 0
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Torus_Custom.obj
+    m_index: 2
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Torus_Custom.obj
+    m_index: 3
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Torus_Custom.obj
+    m_index: 5
+  - m_path: Assets/Resources/Thesis/Test Assets/Meshes/Torus_Custom.obj
+    m_index: 6
+  - m_path: Assets/Thesis/My Assets/Shaders/BlurUI.mat
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Shaders/BlurUI_Darker.mat
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Shaders/Sprite_DrawOnTop.mat
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_eye.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_grab.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_grab_disabled.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_move.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_disabled.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_disabled.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_disabled_alt.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_disabled_alt.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_fps.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_fps.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_general.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_general.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_orbit.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_orbit.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_orbit_target.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_orbit_target.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_delete.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_delete.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_eye_hidden.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_eye_hidden.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_eye_visible.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_eye_visible.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_gear.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_gear.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_objects.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_objects.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_pause.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_pause.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_play.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_play.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_start.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_start.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_stop.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_stop.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_stop_alt.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_stop_alt.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_save.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_save.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_solo.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_solo.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_thinX.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_thinX.png
+    m_index: 1
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_whiteSquare.png
+    m_index: 0
+  - m_path: Assets/Thesis/My Assets/Sprites/Temp/temp_icon_whiteSquare.png
+    m_index: 1
+  - m_path: Assets/Thesis/QuickOutline/Resources/Materials/OutlineFill.mat
+    m_index: 0
+  - m_path: Assets/Thesis/QuickOutline/Resources/Materials/OutlineMask.mat
+    m_index: 0
+  - m_path: Assets/Thesis/QuickOutline/Samples/Materials/Plane.mat
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 1
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 2
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 3
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 4
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 5
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 6
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 7
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 8
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 9
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 10
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 11
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 12
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 13
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 14
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 15
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 16
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 17
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 18
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 19
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 20
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 21
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 22
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 23
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 24
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 25
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 26
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 27
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 28
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 29
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret.fbx
+    m_index: 30
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@ActivatedHurt.fbx
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@ActivatedHurt.fbx
+    m_index: 1
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@ActivatedHurt.fbx
+    m_index: 3
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@ActivatedHurt.fbx
+    m_index: 17
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@AttackIn.fbx
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@AttackIn.fbx
+    m_index: 1
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@AttackIn.fbx
+    m_index: 3
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@AttackLoop.fbx
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@AttackLoop.fbx
+    m_index: 1
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@AttackLoop.fbx
+    m_index: 3
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@AttackOut.fbx
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@AttackOut.fbx
+    m_index: 1
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@AttackOut.fbx
+    m_index: 3
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@Idle.fbx
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@Idle.fbx
+    m_index: 1
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@Idle.fbx
+    m_index: 3
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@PassiveHurt.fbx
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@PassiveHurt.fbx
+    m_index: 1
+  - m_path: Assets/Thesis/Test Assets/Animations/Turret@PassiveHurt.fbx
+    m_index: 3
+  - m_path: Assets/Thesis/Test Assets/Animations/TurretController.controller
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Animations/TurretController.controller
+    m_index: 1
+  - m_path: Assets/Thesis/Test Assets/Animations/TurretController.controller
+    m_index: 2
+  - m_path: Assets/Thesis/Test Assets/Animations/TurretController.controller
+    m_index: 3
+  - m_path: Assets/Thesis/Test Assets/Animations/TurretController.controller
+    m_index: 4
+  - m_path: Assets/Thesis/Test Assets/Animations/TurretController.controller
+    m_index: 5
+  - m_path: Assets/Thesis/Test Assets/Animations/TurretController.controller
+    m_index: 6
+  - m_path: Assets/Thesis/Test Assets/Animations/TurretController.controller
+    m_index: 7
+  - m_path: Assets/Thesis/Test Assets/Animations/TurretController.controller
+    m_index: 8
+  - m_path: Assets/Thesis/Test Assets/Materials/Two_Sided_Left.mat
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Materials/Two_Sided_Right.mat
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Meshes/Two_Sided_Cube.fbx
+    m_index: 0
+  - m_path: Assets/Thesis/Test Assets/Meshes/Two_Sided_Cube.fbx
+    m_index: 1
+  - m_path: Assets/Thesis/Test Assets/Meshes/Two_Sided_Cube.fbx
+    m_index: 2
+  - m_path: Assets/Thesis/Test Assets/Meshes/Two_Sided_Cube.fbx
+    m_index: 3
+  - m_path: Assets/Thesis/Test Assets/Meshes/Two_Sided_Cube.fbx
+    m_index: 4

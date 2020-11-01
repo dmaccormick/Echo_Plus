@@ -232,14 +232,8 @@ namespace Thesis.UI
             // Load the file if requested to do so
             if (proceedWithLoading)
             {
-#if UNITY_EDITOR
                 // Get the static file location from the input field
                 string staticPath = m_inStaticLoadLoc.text;
-#else
-                // If in build mode, use the log files that are directly beside the EXE
-                string staticPath = Path.GetDirectoryName(Application.dataPath);
-                staticPath = Path.Combine(new string[] { staticPath, "Phase1Data", m_exeLogFileFolderName, "Logs", "StaticData_" + m_exeLogFileFolderName + ".log"});
-#endif
 
                 // Tell the visualization manager to load the static data
                 bool loadSuccess = m_visManager.LoadStaticData(staticPath);
@@ -283,7 +277,6 @@ namespace Thesis.UI
 
         public void OnLoadDynamicFile()
         {
-#if UNITY_EDITOR
             // Get the dynamic file location from the input field
             string dynamicPath = m_inDynamicLoadLoc.text;
 
@@ -318,50 +311,17 @@ namespace Thesis.UI
                 m_metrics.StartTracking();
 
                 // Show a message that the file loaded correctly
+#if UNITY_EDITOR
                 EditorUtility.DisplayDialog("Dynamic File Load Successful", "The dynamic log file data loaded correctly!", "Continue");
+#endif
             }
             else
             {
+#if UNITY_EDITOR
                 // Show a message that the file failed to load correctly
                 EditorUtility.DisplayDialog("Dynamic File Load Failed", "The dynamic log file failed to load!", "Continue");
-            }
-#else
-            // Load all of the dynamic files for this dataset
-            for (int i = m_firstDynamicIndex; i <= m_lastDynamicIndex; i++)
-            {
-                // If in build mode, use the log files that are directly beside the EXE
-                string dynamicPath = Path.GetDirectoryName(Application.dataPath);
-                dynamicPath = Path.Combine(new string[] { dynamicPath, "Phase1Data", m_exeLogFileFolderName, "Logs", "DynamicData_" + m_exeLogFileFolderName  + "_" + i.ToString() + ".log" });
-
-                // Tell the visualization manager to load the dynamic data
-                bool loadSuccess = m_visManager.LoadDynamicData(dynamicPath);
-
-                // Handle the results of the loading
-                if (loadSuccess)
-                {
-                    // Update the time indicators to match the new values
-                    m_txtStartTime.text = m_visManager.GetStartTime().ToString("F2");
-                    m_txtEndTime.text = m_visManager.GetEndTime().ToString("F2");
-                    m_txtCurrentTime.text = m_visManager.GetCurrentTime().ToString("F2");
-
-                    // Update the slider so that its values match the start and end time
-                    m_sldTimeline.minValue = m_visManager.GetStartTime();
-                    m_sldTimeline.maxValue = m_visManager.GetEndTime();
-
-                    // Show the timeline and speed controls
-                    m_pnlTimeLineControls.SetActive(true);
-                    m_pnlSpeedControls.SetActive(true);
-
-                    // Setup the player camera manager system
-                    GameObject.FindObjectOfType<VisCam_PlayerCameraManager>().Setup();
-                    OnCameraEnabled(m_camControls.GetActiveCameraRef());
-
-                    // Update the UI elements for the list of loaded object sets and the cameras
-                    CreateObjectListUI();
-                    CreateCameraListUI();
-                }
-            }
 #endif
+            }
         }
 
 
