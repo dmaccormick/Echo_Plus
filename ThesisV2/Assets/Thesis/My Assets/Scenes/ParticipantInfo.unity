@@ -1065,4 +1065,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_inParticipantID: {fileID: 735531429}
   m_btnStartSession: {fileID: 508908776}
-  m_sceneToLoad: Visualization_Test
+  m_sceneToLoad: Recording_Test
