@@ -12,3 +12,159 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340ea408dfadba74fa7119e69adb08ad, type: 3}
   m_Name: SO_AssetPaths
   m_EditorClassIdentifier: 
+  m_keys:
+  - Blue_Bright_Matte
+  - Gray_Dark_Matte
+  - Gray_Grid_Matte
+  - Gray_Light_Matte
+  - Green_Bright_Matte
+  - Purple_Bright_Matte
+  - Red_Bright_Matte
+  - Yellow_Bright_Matte
+  - Cube_Custom
+  - Cylinder_Custom
+  - Plane_Custom
+  - Plane_Custom_Plane
+  - Sphere_Custom
+  - Torus_Custom
+  - BlurUI
+  - BlurUI_Darker
+  - Sprite_DrawOnTop
+  - external_icon_cursor_eye
+  - external_icon_cursor_grab
+  - external_icon_cursor_grab_disabled
+  - external_icon_cursor_move
+  - temp_icon_cam_disabled
+  - temp_icon_cam_disabled_alt
+  - temp_icon_cam_fps
+  - temp_icon_cam_general
+  - temp_icon_cam_orbit
+  - temp_icon_cam_orbit_target
+  - temp_icon_delete
+  - temp_icon_eye_hidden
+  - temp_icon_eye_visible
+  - temp_icon_gear
+  - temp_icon_objects
+  - temp_icon_pause
+  - temp_icon_play
+  - temp_icon_recording_start
+  - temp_icon_recording_stop
+  - temp_icon_recording_stop_alt
+  - temp_icon_save
+  - temp_icon_solo
+  - temp_icon_thinX
+  - temp_icon_whiteSquare
+  - OutlineFill
+  - OutlineMask
+  - Plane
+  - Base Layer
+  - Turret
+  - ActivatedHurt
+  - AttackIn
+  - AttackOut
+  - Idle
+  - PassiveHurt
+  - AttackLoop
+  - 
+  - Turret_Root_C_Jnt
+  - TurretBottom
+  - TurretCenter
+  - TurretTop
+  - Mat_Body
+  - Mat_Glass
+  - Mat_Light
+  - Turret_FKRoot_C_Jnt
+  - Turret_Pole_C_Jnt
+  - Turret_Pivot_C_Jnt
+  - Handle_R_Jnt
+  - Turret_Head_C_Jnt
+  - IrisBlade_C_Jnt
+  - Turret@ActivatedHurt
+  - __preview__Take 001
+  - Turret@AttackIn
+  - Turret@AttackLoop
+  - Turret@AttackOut
+  - Turret@Idle
+  - Turret@PassiveHurt
+  - Two_Sided_Left
+  - Two_Sided_Right
+  - Two_Sided_Cube
+  - Cube
+  m_values:
+  - Assets/Resources/Thesis/Test Assets/Materials/Blue_Bright_Matte.mat
+  - Assets/Resources/Thesis/Test Assets/Materials/Gray_Dark_Matte.mat
+  - Assets/Resources/Thesis/Test Assets/Materials/Gray_Grid_Matte.mat
+  - Assets/Resources/Thesis/Test Assets/Materials/Gray_Light_Matte.mat
+  - Assets/Resources/Thesis/Test Assets/Materials/Green_Bright_Matte.mat
+  - Assets/Resources/Thesis/Test Assets/Materials/Purple_Bright_Matte.mat
+  - Assets/Resources/Thesis/Test Assets/Materials/Red_Bright_Matte.mat
+  - Assets/Resources/Thesis/Test Assets/Materials/Yellow_Bright_Matte.mat
+  - Assets/Resources/Thesis/Test Assets/Meshes/Cube_Custom.obj
+  - Assets/Resources/Thesis/Test Assets/Meshes/Cylinder_Custom.obj
+  - Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
+  - Assets/Resources/Thesis/Test Assets/Meshes/Plane_Custom.obj
+  - Assets/Resources/Thesis/Test Assets/Meshes/Sphere_Custom.obj
+  - Assets/Resources/Thesis/Test Assets/Meshes/Torus_Custom.obj
+  - Assets/Thesis/My Assets/Shaders/BlurUI.mat
+  - Assets/Thesis/My Assets/Shaders/BlurUI_Darker.mat
+  - Assets/Thesis/My Assets/Shaders/Sprite_DrawOnTop.mat
+  - Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_eye.png
+  - Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_grab.png
+  - Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_grab_disabled.png
+  - Assets/Thesis/My Assets/Sprites/External/external_icon_cursor_move.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_disabled.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_disabled_alt.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_fps.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_general.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_orbit.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_cam_orbit_target.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_delete.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_eye_hidden.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_eye_visible.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_gear.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_objects.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_pause.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_play.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_start.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_stop.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_recording_stop_alt.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_save.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_solo.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_thinX.png
+  - Assets/Thesis/My Assets/Sprites/Temp/temp_icon_whiteSquare.png
+  - Assets/Thesis/QuickOutline/Resources/Materials/OutlineFill.mat
+  - Assets/Thesis/QuickOutline/Resources/Materials/OutlineMask.mat
+  - Assets/Thesis/QuickOutline/Samples/Materials/Plane.mat
+  - Assets/Thesis/Test Assets/Animations/Turret.controller
+  - Assets/Thesis/Test Assets/Animations/Turret.controller
+  - Assets/Thesis/Test Assets/Animations/Turret.controller
+  - Assets/Thesis/Test Assets/Animations/Turret.controller
+  - Assets/Thesis/Test Assets/Animations/Turret.controller
+  - Assets/Thesis/Test Assets/Animations/Turret.controller
+  - Assets/Thesis/Test Assets/Animations/Turret.controller
+  - Assets/Thesis/Test Assets/Animations/Turret.controller
+  - Assets/Thesis/Test Assets/Animations/Turret.controller
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret@ActivatedHurt.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret@ActivatedHurt.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret@AttackIn.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret@AttackLoop.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret@AttackOut.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret@Idle.fbx
+  - Assets/Thesis/Test Assets/Animations/Turret@PassiveHurt.fbx
+  - Assets/Thesis/Test Assets/Materials/Two_Sided_Left.mat
+  - Assets/Thesis/Test Assets/Materials/Two_Sided_Right.mat
+  - Assets/Thesis/Test Assets/Meshes/Two_Sided_Cube.fbx
+  - Assets/Thesis/Test Assets/Meshes/Two_Sided_Cube.fbx

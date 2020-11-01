@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEditor;
 using System.Collections.Generic;
 using Thesis.SO;
@@ -21,7 +22,7 @@ public class Study_AssetPaths : MonoBehaviour
         m_paths = new Dictionary<string, string>();
         m_scriptable.m_keys = new List<string>();
         m_scriptable.m_values = new List<string>();
-        string[] allAssetGUIDs = AssetDatabase.FindAssets("t:Material t:Mesh t:Texture2D");
+        string[] allAssetGUIDs = AssetDatabase.FindAssets("t:Material t:Mesh t:Texture2D t:Animation t:AnimatorController t:AvatarMask");
         
         foreach(var assetGUID in allAssetGUIDs)
         {
@@ -45,6 +46,7 @@ public class Study_AssetPaths : MonoBehaviour
         }
 
         Debug.Log(m_paths.Count + "\t" + m_scriptable.m_keys.Count + "\t" + m_scriptable.m_values.Count);
+        Assert.IsTrue(m_scriptable.m_keys.Count == m_scriptable.m_values.Count, "The number of keys and values in the scriptable MUST match!");
 
 #if UNITY_EDITOR
         EditorUtility.SetDirty(m_scriptable);

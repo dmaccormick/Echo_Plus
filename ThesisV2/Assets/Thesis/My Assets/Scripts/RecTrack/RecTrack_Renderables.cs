@@ -21,39 +21,46 @@ namespace Thesis.RecTrack
                 this.m_mesh = _mesh;
                 this.m_materials = _materials;
                 this.m_color = _colour;
+
+#if !UNITY_EDITOR
                 this.m_studyObj = FindObjectOfType<Study_AssetPaths>();
+#endif
             }
 
             public string GetString(string _format)
             {
 #if UNITY_EDITOR
-                try
-                {
-                    int meshSubIndex = GetMeshSubAssetIndex();
+                //try
+                //{
+                //    int meshSubIndex = GetMeshSubAssetIndex();
 
-                    if (this.m_studyObj == null)
-                        this.m_studyObj = FindObjectOfType<Study_AssetPaths>();
+                //    if (this.m_studyObj == null)
+                //        this.m_studyObj = FindObjectOfType<Study_AssetPaths>();
 
-                    string temp = this.m_timestamp.ToString(_format) + "~";
-                    temp += m_studyObj.GetPathForObject(this.m_mesh) + ",";
-                    temp += meshSubIndex.ToString() + "~";
-                    temp += this.m_color.ToString(_format) + "~";
-                    temp += GetMaterialArrayStr();
-                    return temp;
-                }
-                catch(System.Exception e)
-                {
-                    Debug.LogError(e.Message);
-                    return "";
-                }
+                //    string temp = this.m_timestamp.ToString(_format) + "~";
+                //    temp += m_studyObj.GetPathForObject(this.m_mesh) + ",";
+                //    temp += meshSubIndex.ToString() + "~";
+                //    temp += this.m_color.ToString(_format) + "~";
+                //    temp += GetMaterialArrayStr();
+                //    return temp;
+                //}
+                //catch(System.Exception e)
+                //{
+                //    Debug.LogError(e.Message);
+                //    return "";
+                //}
 
-                //return this.m_timestamp.ToString(_format) + "~" +
-                //    /*AssetDatabase.GetAssetPath(this.m_mesh)*/ FindObjectOfType<Study_AssetPaths>().GetPathForObject(this.m_mesh) + "," + meshSubIndex.ToString() + "~" +
-                //    this.m_color.ToString(_format) + "~" +
-                //    GetMaterialArrayStr();
+                int meshSubIndex = GetMeshSubAssetIndex();
+
+                return this.m_timestamp.ToString(_format) + "~" +
+                    AssetDatabase.GetAssetPath(this.m_mesh) + "," + meshSubIndex.ToString() + "~" +
+                    this.m_color.ToString(_format) + "~" +
+                    GetMaterialArrayStr();
 #else
-                //return null;
-                return "";
+                 return this.m_timestamp.ToString(_format) + "~" +
+                    m_studyObj.GetPathForObject(this.m_mesh) + "," + meshSubIndex.ToString() + "~" +
+                    this.m_color.ToString(_format) + "~" +
+                    GetMaterialArrayStr();
 #endif
             }
 
@@ -93,8 +100,12 @@ namespace Thesis.RecTrack
                 {
                     // Grab the material object and find its related path
                     var matObj = m_materials[i];
-                    //string matPath = AssetDatabase.GetAssetPath(matObj);
+
+#if UNITY_EDITOR
+                    string matPath = AssetDatabase.GetAssetPath(matObj);
+#else
                     string matPath = m_studyObj.GetPathForObject(matObj);
+#endif
                     
                     // If the path doesn't work, it's likely that the material is an instance and we need to find the base version
                     if (matPath == null || matPath == "" || matPath == " ")
@@ -139,7 +150,9 @@ namespace Thesis.RecTrack
             public Material[] m_materials;
             public Color m_color;
 
+#if !UNITY_EDITOR
             private Study_AssetPaths m_studyObj;
+#endif
         }
 
 
