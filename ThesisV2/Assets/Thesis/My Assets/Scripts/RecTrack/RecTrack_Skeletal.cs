@@ -33,8 +33,11 @@ namespace Thesis.RecTrack
                     + m_applyRootMotion.ToString() + "~"
                     + GetFullRigString() + "~"
                     + GetFullSkinString() + "~"
+#if UNITY_EDITOR
                     + AssetDatabase.GetAssetPath(this.m_animatorController) + "~"
                     + AssetDatabase.GetAssetPath(this.m_animationAvatar);
+#else
+#endif
             }
 
             public string GetFullRigString()

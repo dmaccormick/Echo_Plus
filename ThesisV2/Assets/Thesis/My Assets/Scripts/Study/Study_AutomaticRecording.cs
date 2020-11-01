@@ -39,7 +39,9 @@ public class Study_AutomaticRecording : MonoBehaviour
         string staticFilePath = m_baseFilePath + "_Static.log";
         string dynamicFilePath = m_baseFilePath + "_Dynamic.log";
 
-        m_recMan.SaveStaticData(m_baseFilePath);
-        m_recMan.SaveDynamicData(m_baseFilePath);
+        Debug.Log("Saving!");
+
+        m_recMan.SaveStaticData(staticFilePath);
+        m_recMan.SaveDynamicData(dynamicFilePath);
     }
 }

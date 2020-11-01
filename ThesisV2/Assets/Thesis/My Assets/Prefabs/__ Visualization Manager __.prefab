@@ -6060,11 +6060,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 828975224437135390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb36bbbedc44124981429bcede2ccf4, type: 3}
+  m_Script: {fileID: 11500000, guid: a8e139af48f38d1478d65fc294e01250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_baseFileName: EchoMetrics_
-  m_playerID: 1
   m_genreName: Testing
 --- !u!1 &882342866355626633
 GameObject:

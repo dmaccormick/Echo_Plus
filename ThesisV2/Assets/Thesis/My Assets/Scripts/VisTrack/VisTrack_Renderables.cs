@@ -25,12 +25,12 @@ namespace Thesis.VisTrack
                 // The first token is the timestamp so just parse the float
                 m_timestamp = float.Parse(tokens[0]);
 
-#if UNITY_EDITOR
                 // The second token is the path to the mesh and its submesh ID (-1 if not a submesh)
                 var meshTokens = tokens[1].Split(',');
                 string meshPath = meshTokens[0];
                 int subMeshIndex = int.Parse(meshTokens[1]);
 
+#if UNITY_EDITOR
                 // If not a submesh, just load the mesh directly
                 // If it is a submesh, we need to load all of the assets at the path and grab the one from the right index
                 if (subMeshIndex == -1)
@@ -66,8 +66,12 @@ namespace Thesis.VisTrack
                     var subAssets = Resources.LoadAll(meshPath);
                     m_mesh = subAssets[subMeshIndex] as Mesh;
                 }
+
+                // The third token is the colour which is a vector3 so parse that
+                m_color = Utility_Functions.ParseColor(tokens[2]);
                 
                 // Convert all of the materials and load them in as well
+                m_materials = new List<Material>();
                 for (int i = 3; i < tokens.Length; i++)
                 {
                     string matResourcePath = Utility_Functions.ConvertAssetToResourcePath(tokens[i]);

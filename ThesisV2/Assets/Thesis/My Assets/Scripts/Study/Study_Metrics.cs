@@ -66,10 +66,22 @@ namespace Thesis.Study
 
 
         //--- Unity Methods ---//
-        private void Update()
+        private void Awake()
         {
-            if (Input.GetKeyDown(KeyCode.Backslash))
-                WriteFile();
+            // Grab the player ID from the player prefs so we can name the text file accordingly
+            m_playerID = PlayerPrefs.GetInt("ParticipantID");
+        }
+
+        //private void Update()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Backslash))
+        //        WriteFile();
+        //}
+
+        private void OnApplicationQuit()
+        {
+            // Save the metrics before exiting
+            WriteFile();
         }
 
 
@@ -78,7 +90,7 @@ namespace Thesis.Study
         public void StartTracking()
         {
             m_shouldBeTracking = true;
-            m_playerID = PlayerPrefs.GetInt("ParticipantID");
+            
         }
 
 

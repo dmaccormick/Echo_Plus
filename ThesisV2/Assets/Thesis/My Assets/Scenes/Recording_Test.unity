@@ -4017,6 +4017,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_genreName: Testing
+--- !u!114 &1542115380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542115376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 015952dc758aa6a49b1bca0c72ba78e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_scriptable: {fileID: 11400000, guid: d7d9140e20fcffd43b07bd2aaf07ae83, type: 2}
 --- !u!1 &1571414686 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8583346733043547528, guid: a6dfd0c83dcc31942b6a51275e05d028,
@@ -4942,6 +4955,11 @@ PrefabInstance:
     - target: {fileID: 2760890475370970616, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389104249818484261, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3755796901405897563, guid: 1037a735319069b4791cf6dd742c8156,
