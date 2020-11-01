@@ -79,6 +79,10 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\Recording\Recording_Object.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Recording\Recording_Settings.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\SO\SO_HelperWindow.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\Study\Study_AutomaticRecording.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\Study\Study_Metrics.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\Study\Study_ObjectRenamer.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\Study\Study_ParticipantInfoUI.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_CameraListElement.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_ColourSelector.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_KeyObjListElement.cs" />
@@ -104,7 +108,6 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\VisCam\VisCam_QuickFocus.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_LogParser.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_Manager.cs" />
-    <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_Metrics.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_ObjGenerator.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_Object.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Visualization\Visualization_ObjectSet.cs" />

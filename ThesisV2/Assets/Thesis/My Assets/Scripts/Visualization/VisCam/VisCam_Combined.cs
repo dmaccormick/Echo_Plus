@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using Thesis.UI;
+using Thesis.Study;
 
 namespace Thesis.Visualization.VisCam
 {
@@ -57,7 +58,7 @@ namespace Thesis.Visualization.VisCam
 
 
         //--- Private Variables ---//
-        private Visualization_Metrics m_metrics;
+        private Study_Metrics m_metrics;
         private UI_VIsMenuMouseDetector m_mouseDetector;
         private Transform m_focusTarget;
         private Texture2D m_currentCursor;
@@ -75,7 +76,7 @@ namespace Thesis.Visualization.VisCam
             m_onFocusTargetChanged = new TargetChangeEvent();
 
             // Init the private variables
-            m_metrics = FindObjectOfType<Visualization_Metrics>();
+            m_metrics = FindObjectOfType<Study_Metrics>();
             m_mouseDetector = FindObjectOfType<UI_VIsMenuMouseDetector>();
             FocusTarget = null;
             m_canPick = true;

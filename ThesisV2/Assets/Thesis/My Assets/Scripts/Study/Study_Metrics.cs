@@ -3,14 +3,13 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace Thesis.Visualization
+namespace Thesis.Study
 {
-    public class Visualization_Metrics : MonoBehaviour
+    public class Study_Metrics : MonoBehaviour
     {
         //--- Public Variables ---//
         [Header("File Information")]
         public string m_baseFileName;
-        public int m_playerID;
         public string m_genreName;
 
 
@@ -18,6 +17,7 @@ namespace Thesis.Visualization
         //--- Private Variables ---//
         [Header("Controls")]
         private bool m_shouldBeTracking = false;
+        private int m_playerID;
 
         [Header("Cameras")]
         private int m_numTimesSwitchedToControllableCam = 0; // Count for how many times the user selected a new camera from the side panel that WAS the controllable one
@@ -78,6 +78,7 @@ namespace Thesis.Visualization
         public void StartTracking()
         {
             m_shouldBeTracking = true;
+            m_playerID = PlayerPrefs.GetInt("ParticipantID");
         }
 
 

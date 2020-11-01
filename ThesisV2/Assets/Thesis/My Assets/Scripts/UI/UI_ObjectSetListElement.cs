@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEditor;
 using Thesis.Visualization;
+using Thesis.Study;
 
 namespace Thesis.UI
 {
@@ -44,7 +45,7 @@ namespace Thesis.UI
 
         //--- Private Variables ---//
         private Visualization_ObjectSet m_refObjectSet;
-        private Visualization_Metrics m_metrics;
+        private Study_Metrics m_metrics;
         private bool m_isSoloed;
         private bool m_canSolo;
 
@@ -56,7 +57,7 @@ namespace Thesis.UI
             // Init the private variables
             m_isSoloed = false;
             m_canSolo = false;
-            m_metrics = FindObjectOfType<Visualization_Metrics>();
+            m_metrics = FindObjectOfType<Study_Metrics>();
 
             // Store a reference to the object set so we can update its values
             m_refObjectSet = _refObjectSet;

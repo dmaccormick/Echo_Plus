@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Thesis.Study;
 
 namespace Thesis.Visualization.VisCam
 {
@@ -18,7 +19,7 @@ namespace Thesis.Visualization.VisCam
 
 
         //--- Private Variables ---//
-        private Visualization_Metrics m_metrics;
+        private Study_Metrics m_metrics;
         private VisCam_CamName m_activeCam;
         private VisCam_OrbitCam m_orbitCam;
         private VisCam_FPSCam m_fpsCam;
@@ -31,7 +32,7 @@ namespace Thesis.Visualization.VisCam
         private void Awake()
         {
             // Init the private variables
-            m_metrics = FindObjectOfType<Visualization_Metrics>();
+            m_metrics = FindObjectOfType<Study_Metrics>();
             m_activeCam = VisCam_CamName.Orbit;
             m_orbitCam = GetComponent<VisCam_OrbitCam>();
             m_fpsCam = GetComponent<VisCam_FPSCam>();

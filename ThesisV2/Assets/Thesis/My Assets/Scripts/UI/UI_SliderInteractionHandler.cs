@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using Thesis.Visualization;
+using Thesis.Study;
 
 namespace Thesis.UI
 {
     public class UI_SliderInteractionHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         //--- Private Variables ---//
-        private Visualization_Metrics m_metrics;
+        private Study_Metrics m_metrics;
         private bool m_isMouseOver;
 
 
@@ -17,7 +17,7 @@ namespace Thesis.UI
         {
             // Init the private variables
             m_isMouseOver = false;
-            m_metrics = FindObjectOfType<Visualization_Metrics>();
+            m_metrics = FindObjectOfType<Study_Metrics>();
         }
 
         private void Update()

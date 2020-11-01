@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Thesis.Visualization;
 using Thesis.Utility;
 using Thesis.Visualization.VisCam;
+using Thesis.Study;
 
 namespace Thesis.UI
 {
@@ -24,7 +25,7 @@ namespace Thesis.UI
         //--- Private Variables ---//
         private GameObject m_refObj;
         private Visualization_ObjectSet m_parentSet;
-        private Visualization_Metrics m_metrics;
+        private Study_Metrics m_metrics;
 
 
 
@@ -34,7 +35,7 @@ namespace Thesis.UI
             // Store the data internally
             this.m_refObj = _refObj;
             m_parentSet = m_refObj.GetComponentInParent<Visualization_ObjectSet>();
-            m_metrics = FindObjectOfType<Visualization_Metrics>();
+            m_metrics = FindObjectOfType<Study_Metrics>();
 
             // Indicate the object's name and set name as well
             m_txtObjName.text = Utility_Functions.RemoveIDString(m_refObj.name);

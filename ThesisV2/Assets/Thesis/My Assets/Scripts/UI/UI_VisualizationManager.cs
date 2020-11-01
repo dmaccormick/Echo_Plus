@@ -4,6 +4,7 @@ using UnityEditor;
 using Thesis.Visualization;
 using Thesis.Visualization.VisCam;
 using System.Collections.Generic;
+using Thesis.Study;
 
 namespace Thesis.UI
 {
@@ -13,7 +14,7 @@ namespace Thesis.UI
         [Header("Controls")]
         public Visualization_Manager m_visManager;
         public VisCam_CameraControls m_camControls;
-        public Visualization_Metrics m_metrics;
+        public Study_Metrics m_metrics;
 
         [Header("Information Panel")]
         public GameObject m_pnlInfoParent;
