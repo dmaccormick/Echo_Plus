@@ -13,9 +13,6 @@ namespace Thesis.Editor
         //[SerializeField] private static SceneAsset m_visScene;
         private readonly string m_scriptablePath = "Assets/Thesis/My Assets/Scripts/SO/SO_HelperWindowData.asset";
         private SO_HelperWindow m_scriptable;
-        private SerializedObject m_serializedObj;
-        private SerializedProperty m_recSceneProp;
-        private SerializedProperty m_visSceneProp;
 
 
 
@@ -44,6 +41,11 @@ namespace Thesis.Editor
 
             // Create the fields so the user can assign the scene objects
             EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PrefixLabel("Participant Info Scene:");
+            m_scriptable.m_participantInfoScene = EditorGUILayout.ObjectField(m_scriptable.m_participantInfoScene, typeof(SceneAsset), false) as SceneAsset;
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("Recording Scene:");
             m_scriptable.m_recScene = EditorGUILayout.ObjectField(m_scriptable.m_recScene, typeof(SceneAsset), false) as SceneAsset;
             EditorGUILayout.EndHorizontal();
@@ -56,6 +58,15 @@ namespace Thesis.Editor
             EditorGUILayout.Space();
 
             // Create the buttons to instantly load the recording and visualization scenes
+            EditorGUI.BeginDisabledGroup(m_scriptable.m_participantInfoScene == null);
+            if (GUILayout.Button("Load Participant Info Scene"))
+            {
+                EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+                string participantScenePath = AssetDatabase.GetAssetPath(m_scriptable.m_participantInfoScene);
+                EditorSceneManager.OpenScene(participantScenePath, OpenSceneMode.Single);
+            }
+            EditorGUI.EndDisabledGroup();
+
             EditorGUI.BeginDisabledGroup(m_scriptable.m_recScene == null);
             if (GUILayout.Button("Load Recording Scene"))
             {

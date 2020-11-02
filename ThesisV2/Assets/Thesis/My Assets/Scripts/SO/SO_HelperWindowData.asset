@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a3f6930cfdf654f9f3caa5e644f3fe, type: 3}
   m_Name: SO_HelperWindowData
   m_EditorClassIdentifier: 
+  m_participantInfoScene: {fileID: 102900000, guid: 4f388a80567298b4cba7b35a4c5fbe85,
+    type: 3}
   m_recScene: {fileID: 102900000, guid: e6fabd081376fa044b9fa35f518c73c1, type: 3}
   m_visScene: {fileID: 102900000, guid: 91eb0346859ba1945978157722828cfd, type: 3}
