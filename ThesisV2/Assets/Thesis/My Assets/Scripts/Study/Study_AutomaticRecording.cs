@@ -14,7 +14,7 @@ public class Study_AutomaticRecording : MonoBehaviour
 
         int participantID = PlayerPrefs.GetInt("ParticipantID");
         string participantIDStr = participantID.ToString("D2");
-        m_baseFilePath = Application.dataPath + "/" + participantIDStr + "_" + m_genreName;
+        m_baseFilePath = Application.dataPath + "/GameLogs/" + participantIDStr + "_" + m_genreName;
     }
 
     private void Start()
