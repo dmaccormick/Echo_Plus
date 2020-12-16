@@ -41,6 +41,11 @@ namespace Thesis.Recording
 
 
 
+        //--- Public Variables ---//
+        public bool m_useUnscaledDeltaTime;
+
+
+
         //--- Private Variables ---//
         private Dictionary<string, Recording_ObjectData> m_staticObjects;
         private Dictionary<string, Recording_ObjectData> m_dynamicObjects;
@@ -190,8 +195,10 @@ namespace Thesis.Recording
 
         public void UpdateRecording()
         {
-            // Increase the current time, using the UNSCALED delta time to account for slow motion in the game
-            m_currentTime += Time.unscaledDeltaTime;
+            // Increase the current time
+            // Can use the UNSCALED delta time to account for slow motion in the game
+            // Alternatively, can use the regular delta time
+            m_currentTime += (m_useUnscaledDeltaTime) ? Time.unscaledDeltaTime : Time.deltaTime;
 
             // Loop through and update the recordings on all of the dynamic objects, not the static ones
             foreach (Recording_ObjectData dynamicObjData in m_dynamicObjects.Values)
