@@ -98,19 +98,12 @@ namespace Thesis.RecTrack
                 foreach (var skinnedMesh in m_targetSkins)
                 {
                     // Add the mesh information first
-                    int meshSubIndex = GetMeshSubAssetIndex(skinnedMesh.sharedMesh);
+                    string meshSubName = GetMeshSubAssetName(skinnedMesh.sharedMesh);
+                    stringBuilder.Append(AssetDatabase.GetAssetPath(skinnedMesh.sharedMesh) + "`" + meshSubName + ";");
 
-#if UNITY_EDITOR
-                    stringBuilder.Append(AssetDatabase.GetAssetPath(skinnedMesh.sharedMesh) + "`" + meshSubIndex.ToString() + ";");
-#else
-                    stringBuilder.Append(m_studyObj.GetPathForObject(skinnedMesh.sharedMesh) + "`" + meshSubIndex.ToString() + ";");
-#endif
                     // Add the various materials afterwards
                     foreach (var mat in skinnedMesh.sharedMaterials)
                     {
-#if !UNITY_EDITOR
-                        string matPath = m_studyObj.GetPathForObject(mat);
-#else
                         string matPath = AssetDatabase.GetAssetPath(mat);
 
                         if (matPath == "" || matPath == null || matPath == " ")
@@ -141,7 +134,7 @@ namespace Thesis.RecTrack
                                 }
                             }
                         }
-#endif
+
                         // If we couldn't find a matching material even while searching the database, output a message
                         if (matPath == "" || matPath == null || matPath == " ")
                             Debug.LogWarning("Warning in RecTrack_Skeletal: the mat path could not be found for mat object: " + mat.name);
@@ -172,37 +165,24 @@ namespace Thesis.RecTrack
                 return stringBuilder.ToString();
             }
 
-            private int GetMeshSubAssetIndex(Mesh _mesh)
+            private string GetMeshSubAssetName(Mesh _mesh)
             {
-#if UNITY_EDITOR
                 string meshPath = AssetDatabase.GetAssetPath(_mesh);
                 var listOfObjects = AssetDatabase.LoadAllAssetsAtPath(meshPath);
 
-                int meshCount = 0;
-                int thisMeshIndex = -1;
-
-                // Find how many meshes there are in the list and grab the index of this mesh specificially as well
-                for (int i = 0; i < listOfObjects.Length; i++)
+                // Find the matching mesh in the list of subobjects
+                foreach (var obj in listOfObjects)
                 {
-                    var meshConversionAttempt = listOfObjects[i] as Mesh;
-
-                    if (meshConversionAttempt != null)
+                    if (obj.GetType() == typeof(Mesh))
                     {
-                        meshCount++;
-
-                        if (meshConversionAttempt == _mesh)
-                            thisMeshIndex = i;
+                        // Return the object name if it is found
+                        if (obj.name == _mesh.name)
+                            return obj.name;
                     }
                 }
 
-                // If this is the only mesh, just return -1
-                // Otherwise, return this mesh's index
-                return (meshCount > 1) ? thisMeshIndex : -1;
-#else
-                //string meshPath = m_studyObj.GetPathForObject(_mesh);
-                //var listOfObjects = Resources.LoadAll(meshPath);
-                return m_studyObj.GetIndexForObject(_mesh);
-#endif
+                // Return NONE if no mesh was found
+                return "NONE";
             }
 
             public bool m_useDefaultJointTransforms;

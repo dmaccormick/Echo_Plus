@@ -378,28 +378,34 @@ namespace Thesis.VisTrack
             // The first token is the path to the mesh asset
             string meshPath = meshTokens[0];
 
-            // The second token is the mesh index, if the mesh is a subasset
-            int subMeshIndex = int.Parse(meshTokens[1]);
+            // The second token is the submesh name, if the mesh is a subasset
+            string subMeshName = meshTokens[1];
 
             // If not a submesh, just load the mesh directly and give it to the skinned renderer
             // If it is a submesh, we need to load all of the assets at the path and grab the one from the right index
-            if (subMeshIndex == -1)
+            if (subMeshName == "NONE")
             {
-#if UNITY_EDITOR
                 _meshComp.sharedMesh = AssetDatabase.LoadAssetAtPath(meshPath, typeof(Mesh)) as Mesh;
-#else
-                _meshComp.sharedMesh = Resources.Load(meshPath) as Mesh;
-#endif
             }
             else
             {
-#if UNITY_EDITOR
                 var subAssets = AssetDatabase.LoadAllAssetsAtPath(meshPath);
-                _meshComp.sharedMesh = subAssets[subMeshIndex] as Mesh;
-#else
-                var subAssets = Resources.LoadAll(meshPath);
-                _meshComp.sharedMesh = subAssets[subMeshIndex] as Mesh;
-#endif
+
+                foreach (var subAsset in subAssets)
+                {
+                    if (subAsset.GetType() == typeof(Mesh))
+                    {
+                        if (subAsset.name == subMeshName)
+                        {
+                            var meshConversionAttempt = subAsset as Mesh;
+
+                            if (meshConversionAttempt == null)
+                                Debug.LogWarning("Failed to convert mesh that matched name: " + subMeshName);
+                            else
+                                _meshComp.sharedMesh = meshConversionAttempt;
+                        }
+                    }
+                }
             }
         }
 

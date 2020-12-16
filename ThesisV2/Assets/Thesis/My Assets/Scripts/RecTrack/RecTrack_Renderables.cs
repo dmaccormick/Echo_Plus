@@ -21,60 +21,36 @@ namespace Thesis.RecTrack
                 this.m_mesh = _mesh;
                 this.m_materials = _materials;
                 this.m_color = _colour;
-
-#if !UNITY_EDITOR
-                this.m_studyObj = FindObjectOfType<Study_AssetPaths>();
-#endif
             }
 
             public string GetString(string _format)
             {
-                int meshSubIndex = GetMeshSubAssetIndex();
-#if UNITY_EDITOR
+                string subMeshName = GetMeshSubName();
 
                 return this.m_timestamp.ToString(_format) + "~" +
-                    AssetDatabase.GetAssetPath(this.m_mesh) + "," + meshSubIndex.ToString() + "~" +
+                    AssetDatabase.GetAssetPath(this.m_mesh) + "," + subMeshName + "~" +
                     this.m_color.ToString(_format) + "~" +
                     GetMaterialArrayStr();
-#else
-                 return this.m_timestamp.ToString(_format) + "~" +
-                    m_studyObj.GetPathForObject(this.m_mesh) + "," + meshSubIndex.ToString() + "~" +
-                    this.m_color.ToString(_format) + "~" +
-                    GetMaterialArrayStr();
-#endif
             }
 
-            private int GetMeshSubAssetIndex()
+            private string GetMeshSubName()
             {
-#if UNITY_EDITOR
                 string meshPath = AssetDatabase.GetAssetPath(this.m_mesh);
                 var listOfObjects = AssetDatabase.LoadAllAssetsAtPath(meshPath);
 
-                int meshCount = 0;
-                int thisMeshIndex = -1;
-
-                // Find how many meshes there are in the list and grab the index of this mesh specificially as well
-                for (int i = 0; i < listOfObjects.Length; i++)
+                // Find the matching mesh in the list of subobjects
+                foreach (var obj in listOfObjects)
                 {
-                    var meshConversionAttempt = listOfObjects[i] as Mesh;
-
-                    if (meshConversionAttempt != null)
+                    if (obj.GetType() == typeof(Mesh))
                     {
-                        meshCount++;
-
-                        if (meshConversionAttempt == this.m_mesh)
-                            thisMeshIndex = i;
+                        // Return the object name if it is found
+                        if (obj.name == this.m_mesh.name)
+                            return obj.name;
                     }
                 }
 
-                // If this is the only mesh, just return -1
-                // Otherwise, return this mesh's index
-                return (meshCount > 1) ? thisMeshIndex : -1;
-#else
-                //string meshPath = m_studyObj.GetPathForObject(this.m_mesh);
-                //var listOfObjects = Resources.LoadAll(meshPath);
-                return m_studyObj.GetIndexForObject(this.m_mesh);
-#endif
+                // Return NONE if no mesh was found
+                return "NONE";
             }
 
             private string GetMaterialArrayStr()
@@ -87,9 +63,6 @@ namespace Thesis.RecTrack
                     // Grab the material object and find its related path
                     var matObj = m_materials[i];
 
-#if !UNITY_EDITOR
-                    string matPath = m_studyObj.GetPathForObject(matObj);
-#else
                     string matPath = AssetDatabase.GetAssetPath(matObj);
                     
                     // If the path doesn't work, it's likely that the material is an instance and we need to find the base version
@@ -119,7 +92,6 @@ namespace Thesis.RecTrack
                             }
                         }
                     }
-#endif
 
                     // Append the path and optionally append the divider
                     str.Append(matPath);
@@ -135,10 +107,6 @@ namespace Thesis.RecTrack
             public Mesh m_mesh;
             public Material[] m_materials;
             public Color m_color;
-
-#if !UNITY_EDITOR
-            private Study_AssetPaths m_studyObj;
-#endif
         }
 
 

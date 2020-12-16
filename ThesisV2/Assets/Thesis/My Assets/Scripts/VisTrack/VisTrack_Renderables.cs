@@ -15,7 +15,7 @@ namespace Thesis.VisTrack
     public class VisTrack_Renderables : MonoBehaviour, IVisualizable
     {
         //--- Data Struct ---//
-        public struct Data_Renderables
+        public class Data_Renderables
         {
             public Data_Renderables(string _dataStr)
             {
@@ -25,22 +25,42 @@ namespace Thesis.VisTrack
                 // The first token is the timestamp so just parse the float
                 m_timestamp = float.Parse(tokens[0]);
 
-                // The second token is the path to the mesh and its submesh ID (-1 if not a submesh)
+                // The second token is the path to the mesh and its submesh name
                 var meshTokens = tokens[1].Split(',');
                 string meshPath = meshTokens[0];
-                int subMeshIndex = int.Parse(meshTokens[1]);
+                string meshName = meshTokens[1];
 
 #if UNITY_EDITOR
                 // If not a submesh, just load the mesh directly
                 // If it is a submesh, we need to load all of the assets at the path and grab the one from the right index
-                if (subMeshIndex == -1)
+                if (meshName == "NONE")
                 {
+                    // Try to load the asset anyways and see if it works
                     m_mesh = AssetDatabase.LoadAssetAtPath(meshPath, typeof(Mesh)) as Mesh;
+
+                    if (m_mesh == null)
+                        Debug.LogWarning("Cannot find mesh at path: " + meshPath);
                 }
                 else
                 {
+                    // Find the mesh within the subassets that has a matching name
                     var subAssets = AssetDatabase.LoadAllAssetsAtPath(meshPath);
-                    m_mesh = subAssets[subMeshIndex] as Mesh;
+                   
+                    foreach(var subAsset in subAssets)
+                    {
+                        if (subAsset.GetType() == typeof(Mesh))
+                        {
+                            if (subAsset.name == meshName)
+                            {
+                                var meshConversionAttempt = subAsset as Mesh;
+
+                                if (meshConversionAttempt == null)
+                                    Debug.LogWarning("Failed to convert mesh that matched name: " + meshName);
+                                else
+                                    m_mesh = meshConversionAttempt;
+                            }
+                        }
+                    }
                 }
 
                 // The third token is the colour which is a vector3 so parse that
@@ -105,7 +125,6 @@ namespace Thesis.VisTrack
 
             public float m_timestamp;
             public Mesh m_mesh;
-            //public Material m_material;
             public List<Material> m_materials;
             public Color m_color;
         }
