@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Thesis.Visualization
@@ -33,7 +34,7 @@ namespace Thesis.Visualization
                 List<Visualization_ObjParse> parsedObjects = new List<Visualization_ObjParse>();
                 Visualization_ObjParse currentParsedObject = new Visualization_ObjParse();
                 string currentTrackName = null;
-                string currentTrackData = null;
+                StringBuilder currentTrackData = new StringBuilder();
 
                 // Split up the log contents into the individual lines
                 string[] fileLines = _logContents.Split('\n');
@@ -83,7 +84,7 @@ namespace Thesis.Visualization
                         currentTrackName = tokens[1];
 
                         // Reset the track data so we can start compiling it
-                        currentTrackData = "";
+                        currentTrackData.Clear();
 
                         // Add the track to the dictionary
                         currentParsedObject.m_trackData.Add(currentTrackName, "");
@@ -91,17 +92,16 @@ namespace Thesis.Visualization
                     else if (firstToken == "TRK_END")
                     {
                         // Add the track data to the dictionary
-                        currentParsedObject.m_trackData[currentTrackName] = currentTrackData;
+                        currentParsedObject.m_trackData[currentTrackName] = currentTrackData.ToString();
 
-                        // Reset the track name and data
+                        // Reset the track name
                         currentTrackName = null;
-                        currentTrackData = null;
                     }
                     else
                     {
                         // This line should be a datapoint so we can just add it to the track data to be parsed later
                         // Need to add a newline at the end so we have something to split on later
-                        currentTrackData += (lineTrimmed + "\n");
+                        currentTrackData.Append(lineTrimmed + "\n");
                     }
                 }
 
@@ -116,5 +116,4 @@ namespace Thesis.Visualization
             }
         }
     }
-
 }
