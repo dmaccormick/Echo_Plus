@@ -122,7 +122,7 @@ namespace Thesis.Visualization
                 m_onTimeUpdated.Invoke(m_startTime, m_currentTime, m_endTime);
 
                 // Update the visualization to the current point in time
-                UpdateVisualization();
+                //UpdateVisualization();
             }
         }
 

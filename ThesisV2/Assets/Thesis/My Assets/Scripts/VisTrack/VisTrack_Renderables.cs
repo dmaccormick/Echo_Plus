@@ -224,7 +224,8 @@ namespace Thesis.VisTrack
 
                 // Determine if we are going forward or backward in time
                 float timeDiff = _time - m_lastTime;
-
+                m_lastTime = _time;
+                
                 // No difference in time so just return the same data index
                 if (timeDiff == 0.0f)
                 {
