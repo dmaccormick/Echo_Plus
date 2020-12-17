@@ -207,7 +207,7 @@ namespace Thesis.VisTrack
                 m_targetRenderer.sharedMaterials = dataPoint.m_materials.ToArray();
             }
             
-            m_targetRenderer.material.color = dataPoint.m_color;
+            m_targetRenderer.sharedMaterial.color = dataPoint.m_color;
         }
 
         public int FindDataPointForTime(float _time)
