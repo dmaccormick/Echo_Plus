@@ -6005,6 +6005,7 @@ GameObject:
   - component: {fileID: 6575407065335416021}
   - component: {fileID: 126580873298820602}
   - component: {fileID: 4884695649069849988}
+  - component: {fileID: 7064523937221469232}
   m_Layer: 0
   m_Name: __ Visualization Manager __
   m_TagString: Untagged
@@ -6065,6 +6066,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_baseFileName: EchoMetrics_
   m_genreName: Testing
+--- !u!114 &7064523937221469232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828975224437135390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4570b3de1aee34380ba8d97f4b9fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inStaticFile: {fileID: 5813385132857701745}
+  m_inDynamicFile: {fileID: 5622928333164559641}
+  m_folderPath: C:\Repos\Thesis\ThesisV2\Assets\GameLogs\
+  m_gameFileName: Testing
+  m_startFileIndex: 1
+  m_endFileIndex: 5
 --- !u!1 &882342866355626633
 GameObject:
   m_ObjectHideFlags: 0
@@ -7150,7 +7169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5379869983037459235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7779,7 +7798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7674625082312935069
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15880,31 +15899,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 126580873298820603}
-        m_MethodName: OnLoadStaticFile
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 126580873298820603}
-        m_MethodName: OnLoadDynamicFile
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1094950852763778085}
         m_MethodName: set_interactable
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7064523937221469232}
+        m_MethodName: OnLoadAllFiles
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16357,7 +16365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4578210136601897599
 RectTransform:
   m_ObjectHideFlags: 0

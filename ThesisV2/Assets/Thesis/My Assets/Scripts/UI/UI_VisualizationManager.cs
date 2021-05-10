@@ -262,7 +262,7 @@ namespace Thesis.UI
 
 #if UNITY_EDITOR
                     // Show a message that the file loaded correctly
-                    EditorUtility.DisplayDialog("Static File Load Successful", "The static log file data loaded correctly!", "Continue");
+                    //EditorUtility.DisplayDialog("Static File Load Successful", "The static log file data loaded correctly!", "Continue");
 #endif
                 }
                 else
@@ -312,7 +312,7 @@ namespace Thesis.UI
 
                 // Show a message that the file loaded correctly
 #if UNITY_EDITOR
-                EditorUtility.DisplayDialog("Dynamic File Load Successful", "The dynamic log file data loaded correctly!", "Continue");
+                //EditorUtility.DisplayDialog("Dynamic File Load Successful", "The dynamic log file data loaded correctly!", "Continue");
 #endif
             }
             else

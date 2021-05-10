@@ -85,6 +85,7 @@
     <Compile Include="Assets\Thesis\My Assets\Scripts\Study\Study_Metrics.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Study\Study_ObjectRenamer.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\Study\Study_ParticipantInfoUI.cs" />
+    <Compile Include="Assets\Thesis\My Assets\Scripts\Study\Study_VisOverride.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_CameraListElement.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_ColourSelector.cs" />
     <Compile Include="Assets\Thesis\My Assets\Scripts\UI\UI_KeyObjListElement.cs" />

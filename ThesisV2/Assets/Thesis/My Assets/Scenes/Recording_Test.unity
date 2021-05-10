@@ -5050,6 +5050,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7525588083746824515, guid: 1037a735319069b4791cf6dd742c8156,
+        type: 3}
+      propertyPath: m_useUnscaledDeltaTime
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8952559247214221311, guid: 1037a735319069b4791cf6dd742c8156,
         type: 3}
       propertyPath: m_AnchorMin.y
