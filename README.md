@@ -1,7 +1,7 @@
 # Echo+
 
 ## Introduction
-This repository contains all of the final source code for my master's thesis project, Echo. This includes all of the changes that turn it into Echo+ as well.
+This repository contains all of the final source code for my master's thesis project, Echo. It was completed in 2021. This includes all of the changes that turn it into Echo+ as well.
 
 Echo / Echo+ is a tool designed to help game user researchers evaluate their games by providing an efficient and effective method for analysis of player sessions. Echo  records data in the background while a user plays through a game. The data is taken from most objects in the game and it includes their transform and rendering information. The recorded data is output to a log file at the end of the session. After all of the gameplay sessions are complete, the researchers can use Echo's other main component, the visualization, and import as many gameplay sessions as they want. Echo uses the recorded data to reconstruct the sessions within an interactable 3D scene. The researcher can then control the replays by playing, reversing, slowing down, and so on. Since the replays are reconstructed with data instead of video footage, the researchers are able to interact with and view it from any angle. Also, they can analyze multiple sessions at the same time. 
 
